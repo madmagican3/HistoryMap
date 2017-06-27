@@ -21,7 +21,7 @@ namespace HistoryMap
         /// <summary>
         /// This tracks the current zoom level of the image
         /// </summary>
-        private int zoomLevel = 1;
+        private int _zoomLevel = 1;
         /// <summary>
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
         /// </summary>
@@ -51,16 +51,16 @@ namespace HistoryMap
         private void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
             if (e.Delta <= 0)
-                zoomLevel /= 2;
+                _zoomLevel /= 2;
             else
-                zoomLevel *= 2;
-            var cropRect = e.Delta > 0 ? new Rectangle(0, 0, LocalMap.Width / zoomLevel, LocalMap.Height / zoomLevel) : new Rectangle(0, 0, LocalMap.Width *zoomLevel, LocalMap.Height * zoomLevel);
+                _zoomLevel *= 2;
+            var cropRect = e.Delta > 0 ? new Rectangle(0, 0, LocalMap.Width / _zoomLevel, LocalMap.Height / _zoomLevel) : new Rectangle(0, 0, LocalMap.Width *_zoomLevel, LocalMap.Height * _zoomLevel);
             if (cropRect.Width > LocalMap.Width || cropRect.Width <= LocalMap.Width /64) return;
             var targetBitmap = new Bitmap(LocalMap,cropRect.Width, cropRect.Height);
             using (var g = Graphics.FromImage(targetBitmap))
             {
-                getZoom(e);
-                //g.DrawImage(LocalMap,getZoom(e), cropRect,GraphicsUnit.Pixel);
+                GetZoom(e);
+                //g.DrawImage(LocalMap,GetZoom(e), cropRect,GraphicsUnit.Pixel);
                 WorldMap.Image = (targetBitmap);
             }
         }
@@ -73,7 +73,7 @@ namespace HistoryMap
         /// <returns></returns>
         /// 
         // TODO redo this to work with the new zoom level system
-        private Point[] getZoom(MouseEventArgs e )
+        private Point[] GetZoom(MouseEventArgs e )
         {
             Point[] localPointList;
             if (e.Delta > 0)
