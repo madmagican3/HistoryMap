@@ -19,6 +19,10 @@ namespace HistoryMap
     public partial class Form1 : Form
     {
         /// <summary>
+        /// This tracks the current zoom level of the image
+        /// </summary>
+        private int zoomLevel = 1;
+        /// <summary>
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
         /// </summary>
         public Image LocalMap = maps_world_map_02;
@@ -46,8 +50,12 @@ namespace HistoryMap
         /// <param name="e"></param>
         private void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
-            var cropRect = e.Delta > 0 ? new Rectangle(0, 0, WorldMap.Image.Width / 2, WorldMap.Image.Height / 2) : new Rectangle(0, 0, WorldMap.Image.Width * 2, WorldMap.Image.Height * 2);
-            if (cropRect.Width > LocalMap.Width || cropRect.Width <= LocalMap.Width / 32) return;
+            if (e.Delta <= 0)
+                zoomLevel /= 2;
+            else
+                zoomLevel *= 2;
+            var cropRect = e.Delta > 0 ? new Rectangle(0, 0, LocalMap.Width / zoomLevel, LocalMap.Height / zoomLevel) : new Rectangle(0, 0, LocalMap.Width *zoomLevel, LocalMap.Height * zoomLevel);
+            if (cropRect.Width > LocalMap.Width || cropRect.Width <= LocalMap.Width /64) return;
             var targetBitmap = new Bitmap(LocalMap,cropRect.Width, cropRect.Height);
             using (var g = Graphics.FromImage(targetBitmap))
             {
@@ -57,6 +65,14 @@ namespace HistoryMap
             }
         }
 
+
+        /// <summary>
+        /// This gets the correct point data for the current image at the current zoom level
+        /// </summary>
+        /// <param name="e">This is the location of the mouse</param>
+        /// <returns></returns>
+        /// 
+        // TODO redo this to work with the new zoom level system
         private Point[] getZoom(MouseEventArgs e )
         {
             Point[] localPointList;
