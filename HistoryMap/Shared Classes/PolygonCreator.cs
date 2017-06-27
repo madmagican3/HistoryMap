@@ -21,6 +21,7 @@ namespace HistoryMap.Shared_Classes
                 new Point(0, 200)
             };
             e.Graphics.DrawPolygon(blackPen, pointList.ToArray());
+           // e.Graphics.FillPolygon();
         }
     }
 }

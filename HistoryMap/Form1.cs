@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -45,30 +46,40 @@ namespace HistoryMap
         /// <param name="e"></param>
         private void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
-            Rectangle cropRect;
+            var cropRect = e.Delta > 0 ? new Rectangle(0, 0, WorldMap.Image.Width / 2, WorldMap.Image.Height / 2) : new Rectangle(0, 0, WorldMap.Image.Width * 2, WorldMap.Image.Height * 2);
+            if (cropRect.Width > LocalMap.Width || cropRect.Width <= LocalMap.Width / 32) return;
+            var targetBitmap = new Bitmap(LocalMap,cropRect.Width, cropRect.Height);
+            using (var g = Graphics.FromImage(targetBitmap))
+            {
+                getZoom(e);
+                //g.DrawImage(LocalMap,getZoom(e), cropRect,GraphicsUnit.Pixel);
+                WorldMap.Image = (targetBitmap);
+            }
+        }
+
+        private Point[] getZoom(MouseEventArgs e )
+        {
+            Point[] localPointList;
             if (e.Delta > 0)
             {
-                cropRect = new Rectangle(0, 0, WorldMap.Image.Width / 2, WorldMap.Image.Height / 2);
+                localPointList = new Point[]
+                {
+                    new Point((e.X/2)/2 , (e.Y/2)/2) ,
+                    new Point((e.X/2)/2 , (e.Y/2) + (WorldMap.Height/2)), 
+                    new Point((e.X/2) + (WorldMap.Width/2),(e.Y/2)/2)
+                };
             }
             else
             {
-                cropRect = new Rectangle(0, 0, WorldMap.Image.Width * 2, WorldMap.Image.Height * 2);
-            }
-            if (cropRect.Width > LocalMap.Width || cropRect.Width <= LocalMap.Width / 16) return;
-            Bitmap targetBitmap = new Bitmap(LocalMap,cropRect.Width, cropRect.Height);
-            using (Graphics g = Graphics.FromImage(targetBitmap))
-            {
-                Point[] localPointList = new Point[]
+                localPointList = new Point[]
                 {
-                    //TODO calculate the maths to make these points make a square around the mouse location
-                    //https://msdn.microsoft.com/en-us/library/ms142038(v=vs.110).aspx
-                   new Point() , 
-                   new Point() , 
-                   new Point()   
+                    new Point((e.X*2)/2 , (e.Y*2)/2) ,
+                    new Point((e.X*2)/2 , (e.Y/2) + (WorldMap.Height/2)),
+                    new Point((e.X*2) + (WorldMap.Width*2),(e.Y*2)/2)
                 };
-                g.DrawImage(LocalMap,localPointList, cropRect,GraphicsUnit.Pixel);
-                WorldMap.Image = (targetBitmap);
             }
+
+            return localPointList;
         }
     }
 }
