@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace HistoryMap.Shared_Classes
 {
-    class PolygonCreator
+    internal class PolygonCreator
     {
         public static void DrawBorders(PaintEventArgs e)
         {

@@ -19,13 +19,13 @@ namespace HistoryMap
     public partial class Form1 : Form
     {
         /// <summary>
-        /// This tracks the current zoom level of the image
-        /// </summary>
-        private int _zoomLevel = 1;
-        /// <summary>
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
         /// </summary>
         public Image LocalMap = maps_world_map_02;
+
+        private Rectangle _genericRectangle;
+
+        private Bitmap _bitmap;
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
         /// </summary>
@@ -33,6 +33,8 @@ namespace HistoryMap
         { 
             InitializeComponent();
             this.WorldMap.MouseWheel += WorldMap_MouseWheel;
+            _genericRectangle = new Rectangle(0, 0, LocalMap.Width, LocalMap.Height);
+            _bitmap = new Bitmap(LocalMap);
         }
         /// <summary>
         /// This event hooks into the drawing of the map in order to draw the polygon on it
@@ -50,18 +52,25 @@ namespace HistoryMap
         /// <param name="e"></param>
         private void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (e.Delta <= 0)
-                _zoomLevel /= 2;
-            else
-                _zoomLevel *= 2;
-            var cropRect = e.Delta > 0 ? new Rectangle(0, 0, LocalMap.Width / _zoomLevel, LocalMap.Height / _zoomLevel) : new Rectangle(0, 0, LocalMap.Width *_zoomLevel, LocalMap.Height * _zoomLevel);
-            if (cropRect.Width > LocalMap.Width || cropRect.Width <= LocalMap.Width /64) return;
-            var targetBitmap = new Bitmap(LocalMap,cropRect.Width, cropRect.Height);
-            using (var g = Graphics.FromImage(targetBitmap))
+            if (e.Delta > 0&& !(_genericRectangle.Width < LocalMap.Width / 64))
             {
-                GetZoom(e);
-                //g.DrawImage(LocalMap,GetZoom(e), cropRect,GraphicsUnit.Pixel);
-                WorldMap.Image = (targetBitmap);
+                _genericRectangle.Width /= 2;
+                _genericRectangle.Height /= 2;
+            }
+            else if (!(_genericRectangle.Width * 2 > LocalMap.Width) && e.Delta < 0)
+            {
+                _genericRectangle.Width *= 2;
+                _genericRectangle.Height *= 2;
+            }
+            else
+            {
+                return;
+            }
+            var cropRect = new Rectangle(0,0,LocalMap.Width,LocalMap.Height);
+            using (var g = Graphics.FromImage(_bitmap))
+            {
+                g.DrawImage(LocalMap, cropRect, _genericRectangle, GraphicsUnit.Pixel);
+                WorldMap.Image = _bitmap;
             }
         }
 
@@ -72,7 +81,8 @@ namespace HistoryMap
         /// <param name="e">This is the location of the mouse</param>
         /// <returns></returns>
         /// 
-        // TODO redo this to work with the new zoom level system
+        // TODO undo all this and make it work with a rectangle, check if top left over 0,0 and bottom right over image width/image height
+        // TODO work out the top left corner from mouse then make rectangle from there, round .5's up
         private Point[] GetZoom(MouseEventArgs e )
         {
             Point[] localPointList;
