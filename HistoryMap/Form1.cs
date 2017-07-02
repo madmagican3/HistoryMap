@@ -30,7 +30,7 @@ namespace HistoryMap
         /// This initiliazes the form and assigns the scroll event to the worldmap
         /// </summary>
         public Form1()
-        { 
+        {
             InitializeComponent();
             this.WorldMap.MouseWheel += WorldMap_MouseWheel;
             _genericRectangle = new Rectangle(0, 0, LocalMap.Width, LocalMap.Height);
@@ -52,21 +52,22 @@ namespace HistoryMap
         /// <param name="e"></param>
         private void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (e.Delta > 0&& !(_genericRectangle.Width < LocalMap.Width / 64))
+            if (e.Delta > 0 && !(_genericRectangle.Width < LocalMap.Width / 64))
             {
                 _genericRectangle.Width /= 2;
                 _genericRectangle.Height /= 2;
             }
-            else if (!(_genericRectangle.Width * 2 > LocalMap.Width) && e.Delta < 0)
+            else if (_genericRectangle.Width < LocalMap.Width && e.Delta < 0)
             {
-                _genericRectangle.Width *= 2;
-                _genericRectangle.Height *= 2;
+                _genericRectangle.Width = Math.Min(_genericRectangle.Width*2, LocalMap.Width);
+                _genericRectangle.Height = Math.Min(_genericRectangle.Height*2, LocalMap.Height);
             }
-            else
-            {
-                return;
-            }
-            var cropRect = new Rectangle(0,0,LocalMap.Width,LocalMap.Height);
+            //else
+            //{
+            //    return;
+            //}
+            GetZoom(e);
+            var cropRect = new Rectangle(0, 0, LocalMap.Width, LocalMap.Height);
             using (var g = Graphics.FromImage(_bitmap))
             {
                 g.DrawImage(LocalMap, cropRect, _genericRectangle, GraphicsUnit.Pixel);
@@ -83,29 +84,32 @@ namespace HistoryMap
         /// 
         // TODO undo all this and make it work with a rectangle, check if top left over 0,0 and bottom right over image width/image height
         // TODO work out the top left corner from mouse then make rectangle from there, round .5's up
-        private Point[] GetZoom(MouseEventArgs e )
+        private void GetZoom(MouseEventArgs e)
         {
-            Point[] localPointList;
+            Point localPoint;
             if (e.Delta > 0)
             {
-                localPointList = new Point[]
-                {
-                    new Point((e.X/2)/2 , (e.Y/2)/2) ,
-                    new Point((e.X/2)/2 , (e.Y/2) + (WorldMap.Height/2)), 
-                    new Point((e.X/2) + (WorldMap.Width/2),(e.Y/2)/2)
-                };
+                localPoint = new Point(((e.X / 2) / 2) + _genericRectangle.Width, ((e.Y / 2) / 2) + _genericRectangle.Height);
             }
             else
             {
-                localPointList = new Point[]
-                {
-                    new Point((e.X*2)/2 , (e.Y*2)/2) ,
-                    new Point((e.X*2)/2 , (e.Y/2) + (WorldMap.Height/2)),
-                    new Point((e.X*2) + (WorldMap.Width*2),(e.Y*2)/2)
-                };
+                localPoint = new Point(((e.X * 2) / 2) + _genericRectangle.Width, ((e.Y * 2) / 2) + _genericRectangle.Height);
             }
-
-            return localPointList;
+            localPoint.X = Math.Min(localPoint.X, LocalMap.Width - _genericRectangle.Width);
+            if (localPoint.X < 0)
+            {
+                localPoint.X = 0;
+            }
+            if (localPoint.Y > LocalMap.Height - _genericRectangle.Height)
+            {
+                localPoint.Y = LocalMap.Height;
+            }
+            else if (localPoint.Y < 0)
+            {
+                localPoint.Y = 0;
+            }
+            _genericRectangle.X = localPoint.X;
+            _genericRectangle.Y = localPoint.Y;
         }
     }
 }
