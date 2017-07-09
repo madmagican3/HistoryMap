@@ -36,10 +36,9 @@
             // 
             this.WorldMap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.WorldMap.Image = global::HistoryMap.Properties.Resources.maps_world_map_02;
-            this.WorldMap.Location = new System.Drawing.Point(-1, 0);
+            this.WorldMap.Location = new System.Drawing.Point(3, 3);
             this.WorldMap.Name = "WorldMap";
             this.WorldMap.Size = new System.Drawing.Size(1294, 689);
-            this.WorldMap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.WorldMap.TabIndex = 0;
             this.WorldMap.TabStop = false;
             this.WorldMap.Paint += new System.Windows.Forms.PaintEventHandler(this.WorldMap_Paint);
