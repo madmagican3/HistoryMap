@@ -46,17 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="WorldMapUsers\InformationPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="WorldMapUsers\InformationPanel.Designer.cs">
+      <DependentUpon>InformationPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WorldMapUsers\WorldMapUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldMapUsers\WorldMapUser.Designer.cs">
+      <DependentUpon>WorldMapUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Shared Classes\PolygonCreator.cs" />
     <Compile Include="TestMainForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="WorldMapUsers\InformationPanel.resx">
+      <DependentUpon>InformationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldMapUsers\WorldMapUser.resx">
+      <DependentUpon>WorldMapUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -85,7 +94,9 @@
     <None Include="Resources\maps-world-map-02.png" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Resources\Martz90-Circle-Books.ico" />
+    <EmbeddedResource Include="Resources\Martz90-Circle-Books.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

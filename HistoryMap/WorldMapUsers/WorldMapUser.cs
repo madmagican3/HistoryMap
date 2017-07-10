@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HistoryMap.Properties;
 using HistoryMap.Shared_Classes;
+using HistoryMap.WorldMapUsers;
 using static HistoryMap.Properties.Resources;
 
 namespace HistoryMap
 {
-    public partial class Form1 : Form
+    public partial class WorldMapUser : Form
     {
         /// <summary>
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
@@ -45,7 +46,7 @@ namespace HistoryMap
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
         /// </summary>
-        public Form1()
+        public WorldMapUser()
         {
             InitializeComponent();
             this.WorldMap.MouseWheel += WorldMap_MouseWheel;
