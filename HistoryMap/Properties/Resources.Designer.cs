@@ -69,5 +69,15 @@ namespace HistoryMap.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon Martz90_Circle_Books {
+            get {
+                object obj = ResourceManager.GetObject("Martz90_Circle_Books", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
