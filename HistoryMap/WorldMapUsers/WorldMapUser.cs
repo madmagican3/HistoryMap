@@ -63,7 +63,7 @@ namespace HistoryMap
         /// <param name="e"></param>
         private void WorldMap_Paint(object sender, PaintEventArgs e)
         {
-            PolygonCreator.DrawBorders(e);
+
         }
         /// <summary>
         /// This event hooks into the mouse scroll event to attempt to zoom in on the image 
@@ -101,14 +101,18 @@ namespace HistoryMap
         /// <param name="e"></param>
         private void WorldMap_Up(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
-                var actualClickPoint = CalculateActualMouseClick(e.X, e.Y);
-                //Now we have the actual click location on the image, calculate the area to render
-                CalculateRenderArea(actualClickPoint);
-                RenderMap();
-            }
+            if (e.Button != MouseButtons.Left) return;
+            //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
+            var actualClickPoint = CalculateActualMouseClick(e.X, e.Y);
+            //Now we have the actual click location on the image, calculate the area to render
+            CalculateRenderArea(actualClickPoint);
+            RenderMap();
+        }
+
+        private void WorldMap_Resize(object sender, EventArgs e)
+        {
+            Console.Out.WriteLine(this.Height + " " + this.Width + " " + WorldMap.Height + " " + WorldMap.Width);
+            RenderMap();
         }
 
         private Point CalculateActualMouseClick(int x, int y)

@@ -35,6 +35,9 @@
             // 
             // WorldMap
             // 
+            this.WorldMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.WorldMap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.WorldMap.Image = global::HistoryMap.Properties.Resources.maps_world_map_02;
             this.WorldMap.Location = new System.Drawing.Point(3, 3);
@@ -43,15 +46,16 @@
             this.WorldMap.TabIndex = 0;
             this.WorldMap.TabStop = false;
             this.WorldMap.Paint += new System.Windows.Forms.PaintEventHandler(this.WorldMap_Paint);
+            this.WorldMap.Resize += new System.EventHandler(this.WorldMap_Resize);
             // 
-            // Form1
+            // WorldMapUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1293, 691);
             this.Controls.Add(this.WorldMap);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "WorldMapUser";
             this.Text = "World History Map";
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).EndInit();
             this.ResumeLayout(false);
