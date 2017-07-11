@@ -45,8 +45,8 @@
             this.WorldMap.Size = new System.Drawing.Size(1294, 689);
             this.WorldMap.TabIndex = 0;
             this.WorldMap.TabStop = false;
+            this.WorldMap.SizeChanged += new System.EventHandler(this.WorldMap_SizeChanged);
             this.WorldMap.Paint += new System.Windows.Forms.PaintEventHandler(this.WorldMap_Paint);
-            this.WorldMap.Resize += new System.EventHandler(this.WorldMap_Resize);
             // 
             // WorldMapUser
             // 
@@ -57,6 +57,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WorldMapUser";
             this.Text = "World History Map";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).EndInit();
             this.ResumeLayout(false);
 

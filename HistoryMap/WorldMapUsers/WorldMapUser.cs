@@ -109,9 +109,8 @@ namespace HistoryMap
             RenderMap();
         }
 
-        private void WorldMap_Resize(object sender, EventArgs e)
+        private void WorldMap_SizeChanged(object sender, EventArgs e)
         {
-            Console.Out.WriteLine(this.Height + " " + this.Width + " " + WorldMap.Height + " " + WorldMap.Width);
             RenderMap();
         }
 
