@@ -58,6 +58,7 @@
             this.Name = "WorldMapUser";
             this.Text = "World History Map";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.WorldMapUser_Load);
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).EndInit();
             this.ResumeLayout(false);
 

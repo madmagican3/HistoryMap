@@ -11,7 +11,7 @@ namespace HistoryMap.Shared_Classes
 {
     internal class PolygonCreator
     {
-        public static void DrawBorders(PaintEventArgs e)
+        public static Image DrawBorders(Image LocalMap)
         {
             Pen blackPen = new Pen(Color.Black, 3);
             var pointList = new []
@@ -21,9 +21,12 @@ namespace HistoryMap.Shared_Classes
                 new Point(200, 200),
                 new Point(0, 200), 
             };
-
-            e.Graphics.FillPolygon(new SolidBrush(Color.FromArgb(100,Color.Blue)), pointList);
-            e.Graphics.DrawPolygon(blackPen, pointList.ToArray());
+            using (var g = Graphics.FromImage(LocalMap))
+            {
+                g.FillPolygon(new SolidBrush(Color.FromArgb(100, Color.Blue)), pointList);
+                g.DrawPolygon(blackPen, pointList.ToArray());
+            }
+            return LocalMap;
         }
     }
 }

@@ -42,7 +42,6 @@ namespace HistoryMap
         private readonly Bitmap _bitmap;
 
 
-
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
         /// </summary>
@@ -52,6 +51,7 @@ namespace HistoryMap
             this.WorldMap.MouseWheel += WorldMap_MouseWheel;
             this.WorldMap.MouseUp += WorldMap_Up;
             _renderRectangle = new Rectangle(0, 0, LocalMap.Width, LocalMap.Height);
+            LocalMap = PolygonCreator.DrawBorders(LocalMap);
             _bitmap = new Bitmap(LocalMap);
             RenderMap();
         }
@@ -63,7 +63,6 @@ namespace HistoryMap
         /// <param name="e"></param>
         private void WorldMap_Paint(object sender, PaintEventArgs e)
         {
-
         }
         /// <summary>
         /// This event hooks into the mouse scroll event to attempt to zoom in on the image 
