@@ -18,6 +18,7 @@ namespace HistoryMap.Shared_Classes
             {
                 new Point(0, 0), 
                 new Point(200, 0),
+                new Point(300,50),
                 new Point(200, 200),
                 new Point(0, 200), 
             };
