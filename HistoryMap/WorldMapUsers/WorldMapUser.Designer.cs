@@ -46,7 +46,6 @@
             this.WorldMap.TabIndex = 0;
             this.WorldMap.TabStop = false;
             this.WorldMap.SizeChanged += new System.EventHandler(this.WorldMap_SizeChanged);
-            this.WorldMap.Paint += new System.Windows.Forms.PaintEventHandler(this.WorldMap_Paint);
             // 
             // WorldMapUser
             // 

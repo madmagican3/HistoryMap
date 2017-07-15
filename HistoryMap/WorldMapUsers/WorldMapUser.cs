@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using HistoryMap.Properties;
 using HistoryMap.Shared_Classes;
-using HistoryMap.WorldMapUsers;
 using static HistoryMap.Properties.Resources;
 
 namespace HistoryMap
@@ -48,21 +37,17 @@ namespace HistoryMap
         public WorldMapUser()
         {
             InitializeComponent();
+            //We set the events we're trying to hook into
             this.WorldMap.MouseWheel += WorldMap_MouseWheel;
             this.WorldMap.MouseUp += WorldMap_Up;
+            //set up the rectangle based on the image size (incase we want to modify the image later)
             _renderRectangle = new Rectangle(0, 0, LocalMap.Width, LocalMap.Height);
+            //We then draw the polygons on the map so as to allow them to zoom correctly
             LocalMap = PolygonCreator.DrawBorders(LocalMap);
+            //Then we create a local bitmap of the image so as to have something to draw on
             _bitmap = new Bitmap(LocalMap);
+            //finaly we draw the map
             RenderMap();
-        }
-
-        /// <summary>
-        /// This event hooks into the drawing of the map in order to draw the polygon on it
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WorldMap_Paint(object sender, PaintEventArgs e)
-        {
         }
         /// <summary>
         /// This event hooks into the mouse scroll event to attempt to zoom in on the image 
@@ -83,10 +68,12 @@ namespace HistoryMap
 
         private void RenderMap()
         {
+            //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
             var cropRect = new Rectangle(0, 0, WorldMap.Width, WorldMap.Height);
 
             using (var g = Graphics.FromImage(_bitmap))
             {
+                //This draws it to the local bitmap based on the size of the screen taking it from the renderrectangle
                 g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
                 WorldMap.Image = _bitmap;
             }

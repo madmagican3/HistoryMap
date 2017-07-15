@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Shared Classes\LocalSQLGetter.cs" />
     <Compile Include="WorldMapUsers\InformationPanel.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -11,23 +11,29 @@ namespace HistoryMap.Shared_Classes
 {
     internal class PolygonCreator
     {
-        public static Image DrawBorders(Image LocalMap)
+        /// <summary>
+        /// This draws the polygons for borders based on the image passed to it
+        /// </summary>
+        /// <param name="localMap"></param>
+        /// <returns></returns>
+        public static Image DrawBorders(Image localMap)
         {
-            Pen blackPen = new Pen(Color.Black, 3);
-            var pointList = new []
+            return DrawImage(localMap, LocalSQLGetter.getCountries(new DateTime()));
+        }
+
+        public static Image DrawImage(Image localMap, Dictionary<Pen,List<Point>> allBordersList)
+        {
+            //this gets every entry in the dictionary
+            foreach (var tempEntry in allBordersList)
             {
-                new Point(0, 0), 
-                new Point(200, 0),
-                new Point(300,50),
-                new Point(200, 200),
-                new Point(0, 200), 
-            };
-            using (var g = Graphics.FromImage(LocalMap))
-            {
-                g.FillPolygon(new SolidBrush(Color.FromArgb(100, Color.Blue)), pointList);
-                g.DrawPolygon(blackPen, pointList.ToArray());
+                //then it writes them to the image to return
+                using (var g = Graphics.FromImage(localMap))
+                {
+                    g.FillPolygon(new SolidBrush(Color.FromArgb(100, Color.Blue)), tempEntry.Value.ToArray());
+                    g.DrawPolygon(tempEntry.Key, tempEntry.Value.ToArray());
+                }
             }
-            return LocalMap;
+            return localMap;
         }
     }
 }
