@@ -35,14 +35,13 @@
             // 
             // WorldMap
             // 
-            this.WorldMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.WorldMap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.WorldMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.WorldMap.Image = global::HistoryMap.Properties.Resources.maps_world_map_02;
-            this.WorldMap.Location = new System.Drawing.Point(3, 3);
+            this.WorldMap.Location = new System.Drawing.Point(0, 0);
+            this.WorldMap.Margin = new System.Windows.Forms.Padding(0);
             this.WorldMap.Name = "WorldMap";
-            this.WorldMap.Size = new System.Drawing.Size(1294, 689);
+            this.WorldMap.Size = new System.Drawing.Size(1293, 691);
             this.WorldMap.TabIndex = 0;
             this.WorldMap.TabStop = false;
             this.WorldMap.SizeChanged += new System.EventHandler(this.WorldMap_SizeChanged);

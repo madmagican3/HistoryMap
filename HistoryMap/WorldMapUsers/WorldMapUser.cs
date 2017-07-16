@@ -97,6 +97,13 @@ namespace HistoryMap
 
         private void WorldMap_SizeChanged(object sender, EventArgs e)
         {
+            var ratioX = this.Width / (double)LocalMap.Width;
+            var ratioY = this.Height / (double)LocalMap.Height;
+            var ratio = Math.Min(ratioX, ratioY);
+            var width = (int)(LocalMap.Width * ratio);
+            var height = (int)(LocalMap.Height * ratio);
+            if (Math.Abs(this.Width - width) >= 5 || Math.Abs(this.Height - height) >= 5)
+                WorldMap.Size = new Size(width, height);
             RenderMap();
         }
 
