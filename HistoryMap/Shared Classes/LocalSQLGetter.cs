@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HistoryMap.Shared_Classes
 {
-    class LocalSQLGetter
+    class LocalSqlGetter
     {
-        public static Dictionary<Pen, List<Point>> getCountries(DateTime currentTime)
+        public static Dictionary<Color, List<Point>> getCountries(DateTime currentTime)
         {
             throw new NotSupportedException();
         }
