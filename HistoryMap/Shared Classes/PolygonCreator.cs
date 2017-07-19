@@ -18,6 +18,8 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         public static Image DrawBorders(Image localMap)
         {
+            LocalSqlGetter.getCountries(new DateTime());
+
             return localMap;
             // return DrawImage(localMap, LocalSQLGetter.getCountries(new DateTime()));
         }
