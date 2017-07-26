@@ -44,7 +44,6 @@
             this.WorldMap.Size = new System.Drawing.Size(1293, 691);
             this.WorldMap.TabIndex = 0;
             this.WorldMap.TabStop = false;
-            this.WorldMap.SizeChanged += new System.EventHandler(this.WorldMap_SizeChanged);
             // 
             // WorldMapUser
             // 
@@ -63,7 +62,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox WorldMap;
+        internal System.Windows.Forms.PictureBox WorldMap;
     }
 }
 

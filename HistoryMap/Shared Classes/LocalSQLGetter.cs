@@ -52,8 +52,7 @@ namespace HistoryMap.Shared_Classes
                     //set that new command using a prepared statement
                     command.CommandText = "Select id from IMAGES where date = @date";
                     //safely put that paramater into the sql statement
-                    var dateParam = new SqlParameter("@date", SqlDbType.Date);
-                    dateParam.Value = currentTime;
+                    var dateParam = new SqlParameter("@date", SqlDbType.Date) {Value = currentTime};
                     //prepare the new command
                     command.Prepare();
                     //get the dataset back and return it
