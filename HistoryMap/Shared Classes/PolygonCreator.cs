@@ -31,7 +31,7 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         public static Image DrawImage(Image localMap, Dictionary<Color,List<Point>> allBordersList)
         {
-            var Pen = new Pen(Color.Black,3);
+            var pen = new Pen(Color.Black,3);
             //this gets every entry in the dictionary
             foreach (var tempEntry in allBordersList)
             {
@@ -39,7 +39,7 @@ namespace HistoryMap.Shared_Classes
                 using (var g = Graphics.FromImage(localMap))
                 {
                     g.FillPolygon(new SolidBrush(Color.FromArgb(100, tempEntry.Key)), tempEntry.Value.ToArray());
-                    g.DrawPolygon(Pen, tempEntry.Value.ToArray());
+                    g.DrawPolygon(pen, tempEntry.Value.ToArray());
                 }
             }
             return localMap;

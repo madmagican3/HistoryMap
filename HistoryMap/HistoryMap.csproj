@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Shared Classes\LocalSQLGetter.cs" />
     <Compile Include="Shared Classes\DrawClass.cs" />
+    <Compile Include="WorldMapUsers\ButtonStorage.cs" />
     <Compile Include="WorldMapUsers\InformationPanel.cs">
       <SubType>Form</SubType>
     </Compile>
