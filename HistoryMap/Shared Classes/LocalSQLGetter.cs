@@ -12,7 +12,7 @@ namespace HistoryMap.Shared_Classes
 {
     class LocalSqlGetter
     {
-        public static Dictionary<Color, List<Point>> getCountries(DateTime currentTime)
+        public static Dictionary<Color, List<Point>> GetCountries(DateTime currentTime)
         {
             return null;
         }
@@ -60,6 +60,10 @@ namespace HistoryMap.Shared_Classes
                     return actualId;
                 }
             }
+        }
+
+        private void testMethod()
+        {
         }
     }
 }
