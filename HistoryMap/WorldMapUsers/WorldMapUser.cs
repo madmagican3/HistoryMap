@@ -9,7 +9,14 @@ namespace HistoryMap
 {
     public partial class WorldMapUser : Form
     {
+        /// <summary>
+        /// This contains a local instance of the drawclass
+        /// </summary>
         readonly DrawClass localDrawClass;
+        /// <summary>
+        /// This contains a local instance of the buttoncreationclass
+        /// </summary>
+        private readonly ButtonCreationClass localButtonCreationClass;
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
         /// </summary>

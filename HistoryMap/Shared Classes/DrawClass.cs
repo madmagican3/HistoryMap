@@ -30,8 +30,15 @@ namespace HistoryMap.WorldMapUsers
         /// this is a local bitmap to avoid recreating the variable multiple times
         /// </summary>
         private readonly Bitmap _bitmap;
-
+        /// <summary>
+        /// This is a pointer to the actual form so as to manipulate it
+        /// </summary>
         private WorldMapUser formMapUser;
+
+        /// <summary>
+        /// This is a pointer to the button creation class so as to allow us to draw the buttons whenever we render/re-render the map
+        /// </summary>
+        private ButtonCreationClass localButtonCreationClass = new ButtonCreationClass();
 
         public DrawClass(WorldMapUser user)
         {
@@ -140,6 +147,7 @@ namespace HistoryMap.WorldMapUsers
                 g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
                 formMapUser.WorldMap.Image = _bitmap;
             }
+            localButtonCreationClass.CreateButtons(formMapUser, this);
         }
     }
 }

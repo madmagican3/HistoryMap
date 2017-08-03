@@ -9,9 +9,9 @@ namespace HistoryMap.WorldMapUsers
 {
     class ButtonStorage
     {
-        private Point ButtonCenterPoint { get; }
-        private string Type { get;  }
-        private string Text { get; }
+        public Point ButtonCenterPoint { get; }
+        public string Type { get;  }
+        public string Text { get; }
 
         public ButtonStorage(Point buttonCenterPoint, string type, string text)
         {
