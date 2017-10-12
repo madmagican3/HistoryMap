@@ -40,6 +40,10 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         private ButtonCreationClass localButtonCreationClass = new ButtonCreationClass();
 
+        /// <summary>
+        /// Draws the map at the current zoom level to the main UI
+        /// </summary>
+        /// <param name="user"></param>
         public DrawClass(WorldMapUser user)
         {
             //set up the rectangle based on the image size (incase we want to modify the image later)
@@ -53,6 +57,9 @@ namespace HistoryMap.WorldMapUsers
             RenderMap();
         }
 
+        /// <summary>
+        /// calculates the zoom level for the map and the pixel size and location for zooming
+        /// </summary>
         public void WorldMap_SizeChanged(object sender, EventArgs e)
         {
             var ratioX =  formMapUser.Width / (double)LocalMap.Width;
@@ -65,6 +72,12 @@ namespace HistoryMap.WorldMapUsers
             RenderMap();
         }
 
+        /// <summary>
+        /// calculate where the mouse was actually clicked on the larger version of the image
+        /// </summary>
+        /// <param name="x">x for the mouse click</param>
+        /// <param name="y">y for the mouse click</param>
+        /// <returns></returns>
         public Point CalculateActualMouseClick(int x, int y)
         {
             //Ratio between the rectangle size we are rendering, including zoom level

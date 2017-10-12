@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -60,6 +61,12 @@ namespace HistoryMap.Shared_Classes
                     return actualId;
                 }
             }
+        }
+
+        public Tuple<int,int> getLocation()
+        {
+            //TODO
+            throw new 
         }
 
         private void testMethod()
