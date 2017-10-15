@@ -11,6 +11,29 @@ namespace HistoryMap.Shared_Classes
 {
     class ButtonCreationClass
     {
+        //so as a note, i hate all of this. This seems like a terrible way to generate the interactables and thus 
+        //i'm going to completely redo it.
+        //Note for self
+        //Generate a list to the left of the screen of all the items, small arrow to maxmise or minimise it
+        //think google maps
+        //THen use labels rather than buttons and generate those only at max zoom level and min zoom level based 
+        //on an int stored which lists priority
+        //This should allow us to size them correctly and make it simple to do
+        //Store as an int for easier modification later
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //TODO optomize? this seems horribly inefficent to have this much stored in mem
         /// <summary>
         /// This contains a list of all the buttons in the system

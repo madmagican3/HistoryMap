@@ -23,11 +23,17 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         public string Text { get; }
 
-        public ButtonStorage(Point buttonCenterPoint, string type, string text)
+        /// <summary>
+        /// This is an int for showing what sort of zoom level this should be displayed at. Currently 0
+        /// is max zoom level and 1 is min zoom level, int for further expansion if required
+        /// </summary>
+        public int viewLevel { get; }
+        public ButtonStorage(Point buttonCenterPoint, string type, string text, int viewLevel)
         {
             this.ButtonCenterPoint = buttonCenterPoint;
             this.Type = type;
             this.Text = text;
+            this.viewLevel = viewLevel;
         }
     }
 }
