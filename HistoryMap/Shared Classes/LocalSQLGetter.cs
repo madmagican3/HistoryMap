@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,9 +27,8 @@ namespace HistoryMap.Shared_Classes
         {
             //creates a new empty dataset and adapter
             var dataset = new DataSet();
-            var adapter = new SqlDataAdapter();
+            var adapter = new SqlDataAdapter {SelectCommand = command};
             //set the adapter to use the command 
-            adapter.SelectCommand = command;
             //then get the adapter to fill the dataset based on the returned values
             adapter.Fill(dataset);
             return dataset;
@@ -63,14 +63,26 @@ namespace HistoryMap.Shared_Classes
             }
         }
 
-        public Tuple<int,int> getLocation()
+        public DataSet ExecutePDO(SqlCommand pdo)
         {
-            //TODO
-            throw new 
+            //This is the connection string, will probably be re-written soon for security purposes but unsure how to handle that currently (also no ports open so currently secure)
+            var connectionString = "Data Source=192.168.1.83;Initial Catalog=History_Map;Integrated Security=SSPI;";
+            //create a new connection
+            using (var connection = new SqlConnection(connectionString))
+            {
+                //open that connection
+                connection.Open();
+                //prepare the new command
+                pdo.Prepare();
+                //get the dataset back and return it
+                var dataRows = SelectRows( pdo);
+                return dataRows;
+            } 
         }
 
-        private void testMethod()
+        public List<ButtonCreationClass>GetListFromDateSelection(DateTime startDate, DateTime endDate)
         {
+            return null;
         }
     }
 }

@@ -86,8 +86,8 @@ namespace HistoryMap.Shared_Classes
                     //assign it the correct size and set it to appear in the correct area
                     tempButton.Width = sizeTuple.Item1;
                     tempButton.Height = sizeTuple.Item2;
-                    tempButton.Top = ;
-                    tempButton.Left = ;
+                    //tempButton.Top = ;
+                    //tempButton.Left = ;
                 }
             }
             //add it to the control list for later removal
