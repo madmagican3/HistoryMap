@@ -83,6 +83,16 @@ namespace HistoryMap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap if_icon_ios7_search_211818 {
+            get {
+                object obj = ResourceManager.GetObject("if_icon_ios7_search_211818", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap maps_world_map_02 {
             get {
                 object obj = ResourceManager.GetObject("maps_world_map_02", resourceCulture);

@@ -33,6 +33,9 @@
             this.MinButton = new System.Windows.Forms.Label();
             this.MaximiseButton = new System.Windows.Forms.Label();
             this.ListPanel = new System.Windows.Forms.Panel();
+            this.SearchIcoLabel = new System.Windows.Forms.Label();
+            this.SearchTxtBox = new System.Windows.Forms.TextBox();
+            this.InterestingItemsList = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).BeginInit();
             this.ListPanel.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +56,7 @@
             // 
             this.MinButton.AutoSize = true;
             this.MinButton.Image = global::HistoryMap.Properties.Resources.if_057_CircledArrowLeft_183186;
-            this.MinButton.Location = new System.Drawing.Point(162, 331);
+            this.MinButton.Location = new System.Drawing.Point(162, 349);
             this.MinButton.MaximumSize = new System.Drawing.Size(32, 32);
             this.MinButton.MinimumSize = new System.Drawing.Size(32, 32);
             this.MinButton.Name = "MinButton";
@@ -64,7 +67,7 @@
             // 
             this.MaximiseButton.AutoSize = true;
             this.MaximiseButton.Image = global::HistoryMap.Properties.Resources.if_058_CircledArrowRight_183187;
-            this.MaximiseButton.Location = new System.Drawing.Point(-3, 201);
+            this.MaximiseButton.Location = new System.Drawing.Point(0, 0);
             this.MaximiseButton.MaximumSize = new System.Drawing.Size(32, 32);
             this.MaximiseButton.MinimumSize = new System.Drawing.Size(32, 32);
             this.MaximiseButton.Name = "MaximiseButton";
@@ -73,7 +76,9 @@
             // 
             // ListPanel
             // 
-            this.ListPanel.Controls.Add(this.MaximiseButton);
+            this.ListPanel.Controls.Add(this.SearchIcoLabel);
+            this.ListPanel.Controls.Add(this.SearchTxtBox);
+            this.ListPanel.Controls.Add(this.InterestingItemsList);
             this.ListPanel.Controls.Add(this.MinButton);
             this.ListPanel.Enabled = false;
             this.ListPanel.Location = new System.Drawing.Point(0, 0);
@@ -81,11 +86,38 @@
             this.ListPanel.Size = new System.Drawing.Size(194, 691);
             this.ListPanel.TabIndex = 4;
             // 
+            // SearchIcoLabel
+            // 
+            this.SearchIcoLabel.AutoSize = true;
+            this.SearchIcoLabel.Image = global::HistoryMap.Properties.Resources.if_icon_ios7_search_211818;
+            this.SearchIcoLabel.Location = new System.Drawing.Point(124, 1);
+            this.SearchIcoLabel.MaximumSize = new System.Drawing.Size(32, 32);
+            this.SearchIcoLabel.MinimumSize = new System.Drawing.Size(32, 32);
+            this.SearchIcoLabel.Name = "SearchIcoLabel";
+            this.SearchIcoLabel.Size = new System.Drawing.Size(32, 32);
+            this.SearchIcoLabel.TabIndex = 5;
+            // 
+            // SearchTxtBox
+            // 
+            this.SearchTxtBox.Location = new System.Drawing.Point(3, 13);
+            this.SearchTxtBox.Name = "SearchTxtBox";
+            this.SearchTxtBox.Size = new System.Drawing.Size(114, 20);
+            this.SearchTxtBox.TabIndex = 4;
+            // 
+            // InterestingItemsList
+            // 
+            this.InterestingItemsList.FormattingEnabled = true;
+            this.InterestingItemsList.Location = new System.Drawing.Point(0, 36);
+            this.InterestingItemsList.Name = "InterestingItemsList";
+            this.InterestingItemsList.Size = new System.Drawing.Size(156, 654);
+            this.InterestingItemsList.TabIndex = 3;
+            // 
             // WorldMapUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1293, 691);
+            this.Controls.Add(this.MaximiseButton);
             this.Controls.Add(this.WorldMap);
             this.Controls.Add(this.ListPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -96,15 +128,19 @@
             this.ListPanel.ResumeLayout(false);
             this.ListPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         internal System.Windows.Forms.PictureBox WorldMap;
-        private System.Windows.Forms.Label MinButton;
-        private System.Windows.Forms.Label MaximiseButton;
+        internal System.Windows.Forms.Label MinButton;
+        internal System.Windows.Forms.Label MaximiseButton;
         internal System.Windows.Forms.Panel ListPanel;
+        internal System.Windows.Forms.Label SearchIcoLabel;
+        internal System.Windows.Forms.TextBox SearchTxtBox;
+        internal System.Windows.Forms.ListBox InterestingItemsList;
     }
 }
 
