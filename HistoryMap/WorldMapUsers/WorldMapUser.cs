@@ -18,6 +18,11 @@ namespace HistoryMap
         /// </summary>
         private readonly ButtonCreationClass localButtonCreationClass;
         /// <summary>
+        /// This contains a local instance of the listhandlerclass
+        /// </summary>
+        private readonly ListHandlerClass listHandlerClass;
+
+        /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
         /// </summary>
         public WorldMapUser()
@@ -28,6 +33,8 @@ namespace HistoryMap
             this.WorldMap.MouseWheel += localDrawClass.WorldMap_MouseWheel;
             this.WorldMap.MouseUp += localDrawClass.WorldMap_Up;
             this.WorldMap.SizeChanged += localDrawClass.WorldMap_SizeChanged;
+           // this.MaximiseButton.Click += listHandlerClass.MaximisedScreen;
+            //this.MinButton.Click += listHandlerClass.MinimisedScreen;
         }
 
     }
