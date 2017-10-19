@@ -69,7 +69,8 @@ namespace HistoryMap.Shared_Classes
         public void PopList()
         {
             //TODO
-            throw new NotSupportedException();   
+            List<ButtonCreationClass> interestingStuffList =  LocalSqlGetter.GetListFromDateSelection(new DateTime(),new DateTime() );
+
         }
     }
 }

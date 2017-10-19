@@ -80,7 +80,7 @@ namespace HistoryMap.Shared_Classes
             } 
         }
 
-        public List<ButtonCreationClass>GetListFromDateSelection(DateTime startDate, DateTime endDate)
+        public static List<ButtonCreationClass>GetListFromDateSelection(DateTime startDate, DateTime endDate)
         {
             return null;
         }

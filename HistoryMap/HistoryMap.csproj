@@ -137,9 +137,6 @@
     <None Include="Resources\if_058_CircledArrowRight_183187.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\if_forward_172470.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\if_icon-ios7-search_211818.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
