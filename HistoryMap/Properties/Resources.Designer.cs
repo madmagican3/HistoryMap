@@ -83,9 +83,39 @@ namespace HistoryMap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap if_12_Zoom_in_106237 {
+            get {
+                object obj = ResourceManager.GetObject("if_12_Zoom_in_106237", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap if_13_Zoom_out_106233 {
+            get {
+                object obj = ResourceManager.GetObject("if_13_Zoom_out_106233", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap if_icon_ios7_search_211818 {
             get {
                 object obj = ResourceManager.GetObject("if_icon_ios7_search_211818", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap if_settings_alt_2628490 {
+            get {
+                object obj = ResourceManager.GetObject("if_settings_alt_2628490", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

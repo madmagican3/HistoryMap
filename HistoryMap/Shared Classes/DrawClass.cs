@@ -133,7 +133,32 @@ namespace HistoryMap.WorldMapUsers
             CalculateRenderArea(actualClickPoint);
             RenderMap();
         }
-
+        /// <summary>
+        /// This handles the zoom in from the button, zooming in on the center of the screen
+        /// </summary>
+        public void WorldMap_zoomIn(object sender, EventArgs e)
+        {
+            //first increment the _zoom level
+            _zoom = Math.Min(_zoom * ZoomIncrement, MaxZoom);
+            //calculate the actual center area
+            var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width/2, formMapUser.WorldMap.Height/2);
+            //then calculate the area of the map to render and render it
+            CalculateRenderArea(actualClickPoint);
+            RenderMap();
+        }
+        /// <summary>
+        /// This handles the zoom in from the button, zooming out from the center of the screen
+        /// </summary>
+        public void WorldMap_ZoomOut(object sender, EventArgs e)
+        {
+            //first increment the zoom level
+            _zoom = Math.Max(_zoom / ZoomIncrement, MinZoom);
+            //then calculte the actual center area
+            var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width / 2, formMapUser.WorldMap.Height / 2);
+            //then calculate the area of the map to render and render it
+            CalculateRenderArea(actualClickPoint);
+            RenderMap();
+        }
         /// <summary>
         /// This checks to see if the left mouse is released, if it is it stops the thread handling the dragging by disabling the boolean
         /// </summary>

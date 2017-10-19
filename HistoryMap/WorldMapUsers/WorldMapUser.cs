@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using HistoryMap.Shared_Classes;
 using HistoryMap.WorldMapUsers;
 using static HistoryMap.Properties.Resources;
+using Color = System.Drawing.Color;
 
 namespace HistoryMap
 {
@@ -34,6 +35,29 @@ namespace HistoryMap
             localButtonCreationClass = new ButtonCreationClass();
             worldMapHandler();
             buttonHandler();
+            panelHandler();
+            SettingsIcon.Click += SettingsOpen;
+        }
+
+        public void SettingsOpen(object sender, EventArgs e)
+        {
+            new SettingsForm().Visible = true;
+        }
+        /// <summary>
+        /// This should hold all the other buttons which the user will interact with on the main 
+        /// </summary>
+        public void panelHandler()
+        {
+            //make the buttons back colour transparent
+            ZoomOutLabel.Parent = WorldMap;
+            ZoomInLabel.Parent = WorldMap;
+            SettingsIcon.Parent = WorldMap;
+            ZoomOutLabel.BackColor = Color.Transparent;
+            ZoomInLabel.BackColor = Color.Transparent;
+            SettingsIcon.BackColor = Color.Transparent;
+
+            ZoomInLabel.Click += localDrawClass.WorldMap_zoomIn;
+            ZoomOutLabel.Click += localDrawClass.WorldMap_ZoomOut;
         }
         /// <summary>
         /// This handles the button creation for the list to the left and the hooks required for it 

@@ -36,6 +36,9 @@
             this.SearchIcoLabel = new System.Windows.Forms.Label();
             this.SearchTxtBox = new System.Windows.Forms.TextBox();
             this.InterestingItemsList = new System.Windows.Forms.ListBox();
+            this.SettingsIcon = new System.Windows.Forms.Label();
+            this.ZoomOutLabel = new System.Windows.Forms.Label();
+            this.ZoomInLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).BeginInit();
             this.ListPanel.SuspendLayout();
             this.SuspendLayout();
@@ -112,11 +115,47 @@
             this.InterestingItemsList.Size = new System.Drawing.Size(156, 654);
             this.InterestingItemsList.TabIndex = 3;
             // 
+            // SettingsIcon
+            // 
+            this.SettingsIcon.AutoSize = true;
+            this.SettingsIcon.Image = global::HistoryMap.Properties.Resources.if_settings_alt_2628490;
+            this.SettingsIcon.Location = new System.Drawing.Point(1258, 1);
+            this.SettingsIcon.MaximumSize = new System.Drawing.Size(32, 32);
+            this.SettingsIcon.MinimumSize = new System.Drawing.Size(32, 32);
+            this.SettingsIcon.Name = "SettingsIcon";
+            this.SettingsIcon.Size = new System.Drawing.Size(32, 32);
+            this.SettingsIcon.TabIndex = 5;
+            // 
+            // ZoomOutLabel
+            // 
+            this.ZoomOutLabel.AutoSize = true;
+            this.ZoomOutLabel.Image = global::HistoryMap.Properties.Resources.if_13_Zoom_out_106233;
+            this.ZoomOutLabel.Location = new System.Drawing.Point(1217, 0);
+            this.ZoomOutLabel.MaximumSize = new System.Drawing.Size(32, 32);
+            this.ZoomOutLabel.MinimumSize = new System.Drawing.Size(32, 32);
+            this.ZoomOutLabel.Name = "ZoomOutLabel";
+            this.ZoomOutLabel.Size = new System.Drawing.Size(32, 32);
+            this.ZoomOutLabel.TabIndex = 6;
+            // 
+            // ZoomInLabel
+            // 
+            this.ZoomInLabel.AutoSize = true;
+            this.ZoomInLabel.Image = global::HistoryMap.Properties.Resources.if_12_Zoom_in_106237;
+            this.ZoomInLabel.Location = new System.Drawing.Point(1176, 1);
+            this.ZoomInLabel.MaximumSize = new System.Drawing.Size(32, 32);
+            this.ZoomInLabel.MinimumSize = new System.Drawing.Size(32, 32);
+            this.ZoomInLabel.Name = "ZoomInLabel";
+            this.ZoomInLabel.Size = new System.Drawing.Size(32, 32);
+            this.ZoomInLabel.TabIndex = 7;
+            // 
             // WorldMapUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1293, 691);
+            this.Controls.Add(this.ZoomInLabel);
+            this.Controls.Add(this.ZoomOutLabel);
+            this.Controls.Add(this.SettingsIcon);
             this.Controls.Add(this.MaximiseButton);
             this.Controls.Add(this.WorldMap);
             this.Controls.Add(this.ListPanel);
@@ -141,6 +180,9 @@
         internal System.Windows.Forms.Label SearchIcoLabel;
         internal System.Windows.Forms.TextBox SearchTxtBox;
         internal System.Windows.Forms.ListBox InterestingItemsList;
+        private System.Windows.Forms.Label SettingsIcon;
+        private System.Windows.Forms.Label ZoomOutLabel;
+        private System.Windows.Forms.Label ZoomInLabel;
     }
 }
 
