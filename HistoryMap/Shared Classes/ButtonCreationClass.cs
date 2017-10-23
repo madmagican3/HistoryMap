@@ -11,44 +11,34 @@ namespace HistoryMap.Shared_Classes
 {
     class ButtonCreationClass
     {
-        //so as a note, i hate all of this. This seems like a terrible way to generate the interactables and thus 
-        //i'm going to completely redo it.
-        //Note for self
-        //Generate a list to the left of the screen of all the items, small arrow to maxmise or minimise it
-        //think google maps
-        //THen use labels rather than buttons and generate those only at max zoom level and min zoom level based 
-        //on an int stored which lists priority
-        //This should allow us to size them correctly and make it simple to do
-        //Store as an int for easier modification later
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //TODO optomize? this seems horribly inefficent to have this much stored in mem
         /// <summary>
-        /// This contains a list of all the buttons in the system
+        /// This is the end date time for the _buttonsForTimePeriodList
         /// </summary>
-        List<ButtonStorage> _allButtons = new List<ButtonStorage>();
+        private DateTime endDateTime;
+        /// <summary>
+        /// This is the start date time for the _buttonsForTimePeriodList
+        /// </summary>
+        private DateTime startDateTime;
+        /// <summary>
+        /// This is a list for all the dates in the time period stored in the global date 
+        /// </summary>
+        private List<ButtonStorage> _buttonsForTimePeriodList = new List<ButtonStorage>();
         /// <summary>
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
-        List<Button> _buttonControlList = new List<Button>();
+        List<Label> _buttonControlList = new List<Label>();
+
+   
 
         /// <summary>
         /// this creates and displays all the buttons that should be shown on the ui at this point in time
         /// </summary>
-        public void CreateButtons(Form localForm, DrawClass localClass)
+        public void CreateButtons(WorldMapUser localForm, DrawClass localClass, DateTime startDate, DateTime endDate)
         {
+            if (startDate != startDateTime || endDate != endDateTime)
+            {
+                GetButtons(startDate,endDate);   
+            }
             //get rid of all the old buttons
             foreach (var tempButton in _buttonControlList)
             {
@@ -56,53 +46,35 @@ namespace HistoryMap.Shared_Classes
             }
             //empty the list
             _buttonControlList.Clear();
-            
-            //go through all the buttons and modify their size to suit the zoom level 
-            //TODO work out if they should be resized or if they should retain size in general through zoom levels?
-            foreach (var localButtonStorage in _allButtons)
+            //Check if we should continue to attempt to draw the buttons on
+            if (DrawClass._zoom < 1.5 || DrawClass._zoom > 25)
             {
-                //get the size we should create them from 
-                Tuple<int, int> sizeTuple = ButtonCreationSizeTuple(localForm, localClass);
-                //if the button is in the right timeframe continue
-                if (PlaceButton(localForm,localClass))
+                foreach (var localButtonStorage in _buttonsForTimePeriodList)
                 {
-                    //create a new button and assign the correct image to it
-                    Button tempButton = new Button();
-                    switch (localButtonStorage.Type)
+                    Point location = ButtonLocation(localForm, localClass, localButtonStorage);
+                    //If the point returned is invalid we no longer want to add the label to the list
+                    if (location.X == -1 && location.Y == -1 ) {}
+                    //If they should be drawn at this view level
+                    else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass._zoom < 1.5)) ||
+                        (localButtonStorage.viewLevel > 25) && (DrawClass._zoom > 25))
                     {
-                        case "Army":
-                            break;
-                        case "Battle":
-                            break;
-                        case "City":
-                            break;
-                        case "Fortified City":
-                            break;
-                        case "Country":
-                            break;
-                        case "Interesting events":
-                            break;    
+                        Label tempButton = new Label();
+                        tempButton.Height = 32;
+                        tempButton.Width = 32;
+                        //TODO find a proper resource for this
+                        tempButton.Image = HistoryMap.Properties.Resources.if_icon_ios7_search_211818;
+                        tempButton.Location = new Point();
+                        //set up transparency
+                        tempButton.Parent = localForm.WorldMap;
+                        _buttonControlList.Add(tempButton);
                     }
-                    //assign it the correct size and set it to appear in the correct area
-                    tempButton.Width = sizeTuple.Item1;
-                    tempButton.Height = sizeTuple.Item2;
-                    //tempButton.Top = ;
-                    //tempButton.Left = ;
                 }
-            }
-            //add it to the control list for later removal
-            foreach (var tempButton in _buttonControlList)
-            {
-                localForm.Controls.Add(tempButton);
-            }
-        }
-        //TODO
-        /// <summary>
-        /// Returns the correct pixel size for the button based on current zoom level
-        /// </summary>
-        private Tuple<int, int> ButtonCreationSizeTuple(Form localForm, DrawClass localDrawClass)
-        {
-            return new Tuple<int, int>(30,30);
+                //add it to the control list for later removal
+                foreach (var tempButton in _buttonControlList)
+                {
+                    localForm.Controls.Add(tempButton);
+                }
+            }           
         }
         //TODO
         /// <summary>
@@ -112,14 +84,20 @@ namespace HistoryMap.Shared_Classes
         {
             return false;
         }
-        //TODO
-        //left + size left
         /// <summary>
-        /// this should calculate its location based on current zoom level
+        /// this should calculate its location based on current zoom level, returning -1,-1 means that it's null
         /// </summary>
         private Point ButtonLocation(Form localForm, DrawClass localDrawClass, ButtonStorage localStorage)
         {
             return new Point();
-        } 
+        }
+
+        /// <summary>
+        /// This should update the _buttonsForTimePeriod list
+        /// </summary>
+        private void GetButtons(DateTime startDate, DateTime endDate)
+        {
+
+        }
     }
 }

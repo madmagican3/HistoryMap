@@ -17,9 +17,9 @@ namespace HistoryMap.WorldMapUsers
         ///  this should mark the type for easier checking to see if the image is correct
         /// </summary>
         public string Type { get;  }
-        //TODO note down the linebreaks and newline char we're using
         /// <summary>
         /// This should be the full statement the user should be displayed. 
+        /// * * for headings, | for enviroment.newline
         /// </summary>
         public string Text { get; }
 

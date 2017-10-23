@@ -20,7 +20,7 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         /// This tracks the current zoom level
         /// </summary>
-        private double _zoom = 1;
+        public static double _zoom = 1;
         /// <summary>
         /// these track the level of max and min zoom along with the zoom increment
         /// </summary>
@@ -185,7 +185,8 @@ namespace HistoryMap.WorldMapUsers
                 g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
                 formMapUser.WorldMap.Image = _bitmap;
             }
-            localButtonCreationClass.CreateButtons(formMapUser, this);
+            //localButtonCreationClass.CreateButtons(formMapUser, this);
+            //TODO
         }
     }
 }
