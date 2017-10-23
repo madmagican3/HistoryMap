@@ -36,9 +36,19 @@ namespace HistoryMap
             worldMapHandler();
             buttonHandler();
             panelHandler();
+            ControlPanelHandler();
             SettingsIcon.Click += SettingsOpen;
         }
 
+        public void ControlPanelHandler()
+        {
+            ControlPanel.Left = this.Width/2 - (ControlPanel.Width/2);
+            ControlPanel.Height = this.Height - 28;
+            ControlPanel.BackColor = Color.Transparent;
+            ControlPanel.Parent = WorldMap;
+            CurrentDate.Text = "01-01-1996";
+            TimeSkipInterval.SelectedIndex = 3;
+        }
         public void SettingsOpen(object sender, EventArgs e)
         {
             new SettingsForm().Visible = true;

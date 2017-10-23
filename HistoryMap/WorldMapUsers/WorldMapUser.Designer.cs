@@ -39,8 +39,15 @@
             this.SettingsIcon = new System.Windows.Forms.Label();
             this.ZoomOutLabel = new System.Windows.Forms.Label();
             this.ZoomInLabel = new System.Windows.Forms.Label();
+            this.ControlPanel = new System.Windows.Forms.Panel();
+            this.timeSkipArrow = new System.Windows.Forms.Label();
+            this.CurrentDate = new System.Windows.Forms.TextBox();
+            this.SearchIcon = new System.Windows.Forms.Label();
+            this.TimeSkipInterval = new System.Windows.Forms.ComboBox();
+            this.RightArrow = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).BeginInit();
             this.ListPanel.SuspendLayout();
+            this.ControlPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // WorldMap
@@ -148,11 +155,79 @@
             this.ZoomInLabel.Size = new System.Drawing.Size(32, 32);
             this.ZoomInLabel.TabIndex = 7;
             // 
+            // ControlPanel
+            // 
+            this.ControlPanel.Controls.Add(this.RightArrow);
+            this.ControlPanel.Controls.Add(this.TimeSkipInterval);
+            this.ControlPanel.Controls.Add(this.SearchIcon);
+            this.ControlPanel.Controls.Add(this.CurrentDate);
+            this.ControlPanel.Controls.Add(this.timeSkipArrow);
+            this.ControlPanel.Location = new System.Drawing.Point(409, 657);
+            this.ControlPanel.Name = "ControlPanel";
+            this.ControlPanel.Size = new System.Drawing.Size(409, 32);
+            this.ControlPanel.TabIndex = 8;
+            // 
+            // timeSkipArrow
+            // 
+            this.timeSkipArrow.AutoSize = true;
+            this.timeSkipArrow.Image = global::HistoryMap.Properties.Resources.if_arrow_left_01_186410;
+            this.timeSkipArrow.Location = new System.Drawing.Point(3, 2);
+            this.timeSkipArrow.MaximumSize = new System.Drawing.Size(32, 32);
+            this.timeSkipArrow.MinimumSize = new System.Drawing.Size(32, 32);
+            this.timeSkipArrow.Name = "timeSkipArrow";
+            this.timeSkipArrow.Size = new System.Drawing.Size(32, 32);
+            this.timeSkipArrow.TabIndex = 0;
+            // 
+            // CurrentDate
+            // 
+            this.CurrentDate.Location = new System.Drawing.Point(41, 9);
+            this.CurrentDate.Name = "CurrentDate";
+            this.CurrentDate.Size = new System.Drawing.Size(168, 20);
+            this.CurrentDate.TabIndex = 1;
+            // 
+            // SearchIcon
+            // 
+            this.SearchIcon.AutoSize = true;
+            this.SearchIcon.Image = global::HistoryMap.Properties.Resources.if_icon_ios7_search_211818;
+            this.SearchIcon.Location = new System.Drawing.Point(215, 0);
+            this.SearchIcon.MaximumSize = new System.Drawing.Size(32, 32);
+            this.SearchIcon.MinimumSize = new System.Drawing.Size(32, 32);
+            this.SearchIcon.Name = "SearchIcon";
+            this.SearchIcon.Size = new System.Drawing.Size(32, 32);
+            this.SearchIcon.TabIndex = 2;
+            // 
+            // TimeSkipInterval
+            // 
+            this.TimeSkipInterval.FormattingEnabled = true;
+            this.TimeSkipInterval.Items.AddRange(new object[] {
+            "Day",
+            "Week",
+            "Month",
+            "Year",
+            "Decade",
+            "Century"});
+            this.TimeSkipInterval.Location = new System.Drawing.Point(285, 9);
+            this.TimeSkipInterval.Name = "TimeSkipInterval";
+            this.TimeSkipInterval.Size = new System.Drawing.Size(121, 21);
+            this.TimeSkipInterval.TabIndex = 3;
+            // 
+            // RightArrow
+            // 
+            this.RightArrow.AutoSize = true;
+            this.RightArrow.Image = global::HistoryMap.Properties.Resources.if_arrow_right_01_186409;
+            this.RightArrow.Location = new System.Drawing.Point(253, 0);
+            this.RightArrow.MaximumSize = new System.Drawing.Size(32, 32);
+            this.RightArrow.MinimumSize = new System.Drawing.Size(32, 32);
+            this.RightArrow.Name = "RightArrow";
+            this.RightArrow.Size = new System.Drawing.Size(32, 32);
+            this.RightArrow.TabIndex = 4;
+            // 
             // WorldMapUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1293, 691);
+            this.Controls.Add(this.ControlPanel);
             this.Controls.Add(this.ZoomInLabel);
             this.Controls.Add(this.ZoomOutLabel);
             this.Controls.Add(this.SettingsIcon);
@@ -166,6 +241,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).EndInit();
             this.ListPanel.ResumeLayout(false);
             this.ListPanel.PerformLayout();
+            this.ControlPanel.ResumeLayout(false);
+            this.ControlPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,6 +260,12 @@
         private System.Windows.Forms.Label SettingsIcon;
         private System.Windows.Forms.Label ZoomOutLabel;
         private System.Windows.Forms.Label ZoomInLabel;
+        private System.Windows.Forms.Panel ControlPanel;
+        private System.Windows.Forms.Label timeSkipArrow;
+        private System.Windows.Forms.Label RightArrow;
+        private System.Windows.Forms.ComboBox TimeSkipInterval;
+        private System.Windows.Forms.Label SearchIcon;
+        private System.Windows.Forms.TextBox CurrentDate;
     }
 }
 
