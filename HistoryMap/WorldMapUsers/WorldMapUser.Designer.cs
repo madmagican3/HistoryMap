@@ -240,6 +240,7 @@
             this.Name = "WorldMapUser";
             this.Text = "World History Map";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.WorldMapUser_Load);
             this.ResizeEnd += new System.EventHandler(this.WorldMapUser_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).EndInit();
             this.ListPanel.ResumeLayout(false);

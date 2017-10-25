@@ -38,7 +38,6 @@ namespace HistoryMap
             panelHandler();
             ControlPanelHandler();
             SettingsIcon.Click += SettingsOpen;
-            WorldMapUser_ResizeEnd(this, new EventArgs());
         }
 
         public void ControlPanelHandler()
@@ -100,14 +99,18 @@ namespace HistoryMap
         private void WorldMapUser_ResizeEnd(object sender, EventArgs e)
         {
             ControlPanel.Left = WorldMap.Width / 2 - (ControlPanel.Width / 2);
-            GraphicsUnit units = GraphicsUnit.Pixel;
-            ControlPanel.Height = WorldMap.ClientSize.he - 28;
+            ControlPanel.Top = Math.Min(WorldMap.Height, this.Height - 60) - 32;
             MaximiseButton.Location = new Point(0, this.Height / 2);
             MinButton.Location = new Point(MinButton.Location.X, this.Height / 2);
-            SettingsIcon.Left = this.Width - 64;
-            ZoomOutLabel.Left = this.Width - 96;
-            ZoomInLabel.Left = this.Width - 128;
+            SettingsIcon.Left = WorldMap.Width - 64;
+            ZoomOutLabel.Left = WorldMap.Width - 96;
+            ZoomInLabel.Left = WorldMap.Width - 128;
             InterestingItemsList.Height = this.Height - 40;
+        }
+
+        private void WorldMapUser_Load(object sender, EventArgs e)
+        {
+            WorldMapUser_ResizeEnd(this, new EventArgs());
         }
     }
 }
