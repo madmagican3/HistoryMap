@@ -143,6 +143,16 @@ namespace HistoryMap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap if_thefreeforty_location_1243686 {
+            get {
+                object obj = ResourceManager.GetObject("if_thefreeforty_location_1243686", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap maps_world_map_02 {
             get {
                 object obj = ResourceManager.GetObject("maps_world_map_02", resourceCulture);

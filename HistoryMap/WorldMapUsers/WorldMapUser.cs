@@ -38,12 +38,11 @@ namespace HistoryMap
             panelHandler();
             ControlPanelHandler();
             SettingsIcon.Click += SettingsOpen;
+            WorldMapUser_ResizeEnd(this, new EventArgs());
         }
 
         public void ControlPanelHandler()
         {
-            ControlPanel.Left = this.Width/2 - (ControlPanel.Width/2);
-            ControlPanel.Height = this.Height - 28;
             ControlPanel.BackColor = Color.Transparent;
             ControlPanel.Parent = WorldMap;
             CurrentDate.Text = "01-01-1996";
@@ -77,9 +76,6 @@ namespace HistoryMap
             //This is so that the transparency actually works
             MaximiseButton.Parent = WorldMap;
             MaximiseButton.BackColor = System.Drawing.Color.Transparent;
-            //place it in the correct location
-            MaximiseButton.Location = new Point(0, this.Height / 2);
-            MinButton.Location = new Point(MinButton.Location.X, this.Height / 2);
             //set up the handlers
             MaximiseButton.Click += localListHandlerClass.MaximisedScreen;
             MinButton.Click += localListHandlerClass.MinimisedScreen;
@@ -95,6 +91,23 @@ namespace HistoryMap
             this.WorldMap.MouseWheel += localDrawClass.WorldMap_MouseWheel;
             this.WorldMap.MouseUp += localDrawClass.WorldMap_Up;
             this.WorldMap.SizeChanged += localDrawClass.WorldMap_SizeChanged;
+        }
+        /// <summary>
+        /// This will occur on someone resizing the form so as to display the form correctly
+        /// at multiple different resolutions at different times. It will move around the control 
+        /// elements to suit that
+        /// </summary>
+        private void WorldMapUser_ResizeEnd(object sender, EventArgs e)
+        {
+            ControlPanel.Left = WorldMap.Width / 2 - (ControlPanel.Width / 2);
+            GraphicsUnit units = GraphicsUnit.Pixel;
+            ControlPanel.Height = WorldMap.ClientSize.he - 28;
+            MaximiseButton.Location = new Point(0, this.Height / 2);
+            MinButton.Location = new Point(MinButton.Location.X, this.Height / 2);
+            SettingsIcon.Left = this.Width - 64;
+            ZoomOutLabel.Left = this.Width - 96;
+            ZoomInLabel.Left = this.Width - 128;
+            InterestingItemsList.Height = this.Height - 40;
         }
     }
 }
