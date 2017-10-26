@@ -185,8 +185,36 @@ namespace HistoryMap.WorldMapUsers
                 g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
                 formMapUser.WorldMap.Image = _bitmap;
             }
-            //localButtonCreationClass.CreateButtons(formMapUser, this);
-            //TODO
+            Tuple<DateTime, DateTime> timeTuple = getTimes(formMapUser);
+            localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
+        }
+
+        private Tuple<DateTime,DateTime> getTimes(WorldMapUser formMapUser)
+        {
+            DateTime StartDate = DateTime.Parse(formMapUser.CurrentDate.Text);
+            DateTime EndDate = StartDate;
+            switch (formMapUser.TimeSkipInterval.SelectedIndex)
+            {
+                case 0:
+                    EndDate.AddDays(1);
+                    break;
+                case 1:
+                    EndDate.AddDays(7);
+                    break;
+                case 2:
+                    EndDate.AddMonths(1);
+                    break;
+                case 3:
+                    EndDate.AddYears(1);
+                    break;
+                case 4:
+                    EndDate.AddYears(10);
+                    break;
+                case 5:
+                    EndDate.AddYears(100);
+                    break;
+            }
+            return new Tuple<DateTime, DateTime>(StartDate,EndDate);
         }
     }
 }

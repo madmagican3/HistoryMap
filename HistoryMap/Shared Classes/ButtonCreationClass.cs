@@ -28,6 +28,7 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         List<Label> _buttonControlList = new List<Label>();
 
+
    
 
         /// <summary>
@@ -61,9 +62,8 @@ namespace HistoryMap.Shared_Classes
                         Label tempButton = new Label();
                         tempButton.Height = 32;
                         tempButton.Width = 32;
-                        //TODO find a proper resource for this
-                        tempButton.Image = HistoryMap.Properties.Resources.if_icon_ios7_search_211818;
-                        tempButton.Location = new Point();
+                        tempButton.Image = HistoryMap.Properties.Resources.if_thefreeforty_location_1243686;
+                        tempButton.Location = ButtonLocation(localForm,localClass, localButtonStorage);
                         //set up transparency
                         tempButton.Parent = localForm.WorldMap;
                         _buttonControlList.Add(tempButton);
@@ -76,20 +76,21 @@ namespace HistoryMap.Shared_Classes
                 }
             }           
         }
-        //TODO
-        /// <summary>
-        /// places the instance of the button into the correct location
-        /// </summary>
-        private Boolean PlaceButton(Form localForm, DrawClass localDrawClass)
-        {
-            return false;
-        }
         /// <summary>
         /// this should calculate its location based on current zoom level, returning -1,-1 means that it's null
         /// </summary>
-        private Point ButtonLocation(Form localForm, DrawClass localDrawClass, ButtonStorage localStorage)
+        private Point ButtonLocation(WorldMapUser localForm, DrawClass localDrawClass, ButtonStorage localStorage)
         {
-            return new Point();
+            Point localPoint = localDrawClass.CalculateActualMouseClick(localStorage.ButtonCenterPoint.X,
+                localStorage.ButtonCenterPoint.Y);
+            if (localPoint.X < 0 || localPoint.X > localForm.WorldMap.Height|| localPoint.Y < 0 || localPoint.Y > localForm.WorldMap.Width )
+            {
+                return new Point(-1, -1);
+            }
+            else
+            {
+                return localPoint;
+            }
         }
 
         /// <summary>

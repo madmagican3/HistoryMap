@@ -267,9 +267,9 @@
         private System.Windows.Forms.Panel ControlPanel;
         private System.Windows.Forms.Label timeSkipArrow;
         private System.Windows.Forms.Label RightArrow;
-        private System.Windows.Forms.ComboBox TimeSkipInterval;
+        internal System.Windows.Forms.ComboBox TimeSkipInterval;
         private System.Windows.Forms.Label SearchIcon;
-        private System.Windows.Forms.TextBox CurrentDate;
+        internal System.Windows.Forms.TextBox CurrentDate;
     }
 }
 
