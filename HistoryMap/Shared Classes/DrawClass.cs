@@ -185,8 +185,8 @@ namespace HistoryMap.WorldMapUsers
                 g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
                 formMapUser.WorldMap.Image = _bitmap;
             }
-            Tuple<DateTime, DateTime> timeTuple = getTimes(formMapUser);
-            localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
+            //Tuple<DateTime, DateTime> timeTuple = getTimes(formMapUser);
+            //localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
 
         private Tuple<DateTime,DateTime> getTimes(WorldMapUser formMapUser)

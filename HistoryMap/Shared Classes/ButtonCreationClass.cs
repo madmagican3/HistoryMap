@@ -59,6 +59,7 @@ namespace HistoryMap.Shared_Classes
                     else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass._zoom < 1.5)) ||
                         (localButtonStorage.viewLevel > 25) && (DrawClass._zoom > 25))
                     {
+                        //Create the label and assign it the correct values
                         Label tempButton = new Label();
                         tempButton.Height = 32;
                         tempButton.Width = 32;
@@ -77,7 +78,8 @@ namespace HistoryMap.Shared_Classes
             }           
         }
         /// <summary>
-        /// this should calculate its location based on current zoom level, returning -1,-1 means that it's null
+        /// this should calculate its location based on current zoom level, returning -1,-1 means that it's 
+        /// not viewable at the stated view level
         /// </summary>
         private Point ButtonLocation(WorldMapUser localForm, DrawClass localDrawClass, ButtonStorage localStorage)
         {

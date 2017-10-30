@@ -21,6 +21,8 @@ namespace HistoryMap.WorldMapUsers
         /// This should be the full statement the user should be displayed. 
         /// * * for headings, | for enviroment.newline
         /// </summary>
+
+        //TODO make sure you warn the user that they should not use these chars
         public string Text { get; }
 
         /// <summary>
@@ -33,7 +35,7 @@ namespace HistoryMap.WorldMapUsers
             this.ButtonCenterPoint = buttonCenterPoint;
             this.Type = type;
             this.Text = text;
-            this.viewLevel = viewLevel;
+            this.viewLevel = viewLevel; 
         }
     }
 }
