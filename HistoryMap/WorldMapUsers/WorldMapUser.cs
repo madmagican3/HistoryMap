@@ -44,7 +44,7 @@ namespace HistoryMap
         {
             ControlPanel.BackColor = Color.Transparent;
             ControlPanel.Parent = WorldMap;
-            CurrentDate.Text = "01-01-1996";
+            CurrentDate.Text = "01/01/1996";
             TimeSkipInterval.SelectedIndex = 3;
         }
         public void SettingsOpen(object sender, EventArgs e)

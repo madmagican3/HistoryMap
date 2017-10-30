@@ -196,22 +196,22 @@ namespace HistoryMap.WorldMapUsers
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
-                    EndDate.AddDays(1);
+                    EndDate = EndDate.AddDays(1);
                     break;
                 case 1:
-                    EndDate.AddDays(7);
+                    EndDate = EndDate.AddDays(7);
                     break;
                 case 2:
-                    EndDate.AddMonths(1);
+                    EndDate = EndDate.AddMonths(1);
                     break;
                 case 3:
-                    EndDate.AddYears(1);
+                    EndDate = EndDate.AddYears(1);
                     break;
                 case 4:
-                    EndDate.AddYears(10);
+                    EndDate = EndDate.AddYears(10);
                     break;
                 case 5:
-                    EndDate.AddYears(100);
+                    EndDate = EndDate.AddYears(100);
                     break;
             }
             return new Tuple<DateTime, DateTime>(StartDate,EndDate);

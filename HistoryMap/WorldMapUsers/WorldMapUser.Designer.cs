@@ -43,8 +43,8 @@
             this.RightArrow = new System.Windows.Forms.Label();
             this.TimeSkipInterval = new System.Windows.Forms.ComboBox();
             this.SearchIcon = new System.Windows.Forms.Label();
-            this.CurrentDate = new System.Windows.Forms.TextBox();
             this.timeSkipArrow = new System.Windows.Forms.Label();
+            this.CurrentDateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).BeginInit();
             this.ListPanel.SuspendLayout();
             this.ControlPanel.SuspendLayout();
@@ -157,10 +157,10 @@
             // 
             // ControlPanel
             // 
+            this.ControlPanel.Controls.Add(this.CurrentDateTimePicker);
             this.ControlPanel.Controls.Add(this.RightArrow);
             this.ControlPanel.Controls.Add(this.TimeSkipInterval);
             this.ControlPanel.Controls.Add(this.SearchIcon);
-            this.ControlPanel.Controls.Add(this.CurrentDate);
             this.ControlPanel.Controls.Add(this.timeSkipArrow);
             this.ControlPanel.Location = new System.Drawing.Point(409, 657);
             this.ControlPanel.MaximumSize = new System.Drawing.Size(409, 32);
@@ -206,13 +206,6 @@
             this.SearchIcon.Size = new System.Drawing.Size(32, 32);
             this.SearchIcon.TabIndex = 2;
             // 
-            // CurrentDate
-            // 
-            this.CurrentDate.Location = new System.Drawing.Point(41, 9);
-            this.CurrentDate.Name = "CurrentDate";
-            this.CurrentDate.Size = new System.Drawing.Size(168, 20);
-            this.CurrentDate.TabIndex = 1;
-            // 
             // timeSkipArrow
             // 
             this.timeSkipArrow.AutoSize = true;
@@ -223,6 +216,13 @@
             this.timeSkipArrow.Name = "timeSkipArrow";
             this.timeSkipArrow.Size = new System.Drawing.Size(32, 32);
             this.timeSkipArrow.TabIndex = 0;
+            // 
+            // CurrentDateTimePicker
+            // 
+            this.CurrentDateTimePicker.Location = new System.Drawing.Point(41, 6);
+            this.CurrentDateTimePicker.Name = "CurrentDateTimePicker";
+            this.CurrentDateTimePicker.Size = new System.Drawing.Size(168, 20);
+            this.CurrentDateTimePicker.TabIndex = 9;
             // 
             // WorldMapUser
             // 
@@ -269,7 +269,7 @@
         private System.Windows.Forms.Label RightArrow;
         internal System.Windows.Forms.ComboBox TimeSkipInterval;
         private System.Windows.Forms.Label SearchIcon;
-        internal System.Windows.Forms.TextBox CurrentDate;
+        private System.Windows.Forms.DateTimePicker CurrentDateTimePicker;
     }
 }
 

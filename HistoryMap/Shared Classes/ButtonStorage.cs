@@ -24,7 +24,6 @@ namespace HistoryMap.WorldMapUsers
 
         //TODO make sure you warn the user that they should not use these chars
         public string Text { get; }
-
         /// <summary>
         /// This is an int for showing what sort of zoom level this should be displayed at. Currently 0
         /// is max zoom level and 1 is min zoom level, int for further expansion if required
