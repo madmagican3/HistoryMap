@@ -44,7 +44,6 @@ namespace HistoryMap
         {
             ControlPanel.BackColor = Color.Transparent;
             ControlPanel.Parent = WorldMap;
-            CurrentDate.Text = "01/01/1996";
             TimeSkipInterval.SelectedIndex = 3;
         }
         public void SettingsOpen(object sender, EventArgs e)
@@ -90,6 +89,7 @@ namespace HistoryMap
             this.WorldMap.MouseWheel += localDrawClass.WorldMap_MouseWheel;
             this.WorldMap.MouseUp += localDrawClass.WorldMap_Up;
             this.WorldMap.SizeChanged += localDrawClass.WorldMap_SizeChanged;
+            this.CurrentDate.Click += localDrawClass.DateHandler;
         }
         /// <summary>
         /// This will occur on someone resizing the form so as to display the form correctly

@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 using HistoryMap.Shared_Classes;
+using NodaTime;
+using NodaTime.Calendars;
 using static HistoryMap.Properties.Resources;
 
 namespace HistoryMap.WorldMapUsers
@@ -188,9 +190,15 @@ namespace HistoryMap.WorldMapUsers
             //Tuple<DateTime, DateTime> timeTuple = getTimes(formMapUser);
             //localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
-
+        /// <summary>
+        /// This should handle adding the times via the left and right arrow
+        /// TODO this needs redoing
+        /// </summary>
+        /// <param name="formMapUser"></param>
+        /// <returns></returns>
         private Tuple<DateTime,DateTime> getTimes(WorldMapUser formMapUser)
         {
+            LocalDate test = new LocalDate(Era.BeforeCommon, 400,12,1);
             DateTime StartDate = DateTime.Parse(formMapUser.CurrentDate.Text);
             DateTime EndDate = StartDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
@@ -215,6 +223,19 @@ namespace HistoryMap.WorldMapUsers
                     break;
             }
             return new Tuple<DateTime, DateTime>(StartDate,EndDate);
+        }
+
+        public void DateHandler(object sender, EventArgs e)
+        {
+            using (var form = new DateSelectionModal())
+            {
+                var dialogResult = form.ShowDialog();
+                if (dialogResult == DialogResult.OK)
+                {
+                    var result = form.returnTime;
+                }
+
+            }
         }
     }
 }
