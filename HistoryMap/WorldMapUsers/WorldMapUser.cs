@@ -91,6 +91,8 @@ namespace HistoryMap
             this.WorldMap.SizeChanged += localDrawClass.WorldMap_SizeChanged;
             this.CurrentDate.Click += localDrawClass.DateHandler;
             this.SearchIcon.Click += localDrawClass.DateHandler;
+            this.timeSkipArrowLeft.Click += localDrawClass.OnLeftArrowClick;
+            this.timeSkipArrowRight.Click += localDrawClass.OnRightArrowClick;
         }
         /// <summary>
         /// This will occur on someone resizing the form so as to display the form correctly

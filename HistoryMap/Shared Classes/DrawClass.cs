@@ -192,42 +192,39 @@ namespace HistoryMap.WorldMapUsers
                 g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
                 formMapUser.WorldMap.Image = _bitmap;
             }
-            //Tuple<DateTime, DateTime> timeTuple = getTimes(formMapUser);
+            Tuple<LocalDate, LocalDate> timeTuple = getTimes(formMapUser);
             //localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
         /// <summary>
         /// This should handle adding the times via the left and right arrow
-        /// TODO this needs redoing
         /// </summary>
         /// <param name="formMapUser"></param>
         /// <returns></returns>
-        private Tuple<DateTime,DateTime> getTimes(WorldMapUser formMapUser)
+        private Tuple<LocalDate,LocalDate> getTimes(WorldMapUser formMapUser)
         {
-            LocalDate test = new LocalDate(Era.BeforeCommon, 400,12,1);
-            DateTime StartDate = DateTime.Parse(formMapUser.CurrentDate.Text);
-            DateTime EndDate = StartDate;
+            LocalDate EndDate = currentDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
-                    EndDate = EndDate.AddDays(1);
+                    EndDate = EndDate.PlusDays(1);
                     break;
                 case 1:
-                    EndDate = EndDate.AddDays(7);
+                    EndDate = EndDate.PlusDays(7);
                     break;
                 case 2:
-                    EndDate = EndDate.AddMonths(1);
+                    EndDate = EndDate.PlusMonths(1);
                     break;
                 case 3:
-                    EndDate = EndDate.AddYears(1);
+                    EndDate = EndDate.PlusYears(1);
                     break;
                 case 4:
-                    EndDate = EndDate.AddYears(10);
+                    EndDate = EndDate.PlusYears(10);
                     break;
                 case 5:
-                    EndDate = EndDate.AddYears(100);
+                    EndDate = EndDate.PlusYears(100);
                     break;
             }
-            return new Tuple<DateTime, DateTime>(StartDate,EndDate);
+            return new Tuple<LocalDate, LocalDate>(currentDate,EndDate);
         }
 
         public void DateHandler(object sender, EventArgs e)
@@ -241,6 +238,58 @@ namespace HistoryMap.WorldMapUsers
                     formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
                 }
             }
+        }
+
+        public void OnLeftArrowClick(object sender, EventArgs e)
+        {
+            switch (formMapUser.TimeSkipInterval.SelectedIndex)
+            {
+                case 0:
+                    currentDate = currentDate.PlusDays(-1);
+                    break;
+                case 1:
+                    currentDate = currentDate.PlusDays(-7);
+                    break;
+                case 2:
+                    currentDate = currentDate.PlusMonths(-1);
+                    break;
+                case 3:
+                    currentDate = currentDate.PlusYears(-1);
+                    break;
+                case 4:
+                    currentDate = currentDate.PlusYears(-10);
+                    break;
+                case 5:
+                    currentDate = currentDate.PlusYears(-100);
+                    break;
+            }
+            formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+        }
+
+        public void OnRightArrowClick(object sender, EventArgs e)
+        {
+            switch (formMapUser.TimeSkipInterval.SelectedIndex)
+            {
+                case 0:
+                    currentDate = currentDate.PlusDays(1);
+                    break;
+                case 1:
+                    currentDate = currentDate.PlusDays(7);
+                    break;
+                case 2:
+                    currentDate = currentDate.PlusMonths(1);
+                    break;
+                case 3:
+                    currentDate = currentDate.PlusYears(1);
+                    break;
+                case 4:
+                    currentDate = currentDate.PlusYears(10);
+                    break;
+                case 5:
+                    currentDate = currentDate.PlusYears(100);
+                    break;
+            }
+            formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
         }
     }
 }
