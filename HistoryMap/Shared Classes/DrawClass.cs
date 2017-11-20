@@ -226,7 +226,12 @@ namespace HistoryMap.WorldMapUsers
             }
             return new Tuple<LocalDate, LocalDate>(currentDate,EndDate);
         }
-
+        /// <summary>
+        /// This handles the displaying of the date modal and then gets the date back 
+        /// when the user inputs it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void DateHandler(object sender, EventArgs e)
         {
             using (var form = new DateSelectionModal())
@@ -239,7 +244,11 @@ namespace HistoryMap.WorldMapUsers
                 }
             }
         }
-
+        /// <summary>
+        /// This should handle the decrementation of time via the left and right arrow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnLeftArrowClick(object sender, EventArgs e)
         {
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
@@ -265,7 +274,11 @@ namespace HistoryMap.WorldMapUsers
             }
             formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
         }
-
+        /// <summary>
+        /// This should handle the adding of time via the left and right arrow
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnRightArrowClick(object sender, EventArgs e)
         {
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
