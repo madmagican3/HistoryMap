@@ -279,30 +279,41 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        //TODO remember to on getting the information not to go over 20 years, cap it if it does start to go over that
+
         public void OnRightArrowClick(object sender, EventArgs e)
         {
+            LocalDate verifyDate = currentDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
-                    currentDate = currentDate.PlusDays(1);
+                    verifyDate = verifyDate.PlusDays(1);
                     break;
                 case 1:
-                    currentDate = currentDate.PlusDays(7);
+                    verifyDate = verifyDate.PlusDays(7);
                     break;
                 case 2:
-                    currentDate = currentDate.PlusMonths(1);
+                    verifyDate = verifyDate.PlusMonths(1);
                     break;
                 case 3:
-                    currentDate = currentDate.PlusYears(1);
+                    verifyDate = verifyDate.PlusYears(1);
                     break;
                 case 4:
-                    currentDate = currentDate.PlusYears(10);
+                    verifyDate = verifyDate.PlusYears(10);
                     break;
                 case 5:
-                    currentDate = currentDate.PlusYears(100);
+                    verifyDate = verifyDate.PlusYears(100);
                     break;
             }
-            formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+            if (verifyDate.Year < DateTime.Today.Year - 20)
+            {
+                formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
+            }
         }
     }
 }
