@@ -43,7 +43,7 @@ namespace HistoryMap.WorldMapUsers
             this.Year.Size = new System.Drawing.Size(40, 20);
             this.Year.TabIndex = 2;
             this.Year.Text = "1996";
-            this.Year.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Year_KeyPress);
+            this.Year.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnterPressed);
             // 
             // TimeFrame
             // 
@@ -56,7 +56,7 @@ namespace HistoryMap.WorldMapUsers
             this.TimeFrame.Name = "TimeFrame";
             this.TimeFrame.Size = new System.Drawing.Size(73, 21);
             this.TimeFrame.TabIndex = 3;
-            this.TimeFrame.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TimeFrame_KeyPress);
+            this.TimeFrame.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnterPressed);
             // 
             // button1
             // 
@@ -78,7 +78,7 @@ namespace HistoryMap.WorldMapUsers
             this.dateTimePicker1.Size = new System.Drawing.Size(186, 20);
             this.dateTimePicker1.TabIndex = 6;
             this.dateTimePicker1.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dateTimePicker1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dateTimePicker1_KeyPress);
+            this.dateTimePicker1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnterPressed);
             // 
             // DateSelectionModal
             // 
@@ -92,7 +92,7 @@ namespace HistoryMap.WorldMapUsers
             this.Name = "DateSelectionModal";
             this.Text = "Date Selection";
             this.Load += new System.EventHandler(this.DateSelectionModal_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DateSelectionModal_KeyPress);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnterPressed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

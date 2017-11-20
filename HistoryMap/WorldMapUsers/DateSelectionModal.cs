@@ -40,17 +40,8 @@ namespace HistoryMap.WorldMapUsers
         {
             if (verifyDate())
             {
-                if (TimeFrame.SelectedIndex == 0)
-                {
-                    returnTime = new LocalDate(Era.Common, int.Parse(Year.Text), 
-                        dateTimePicker1.Value.Month,dateTimePicker1.Value.Day);
-
-                }
-                else
-                {
-                    returnTime = new LocalDate(Era.BeforeCommon, int.Parse(Year.Text),
-                        dateTimePicker1.Value.Month, dateTimePicker1.Value.Day);
-                }
+                var era = (TimeFrame.SelectedIndex == 0) ? Era.Common : Era.BeforeCommon;
+                returnTime = new LocalDate(era, int.Parse(Year.Text), dateTimePicker1.Value.Month, dateTimePicker1.Value.Day);
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -67,7 +58,7 @@ namespace HistoryMap.WorldMapUsers
                 MessageBox.Show("Sorry but your year is not valid");
                 return false;
             }
-            if (years > DateTime.Today.Year - 20||TimeFrame.SelectedIndex != 1)
+            if (years > DateTime.Today.Year - 20 || TimeFrame.SelectedIndex != 1)
             {
                 MessageBox.Show("Sorry but we need atleast a 20 year gap before considering an item history");
                 return false;
@@ -75,34 +66,9 @@ namespace HistoryMap.WorldMapUsers
             return true;
         }
         /// <summary>
-        /// I'm not going to write a summary for all of these but they all listen for the 
-        /// keypress of enter
+        /// Listens for a keypress of enter and attempts to submit the modal
         /// </summary>
-        private void dateTimePicker1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (IsKeyEnter(e))
-            {
-                button1_Click(sender, EventArgs.Empty);
-            }
-        }
-
-        private void Year_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (IsKeyEnter(e))
-            {
-                button1_Click(sender, EventArgs.Empty);
-            }
-        }
-
-        private void TimeFrame_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (IsKeyEnter(e))
-            {
-                button1_Click(sender, EventArgs.Empty);
-            }
-        }
-
-        private void DateSelectionModal_KeyPress(object sender, KeyPressEventArgs e)
+        private void EnterPressed(object sender, KeyPressEventArgs e)
         {
             if (IsKeyEnter(e))
             {

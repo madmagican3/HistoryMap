@@ -69,7 +69,7 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         public void WorldMap_SizeChanged(object sender, EventArgs e)
         {
-            var ratioX =  formMapUser.Width / (double)LocalMap.Width;
+            var ratioX = formMapUser.Width / (double)LocalMap.Width;
             var ratioY = formMapUser.Height / (double)LocalMap.Height;
             var ratio = Math.Min(ratioX, ratioY);
             var width = (int)(LocalMap.Width * ratio);
@@ -148,7 +148,7 @@ namespace HistoryMap.WorldMapUsers
             //first increment the _zoom level
             _zoom = Math.Min(_zoom * ZoomIncrement, MaxZoom);
             //calculate the actual center area
-            var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width/2, formMapUser.WorldMap.Height/2);
+            var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width / 2, formMapUser.WorldMap.Height / 2);
             //then calculate the area of the map to render and render it
             CalculateRenderArea(actualClickPoint);
             RenderMap();
@@ -192,15 +192,16 @@ namespace HistoryMap.WorldMapUsers
                 g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
                 formMapUser.WorldMap.Image = _bitmap;
             }
-            Tuple<LocalDate, LocalDate> timeTuple = getTimes(formMapUser);
+            var timeTuple = getTimes(formMapUser);
             //localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
         /// <summary>
-        /// This should handle adding the times via the left and right arrow
+        /// This should get the start and end date for the sql statement by adding a value of the combobox to a second date and then returning
+        /// the original selected date and the combo box date
         /// </summary>
         /// <param name="formMapUser"></param>
         /// <returns></returns>
-        private Tuple<LocalDate,LocalDate> getTimes(WorldMapUser formMapUser)
+        private Tuple<LocalDate, LocalDate> getTimes(WorldMapUser formMapUser)
         {
             LocalDate EndDate = currentDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
@@ -224,11 +225,10 @@ namespace HistoryMap.WorldMapUsers
                     EndDate = EndDate.PlusYears(100);
                     break;
             }
-            return new Tuple<LocalDate, LocalDate>(currentDate,EndDate);
+            return new Tuple<LocalDate, LocalDate>(currentDate, EndDate);
         }
         /// <summary>
-        /// This handles the displaying of the date modal and then gets the date back 
-        /// when the user inputs it
+        /// This handles the displaying of the date modal and then sets the date to the date to currentDate
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -245,7 +245,7 @@ namespace HistoryMap.WorldMapUsers
             }
         }
         /// <summary>
-        /// This should handle the decrementation of time via the left and right arrow
+        /// This should increment current date by the amount selected in the combobox and display it to the user
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -275,7 +275,7 @@ namespace HistoryMap.WorldMapUsers
             formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
         }
         /// <summary>
-        /// This should handle the adding of time via the left and right arrow
+        /// this should handle the incrementation of time by the amount selected in the combobox and displays it to the user
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
