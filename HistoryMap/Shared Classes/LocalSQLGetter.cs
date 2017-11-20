@@ -27,7 +27,7 @@ namespace HistoryMap.Shared_Classes
         {
             //creates a new empty dataset and adapter
             var dataset = new DataSet();
-            var adapter = new SqlDataAdapter {SelectCommand = command};
+            var adapter = new SqlDataAdapter { SelectCommand = command };
             //set the adapter to use the command 
             //then get the adapter to fill the dataset based on the returned values
             adapter.Fill(dataset);
@@ -53,11 +53,11 @@ namespace HistoryMap.Shared_Classes
                     //set that new command using a prepared statement
                     command.CommandText = "Select id from IMAGES where date = @date";
                     //safely put that paramater into the sql statement
-                    var dateParam = new SqlParameter("@date", SqlDbType.Date) {Value = currentTime};
+                    var dateParam = new SqlParameter("@date", SqlDbType.Date) { Value = currentTime };
                     //prepare the new command
                     command.Prepare();
                     //get the dataset back and return it
-                    var actualId = SelectRows( command);
+                    var actualId = SelectRows(command);
                     return actualId;
                 }
             }
@@ -75,12 +75,12 @@ namespace HistoryMap.Shared_Classes
                 //prepare the new command
                 pdo.Prepare();
                 //get the dataset back and return it
-                var dataRows = SelectRows( pdo);
+                var dataRows = SelectRows(pdo);
                 return dataRows;
-            } 
+            }
         }
 
-        public static List<ButtonCreationClass>GetListFromDateSelection(DateTime startDate, DateTime endDate)
+        public static List<ButtonCreationClass> GetListFromDateSelection(DateTime startDate, DateTime endDate)
         {
             return null;
         }

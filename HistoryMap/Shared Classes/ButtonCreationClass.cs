@@ -29,7 +29,7 @@ namespace HistoryMap.Shared_Classes
         List<Label> _buttonControlList = new List<Label>();
 
 
-   
+
 
         /// <summary>
         /// this creates and displays all the buttons that should be shown on the ui at this point in time
@@ -38,7 +38,7 @@ namespace HistoryMap.Shared_Classes
         {
             if (startDate != startDateTime || endDate != endDateTime)
             {
-                GetButtons(startDate,endDate);   
+                GetButtons(startDate, endDate);
             }
             //get rid of all the old buttons
             foreach (var tempButton in _buttonControlList)
@@ -54,7 +54,7 @@ namespace HistoryMap.Shared_Classes
                 {
                     Point location = ButtonLocation(localForm, localClass, localButtonStorage);
                     //If the point returned is invalid we no longer want to add the label to the list
-                    if (location.X == -1 && location.Y == -1 ) {}
+                    if (location.X == -1 && location.Y == -1) { }
                     //If they should be drawn at this view level
                     else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass._zoom < 1.5)) ||
                         (localButtonStorage.viewLevel > 25) && (DrawClass._zoom > 25))
@@ -64,7 +64,7 @@ namespace HistoryMap.Shared_Classes
                         tempButton.Height = 32;
                         tempButton.Width = 32;
                         tempButton.Image = HistoryMap.Properties.Resources.if_thefreeforty_location_1243686;
-                        tempButton.Location = ButtonLocation(localForm,localClass, localButtonStorage);
+                        tempButton.Location = ButtonLocation(localForm, localClass, localButtonStorage);
                         //set up transparency
                         tempButton.Parent = localForm.WorldMap;
                         _buttonControlList.Add(tempButton);
@@ -75,7 +75,7 @@ namespace HistoryMap.Shared_Classes
                 {
                     localForm.Controls.Add(tempButton);
                 }
-            }           
+            }
         }
         /// <summary>
         /// this should calculate its location based on current zoom level, returning -1,-1 means that it's 
@@ -85,7 +85,7 @@ namespace HistoryMap.Shared_Classes
         {
             Point localPoint = localDrawClass.CalculateActualMouseClick(localStorage.ButtonCenterPoint.X,
                 localStorage.ButtonCenterPoint.Y);
-            if (localPoint.X < 0 || localPoint.X > localForm.WorldMap.Height|| localPoint.Y < 0 || localPoint.Y > localForm.WorldMap.Width )
+            if (localPoint.X < 0 || localPoint.X > localForm.WorldMap.Height || localPoint.Y < 0 || localPoint.Y > localForm.WorldMap.Width)
             {
                 return new Point(-1, -1);
             }
