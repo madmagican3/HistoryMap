@@ -38,26 +38,29 @@ namespace HistoryMap.WorldMapUsers
             // 
             // Year
             // 
-            this.Year.Location = new System.Drawing.Point(206, 26);
+            this.Year.Location = new System.Drawing.Point(206, 13);
             this.Year.Name = "Year";
             this.Year.Size = new System.Drawing.Size(40, 20);
             this.Year.TabIndex = 2;
             this.Year.Text = "1996";
+            this.Year.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Year_KeyPress);
             // 
             // TimeFrame
             // 
+            this.TimeFrame.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TimeFrame.FormattingEnabled = true;
             this.TimeFrame.Items.AddRange(new object[] {
-            "Anno Domini (AD)",
-            "Before Christ (BC)"});
-            this.TimeFrame.Location = new System.Drawing.Point(252, 25);
+            "CE",
+            "BCE"});
+            this.TimeFrame.Location = new System.Drawing.Point(252, 12);
             this.TimeFrame.Name = "TimeFrame";
             this.TimeFrame.Size = new System.Drawing.Size(73, 21);
             this.TimeFrame.TabIndex = 3;
+            this.TimeFrame.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TimeFrame_KeyPress);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(123, 66);
+            this.button1.Location = new System.Drawing.Point(139, 39);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -69,25 +72,27 @@ namespace HistoryMap.WorldMapUsers
             // 
             this.dateTimePicker1.CustomFormat = "MMMM dd";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(12, 26);
+            this.dateTimePicker1.Location = new System.Drawing.Point(12, 13);
             this.dateTimePicker1.MaxDate = new System.DateTime(1753, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(186, 20);
             this.dateTimePicker1.TabIndex = 6;
             this.dateTimePicker1.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.dateTimePicker1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dateTimePicker1_KeyPress);
             // 
             // DateSelectionModal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 101);
+            this.ClientSize = new System.Drawing.Size(350, 74);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TimeFrame);
             this.Controls.Add(this.Year);
             this.Name = "DateSelectionModal";
-            this.Text = "DateSelectionModal";
+            this.Text = "Date Selection";
             this.Load += new System.EventHandler(this.DateSelectionModal_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DateSelectionModal_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 

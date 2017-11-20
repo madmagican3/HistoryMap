@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using HistoryMap.Shared_Classes;
 using NodaTime;
 using NodaTime.Calendars;
+using NodaTime.Text;
 using static HistoryMap.Properties.Resources;
 
 namespace HistoryMap.WorldMapUsers
@@ -14,6 +15,10 @@ namespace HistoryMap.WorldMapUsers
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
         /// </summary>
         public Image LocalMap = maps_world_map_02;
+        /// <summary>
+        /// This should hold the date the user is looking at currently
+        /// </summary>
+        private LocalDate currentDate = new LocalDate(Era.Common, 302, 6, 1);
 
         /// <summary>
         /// This is the rectangle we render into
@@ -232,9 +237,9 @@ namespace HistoryMap.WorldMapUsers
                 var dialogResult = form.ShowDialog();
                 if (dialogResult == DialogResult.OK)
                 {
-                    var result = form.returnTime;
+                    currentDate = form.returnTime;
+                    formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
                 }
-
             }
         }
     }

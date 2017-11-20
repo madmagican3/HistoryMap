@@ -90,6 +90,7 @@ namespace HistoryMap
             this.WorldMap.MouseUp += localDrawClass.WorldMap_Up;
             this.WorldMap.SizeChanged += localDrawClass.WorldMap_SizeChanged;
             this.CurrentDate.Click += localDrawClass.DateHandler;
+            this.SearchIcon.Click += localDrawClass.DateHandler;
         }
         /// <summary>
         /// This will occur on someone resizing the form so as to display the form correctly

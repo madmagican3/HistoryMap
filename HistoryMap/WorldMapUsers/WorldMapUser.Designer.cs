@@ -43,8 +43,8 @@
             this.CurrentDate = new System.Windows.Forms.TextBox();
             this.RightArrow = new System.Windows.Forms.Label();
             this.TimeSkipInterval = new System.Windows.Forms.ComboBox();
-            this.SearchIcon = new System.Windows.Forms.Label();
             this.timeSkipArrow = new System.Windows.Forms.Label();
+            this.SearchIcon = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).BeginInit();
             this.ListPanel.SuspendLayout();
             this.ControlPanel.SuspendLayout();
@@ -171,11 +171,12 @@
             // 
             // CurrentDate
             // 
-            this.CurrentDate.Enabled = false;
             this.CurrentDate.Location = new System.Drawing.Point(41, 9);
             this.CurrentDate.Name = "CurrentDate";
+            this.CurrentDate.ReadOnly = true;
             this.CurrentDate.Size = new System.Drawing.Size(168, 20);
             this.CurrentDate.TabIndex = 5;
+            this.CurrentDate.Text = "01 June 0302 BCE";
             // 
             // RightArrow
             // 
@@ -203,17 +204,6 @@
             this.TimeSkipInterval.Size = new System.Drawing.Size(121, 21);
             this.TimeSkipInterval.TabIndex = 3;
             // 
-            // SearchIcon
-            // 
-            this.SearchIcon.AutoSize = true;
-            this.SearchIcon.Image = global::HistoryMap.Properties.Resources.if_icon_ios7_search_211818;
-            this.SearchIcon.Location = new System.Drawing.Point(215, 0);
-            this.SearchIcon.MaximumSize = new System.Drawing.Size(32, 32);
-            this.SearchIcon.MinimumSize = new System.Drawing.Size(32, 32);
-            this.SearchIcon.Name = "SearchIcon";
-            this.SearchIcon.Size = new System.Drawing.Size(32, 32);
-            this.SearchIcon.TabIndex = 2;
-            // 
             // timeSkipArrow
             // 
             this.timeSkipArrow.AutoSize = true;
@@ -224,6 +214,17 @@
             this.timeSkipArrow.Name = "timeSkipArrow";
             this.timeSkipArrow.Size = new System.Drawing.Size(32, 32);
             this.timeSkipArrow.TabIndex = 0;
+            // 
+            // SearchIcon
+            // 
+            this.SearchIcon.AutoSize = true;
+            this.SearchIcon.Image = global::HistoryMap.Properties.Resources.if_icon_ios7_search_211818;
+            this.SearchIcon.Location = new System.Drawing.Point(215, 0);
+            this.SearchIcon.MaximumSize = new System.Drawing.Size(32, 32);
+            this.SearchIcon.MinimumSize = new System.Drawing.Size(32, 32);
+            this.SearchIcon.Name = "SearchIcon";
+            this.SearchIcon.Size = new System.Drawing.Size(32, 32);
+            this.SearchIcon.TabIndex = 2;
             // 
             // WorldMapUser
             // 
@@ -269,8 +270,8 @@
         private System.Windows.Forms.Label timeSkipArrow;
         private System.Windows.Forms.Label RightArrow;
         internal System.Windows.Forms.ComboBox TimeSkipInterval;
-        private System.Windows.Forms.Label SearchIcon;
         internal System.Windows.Forms.TextBox CurrentDate;
+        private System.Windows.Forms.Label SearchIcon;
     }
 }
 
