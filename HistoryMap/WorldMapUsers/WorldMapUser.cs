@@ -1,35 +1,28 @@
 ﻿using System;
 using System.Drawing;
+using System.Security.AccessControl;
 using System.Windows.Forms;
 using HistoryMap.Shared_Classes;
+using HistoryMap.WorldMapUsers;
 using static HistoryMap.Properties.Resources;
+using Color = System.Drawing.Color;
 
 namespace HistoryMap
 {
     public partial class WorldMapUser : Form
     {
         /// <summary>
-        /// This is a local version of the history map to minimise the amount of times i have to write the long reference
+        /// This contains a local instance of the drawclass
         /// </summary>
-        public Image LocalMap = maps_world_map_02;
-
+        readonly DrawClass localDrawClass;
         /// <summary>
-        /// This is the rectangle we render into
+        /// This contains a local instance of the buttoncreationclass
         /// </summary>
-        private Rectangle _renderRectangle;
+        private readonly ButtonCreationClass localButtonCreationClass;
         /// <summary>
-        /// This tracks the current zoom level
+        /// This contains a local instance of the listhandlerclass
         /// </summary>
-        private double _zoom = 1;
-        /// <summary>
-        /// these track the level of max and min zoom along with the zoom increment
-        /// </summary>
-        private const double MinZoom = 1, MaxZoom = 50, ZoomIncrement = 1.5;
-        /// <summary>
-        /// this is a local bitmap to avoid recreating the variable multiple times
-        /// </summary>
-        private readonly Bitmap _bitmap;
-
+        private readonly ListHandlerClass localListHandlerClass;
 
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
@@ -37,113 +30,90 @@ namespace HistoryMap
         public WorldMapUser()
         {
             InitializeComponent();
-            //We set the events we're trying to hook into
-            this.WorldMap.MouseWheel += WorldMap_MouseWheel;
-            this.WorldMap.MouseUp += WorldMap_Up;
-            //set up the rectangle based on the image size (incase we want to modify the image later)
-            _renderRectangle = new Rectangle(0, 0, LocalMap.Width, LocalMap.Height);
-            //We then draw the polygons on the map so as to allow them to zoom correctly
-            LocalMap = PolygonCreator.DrawBorders(LocalMap);
-            //Then we create a local bitmap of the image so as to have something to draw on
-            _bitmap = new Bitmap(LocalMap);
-            //finaly we draw the map
-            RenderMap();
+            localDrawClass = new DrawClass(this);
+            localListHandlerClass = new ListHandlerClass(this);
+            localButtonCreationClass = new ButtonCreationClass();
+            worldMapHandler();
+            buttonHandler();
+            panelHandler();
+            ControlPanelHandler();
+            SettingsIcon.Click += SettingsOpen;
+        }
+
+        public void ControlPanelHandler()
+        {
+            ControlPanel.BackColor = Color.Transparent;
+            ControlPanel.Parent = WorldMap;
+            TimeSkipInterval.SelectedIndex = 3;
+        }
+        public void SettingsOpen(object sender, EventArgs e)
+        {
+            new SettingsForm().Visible = true;
         }
         /// <summary>
-        /// This event hooks into the mouse scroll event to attempt to zoom in on the image 
+        /// This should hold all the other buttons which the user will interact with on the main 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WorldMap_MouseWheel(object sender, MouseEventArgs e)
+        public void panelHandler()
         {
-            //First increment/decriment the zoom level depending on direction of scroll
-            _zoom = e.Delta > 0 ? Math.Min(_zoom * ZoomIncrement, MaxZoom) : Math.Max(_zoom / ZoomIncrement, MinZoom);
-            //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
-            var actualClickPoint = CalculateActualMouseClick(e.X, e.Y);
+            //make the buttons back colour transparent
+            ZoomOutLabel.Parent = WorldMap;
+            ZoomInLabel.Parent = WorldMap;
+            SettingsIcon.Parent = WorldMap;
+            ZoomOutLabel.BackColor = Color.Transparent;
+            ZoomInLabel.BackColor = Color.Transparent;
+            SettingsIcon.BackColor = Color.Transparent;
 
-            //Now we have the actual click location on the image, calculate the area to render
-            CalculateRenderArea(actualClickPoint);
-            RenderMap();
+            ZoomInLabel.Click += localDrawClass.WorldMap_zoomIn;
+            ZoomOutLabel.Click += localDrawClass.WorldMap_ZoomOut;
         }
-
-        private void RenderMap()
-        {
-            //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
-            var cropRect = new Rectangle(0, 0, WorldMap.Width, WorldMap.Height);
-
-            using (var g = Graphics.FromImage(_bitmap))
-            {
-                //This draws it to the local bitmap based on the size of the screen taking it from the renderrectangle
-                g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
-                WorldMap.Image = _bitmap;
-            }
-        }
-
-
         /// <summary>
-        /// This checks to see if the left mouse is released, if it is it stops the thread handling the dragging by disabling the boolean
+        /// This handles the button creation for the list to the left and the hooks required for it 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void WorldMap_Up(object sender, MouseEventArgs e)
+        public void buttonHandler()
         {
-            if (e.Button != MouseButtons.Left) return;
-            //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
-            var actualClickPoint = CalculateActualMouseClick(e.X, e.Y);
-            //Now we have the actual click location on the image, calculate the area to render
-            CalculateRenderArea(actualClickPoint);
-            RenderMap();
+            //This is so that the transparency actually works
+            MaximiseButton.Parent = WorldMap;
+            MaximiseButton.BackColor = System.Drawing.Color.Transparent;
+            //set up the handlers
+            MaximiseButton.Click += localListHandlerClass.MaximisedScreen;
+            MinButton.Click += localListHandlerClass.MinimisedScreen;
+            InterestingItemsList.SelectedIndexChanged += localListHandlerClass.ChoseItem;
+            SearchTxtBox.KeyPress += localListHandlerClass.Search;
+            SearchIcoLabel.Click += localListHandlerClass.Search;
+        }
+        /// <summary>
+        /// This creates all the hooks for the worldMap
+        /// </summary>
+        public void worldMapHandler()
+        {
+            this.WorldMap.MouseWheel += localDrawClass.WorldMap_MouseWheel;
+            this.WorldMap.MouseUp += localDrawClass.WorldMap_Up;
+            this.WorldMap.SizeChanged += localDrawClass.WorldMap_SizeChanged;
+            this.CurrentDate.Click += localDrawClass.DateHandler;
+            this.SearchIcon.Click += localDrawClass.DateHandler;
+            this.timeSkipArrowLeft.Click += localDrawClass.OnLeftArrowClick;
+            this.timeSkipArrowRight.Click += localDrawClass.OnRightArrowClick;
+        }
+        /// <summary>
+        /// This will occur on someone resizing the form so as to display the form correctly
+        /// at multiple different resolutions at different times. It will move around the control 
+        /// elements to suit that
+        /// </summary>
+        private void WorldMapUser_ResizeEnd(object sender, EventArgs e)
+        {
+            ControlPanel.Left = WorldMap.Width / 2 - (ControlPanel.Width / 2);
+            ControlPanel.Top = Math.Min(WorldMap.Height, this.Height - 60) - 32;
+            MaximiseButton.Location = new Point(0, this.Height / 2);
+            MinButton.Location = new Point(MinButton.Location.X, this.Height / 2);
+            SettingsIcon.Left = WorldMap.Width - 64;
+            ZoomOutLabel.Left = WorldMap.Width - 96;
+            ZoomInLabel.Left = WorldMap.Width - 128;
+            InterestingItemsList.Height = this.Height - 40;
         }
 
-        private void WorldMap_SizeChanged(object sender, EventArgs e)
+        private void WorldMapUser_Load(object sender, EventArgs e)
         {
-            var ratioX = this.Width / (double)LocalMap.Width;
-            var ratioY = this.Height / (double)LocalMap.Height;
-            var ratio = Math.Min(ratioX, ratioY);
-            var width = (int)(LocalMap.Width * ratio);
-            var height = (int)(LocalMap.Height * ratio);
-            if (Math.Abs(this.Width - width) >= 5 || Math.Abs(this.Height - height) >= 5)
-                WorldMap.Size = new Size(width, height);
-            RenderMap();
-        }
-
-        private Point CalculateActualMouseClick(int x, int y)
-        {
-            //Ratio between the rectangle size we are rendering, including zoom level
-            var ratioX = _renderRectangle.Width / (double)WorldMap.Width;
-            var ratioY = _renderRectangle.Height / (double)WorldMap.Height;
-
-            //Calculate the actual width across the cropped image you are pressing
-            var widthD = (x * ratioX);
-            var heightD = (y * ratioY);
-            //Add on the top left coordinate of the cropped location, stored in renderRectangle
-            var xClicked = (int)(widthD) + _renderRectangle.X;
-            var yClicked = (int)(heightD) + _renderRectangle.Y;
-            return new Point(xClicked, yClicked);
-        }
-
-        private void CalculateRenderArea(Point clicked)
-        {
-            //Create the point we clicked, as well as the width/height of the zoomed in area.
-            var point = new Point(clicked.X, clicked.Y);
-            var width = LocalMap.Width / _zoom;
-            var height = LocalMap.Height / _zoom;
-
-            var widthD = (int)(width / 2);
-            var heightD = (int)(height / 2);
-
-            //The Mouse point should be zoomed in to - so we want to center it [0,0 is min coords]
-            point.X = Math.Max(0, point.X - widthD);
-            point.Y = Math.Max(0, point.Y - heightD);
-
-            //If we went above the maximum X,Y to be able to render wholly on the screen, offset the render
-            if (point.X > LocalMap.Width - width)
-                point.X = (int)(LocalMap.Width - width);
-
-            if (point.Y > LocalMap.Height - height)
-                point.Y = (int)(LocalMap.Height - height);
-            //Setup the rectangle to render
-            _renderRectangle = new Rectangle(point.X, point.Y, (int)width, (int)height);
+            WorldMapUser_ResizeEnd(this, new EventArgs());
         }
     }
 }
