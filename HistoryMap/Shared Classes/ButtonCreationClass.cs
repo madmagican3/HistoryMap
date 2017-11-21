@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
 
@@ -14,15 +11,15 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is the end date time for the _buttonsForTimePeriodList
         /// </summary>
-        private DateTime endDateTime;
+        private DateTime _endDateTime;
         /// <summary>
         /// This is the start date time for the _buttonsForTimePeriodList
         /// </summary>
-        private DateTime startDateTime;
+        private DateTime _startDateTime;
         /// <summary>
         /// This is a list for all the dates in the time period stored in the global date 
         /// </summary>
-        private List<ButtonStorage> _buttonsForTimePeriodList = new List<ButtonStorage>();
+        private readonly List<ButtonStorage> _buttonsForTimePeriodList = new List<ButtonStorage>();
         /// <summary>
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
@@ -36,7 +33,7 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void CreateButtons(WorldMapUser localForm, DrawClass localClass, DateTime startDate, DateTime endDate)
         {
-            if (startDate != startDateTime || endDate != endDateTime)
+            if (startDate != _startDateTime || endDate != _endDateTime)
             {
                 GetButtons(startDate, endDate);
             }
@@ -48,7 +45,7 @@ namespace HistoryMap.Shared_Classes
             //empty the list
             _buttonControlList.Clear();
             //Check if we should continue to attempt to draw the buttons on
-            if (DrawClass._zoom < 1.5 || DrawClass._zoom > 25)
+            if (DrawClass.Zoom < 1.5 || DrawClass.Zoom > 25)
             {
                 foreach (var localButtonStorage in _buttonsForTimePeriodList)
                 {
@@ -56,8 +53,8 @@ namespace HistoryMap.Shared_Classes
                     //If the point returned is invalid we no longer want to add the label to the list
                     if (location.X == -1 && location.Y == -1) { }
                     //If they should be drawn at this view level
-                    else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass._zoom < 1.5)) ||
-                        (localButtonStorage.viewLevel > 25) && (DrawClass._zoom > 25))
+                    else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass.Zoom < 1.5)) ||
+                        (localButtonStorage.viewLevel > 25) && (DrawClass.Zoom > 25))
                     {
                         //Create the label and assign it the correct values
                         Label tempButton = new Label();

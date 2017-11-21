@@ -1,14 +1,9 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HistoryMap.Shared_Classes
 {
@@ -63,7 +58,7 @@ namespace HistoryMap.Shared_Classes
             }
         }
 
-        public DataSet ExecutePDO(SqlCommand pdo)
+        public DataSet ExecutePdo(SqlCommand pdo)
         {
             //This is the connection string, will probably be re-written soon for security purposes but unsure how to handle that currently (also no ports open so currently secure)
             var connectionString = "Data Source=192.168.1.83;Initial Catalog=History_Map;Integrated Security=SSPI;";

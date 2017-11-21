@@ -11,7 +11,7 @@ namespace HistoryMap.WorldMapUsers
         ///     This is the item that should be grabbed before the modal closes, it will
         ///     return a valid localDate
         /// </summary>
-        public LocalDate returnTime;
+        public LocalDate ReturnTime;
 
         public DateSelectionModal()
         {
@@ -32,10 +32,10 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            if (verifyDate())
+            if (VerifyDate())
             {
                 var era = TimeFrame.SelectedIndex == 0 ? Era.Common : Era.BeforeCommon;
-                returnTime = new LocalDate(era, int.Parse(Year.Text), dateTimePicker1.Value.Month,
+                ReturnTime = new LocalDate(era, int.Parse(Year.Text), dateTimePicker1.Value.Month,
                     dateTimePicker1.Value.Day);
                 DialogResult = DialogResult.OK;
                 Close();
@@ -46,17 +46,16 @@ namespace HistoryMap.WorldMapUsers
         ///     This should verify if the dates are correct according to the gregorian calendar
         /// </summary>
         /// <returns></returns>
-        private bool verifyDate()
+        private bool VerifyDate()
         {
-            int years;
-            if (!int.TryParse(Year.Text, out years))
+            if (!int.TryParse(Year.Text, out var years))
             {
-                MessageBox.Show("Sorry but your year is not valid");
+                MessageBox.Show(@"Sorry but your year is not valid");
                 return false;
             }
             if (years > DateTime.Today.Year - 20 || TimeFrame.SelectedIndex != 1)
             {
-                MessageBox.Show("Sorry but we need atleast a 20 year gap before considering an item history");
+                MessageBox.Show(@"Sorry but we need atleast a 20 year gap before considering an item history");
                 return false;
             }
             return true;

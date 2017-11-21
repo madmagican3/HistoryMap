@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HistoryMap.WorldMapUsers
@@ -27,7 +22,7 @@ namespace HistoryMap.WorldMapUsers
                 RichText.SelectionFont = new Font(Font.Name, Font.Size, FontStyle.Bold);
                 RichText.AppendText(text.Key + " :");
                 RichText.SelectionFont = new Font(Font.Name, Font.Size, FontStyle.Regular);
-                RichText.AppendText(" " + text.Value + System.Environment.NewLine + System.Environment.NewLine);
+                RichText.AppendText(" " + text.Value + Environment.NewLine + System.Environment.NewLine);
             }
         }
     }
