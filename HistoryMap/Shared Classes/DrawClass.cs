@@ -77,6 +77,7 @@ namespace HistoryMap.Shared_Classes
             if (Math.Abs(_formMapUser.Width - width) >= 5 || Math.Abs(_formMapUser.Height - height) >= 5)
                 _formMapUser.WorldMap.Size = new Size(width, height);
             RenderMap();
+            _formMapUser.WorldMapUser_ResizeEnd(this,e );
         }
 
         /// <summary>
@@ -85,11 +86,10 @@ namespace HistoryMap.Shared_Classes
         /// <param name="x">x for the mouse click</param>
         /// <param name="y">y for the mouse click</param>
         /// <returns></returns>
-        public Point CalculateUIToMap(int x, int y)
+        public Point CalculateUiToMap(int x, int y)
         {
-            //Ratio between the rectangle size we are rendering, including zoom level
-            var ratioX = RenderRectangle.Width / (double)_formMapUser.WorldMap.Width;
-            var ratioY = RenderRectangle.Height / (double)_formMapUser.WorldMap.Height;
+            var ratioX = GetUiToMapRatio().Item2;
+            var ratioY = GetUiToMapRatio().Item1;
 
             //Calculate the actual width across the cropped image you are pressing
             var widthD = (x * ratioX);
@@ -98,6 +98,18 @@ namespace HistoryMap.Shared_Classes
             var xClicked = (int)(widthD) + RenderRectangle.X;
             var yClicked = (int)(heightD) + RenderRectangle.Y;
             return new Point(xClicked, yClicked);
+        }
+        //TODO this is the same as above so just make it work with that
+        /// <summary>
+        /// Ratio between the rectangle size we are rendering, including zoom level
+        /// </summary>
+        /// <returns></returns>
+        public Tuple<double, double> GetUiToMapRatio()
+        {
+            //Ratio between the rectangle size we are rendering, including zoom level
+            var ratioX = RenderRectangle.Width / (double)_formMapUser.WorldMap.Width;
+            var ratioY = RenderRectangle.Height / (double)_formMapUser.WorldMap.Height;
+            return new Tuple<double, double>(ratioX, ratioY);
         }
         /// <summary>
         /// Calculates the maps actual locations of a specified point in relation to the UI and returns a point with the updated values based on 
@@ -154,7 +166,7 @@ namespace HistoryMap.Shared_Classes
             //First increment/decriment the zoom level depending on direction of scroll
             Zoom = e.Delta > 0 ? Math.Min(Zoom * ZoomIncrement, MaxZoom) : Math.Max(Zoom / ZoomIncrement, MinZoom);
             //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
-            var actualClickPoint = CalculateUIToMap(e.X, e.Y);
+            var actualClickPoint = CalculateUiToMap(e.X, e.Y);
 
             //Now we have the actual click location on the image, calculate the area to render
             RenderRectangle = CalculateRenderArea(actualClickPoint);
@@ -168,7 +180,7 @@ namespace HistoryMap.Shared_Classes
             //first increment the _zoom level
             Zoom = Math.Min(Zoom * ZoomIncrement, MaxZoom);
             //calculate the actual center area
-            var actualClickPoint = CalculateUIToMap(_formMapUser.WorldMap.Width / 2, _formMapUser.WorldMap.Height / 2);
+            var actualClickPoint = CalculateUiToMap(_formMapUser.WorldMap.Width / 2, _formMapUser.WorldMap.Height / 2);
             //then calculate the area of the map to render and render it
             RenderRectangle = CalculateRenderArea(actualClickPoint);
             RenderMap();
@@ -181,7 +193,7 @@ namespace HistoryMap.Shared_Classes
             //first increment the zoom level
             Zoom = Math.Max(Zoom / ZoomIncrement, MinZoom);
             //then calculte the actual center area
-            var actualClickPoint = CalculateUIToMap(_formMapUser.WorldMap.Width / 2, _formMapUser.WorldMap.Height / 2);
+            var actualClickPoint = CalculateUiToMap(_formMapUser.WorldMap.Width / 2, _formMapUser.WorldMap.Height / 2);
             //then calculate the area of the map to render and render it
             RenderRectangle = CalculateRenderArea(actualClickPoint);
             RenderMap();
@@ -195,7 +207,7 @@ namespace HistoryMap.Shared_Classes
         {
             if (e.Button != MouseButtons.Left) return;
             //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
-            var actualClickPoint = CalculateUIToMap(e.X, e.Y);
+            var actualClickPoint = CalculateUiToMap(e.X, e.Y);
             //Now we have the actual click location on the image, calculate the area to render
             RenderRectangle = CalculateRenderArea(actualClickPoint);
             RenderMap();
@@ -212,7 +224,7 @@ namespace HistoryMap.Shared_Classes
                 g.DrawImage(_localMap, cropRect, RenderRectangle, GraphicsUnit.Pixel);
                 _formMapUser.WorldMap.Image = _bitmap;
             }
-            var timeTuple = getTimes(_formMapUser);
+            var timeTuple = GetTimes(_formMapUser);
             _localButtonCreationClass.CreateButtons(_formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
         /// <summary>
@@ -221,7 +233,7 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         /// <param name="formMapUser"></param>
         /// <returns></returns>
-        private Tuple<LocalDate, LocalDate> getTimes(WorldMapUser formMapUser)
+        private Tuple<LocalDate, LocalDate> GetTimes(WorldMapUser formMapUser)
         {
             var endDate = _currentDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)

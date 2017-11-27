@@ -13,10 +13,6 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         readonly DrawClass _localDrawClass;
         /// <summary>
-        /// This contains a local instance of the buttoncreationclass
-        /// </summary>
-        private readonly ButtonCreationClass _localButtonCreationClass;
-        /// <summary>
         /// This contains a local instance of the listhandlerclass
         /// </summary>
         private readonly ListHandlerClass _localListHandlerClass;
@@ -29,7 +25,6 @@ namespace HistoryMap.WorldMapUsers
             InitializeComponent();
             _localDrawClass = new DrawClass(this);
             _localListHandlerClass = new ListHandlerClass(this);
-            _localButtonCreationClass = new ButtonCreationClass();
             worldMapHandler();
             buttonHandler();
             panelHandler();
@@ -71,7 +66,7 @@ namespace HistoryMap.WorldMapUsers
         {
             //This is so that the transparency actually works
             MaximiseButton.Parent = WorldMap;
-            MaximiseButton.BackColor = System.Drawing.Color.Transparent;
+            MaximiseButton.BackColor = Color.Transparent;
             //set up the handlers
             MaximiseButton.Click += _localListHandlerClass.MaximisedScreen;
             MinButton.Click += _localListHandlerClass.MinimisedScreen;
@@ -97,7 +92,7 @@ namespace HistoryMap.WorldMapUsers
         /// at multiple different resolutions at different times. It will move around the control 
         /// elements to suit that
         /// </summary>
-        private void WorldMapUser_ResizeEnd(object sender, EventArgs e)
+        public void WorldMapUser_ResizeEnd(object sender, EventArgs e)
         {
             ControlPanel.Left = WorldMap.Width / 2 - (ControlPanel.Width / 2);
             ControlPanel.Top = Math.Min(WorldMap.Height, Height - 60) - 32;
@@ -106,6 +101,7 @@ namespace HistoryMap.WorldMapUsers
             SettingsIcon.Left = WorldMap.Width - 64;
             ZoomOutLabel.Left = WorldMap.Width - 96;
             ZoomInLabel.Left = WorldMap.Width - 128;
+            ListPanel.Height = Height - 40;
             InterestingItemsList.Height = Height - 40;
         }
 

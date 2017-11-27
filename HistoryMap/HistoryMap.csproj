@@ -79,7 +79,7 @@
     <Compile Include="Shared Classes\ListHandlerClass.cs" />
     <Compile Include="Shared Classes\LocalSQLGetter.cs" />
     <Compile Include="Shared Classes\DrawClass.cs" />
-    <Compile Include="Shared Classes\ButtonStorage.cs" />
+    <Compile Include="Shared Classes\GenericLabelForWorldMap.cs" />
     <Compile Include="WorldMapUsers\DateSelectionModal.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -22,7 +22,7 @@ namespace HistoryMap.WorldMapUsers
                 RichText.SelectionFont = new Font(Font.Name, Font.Size, FontStyle.Bold);
                 RichText.AppendText(text.Key + " :");
                 RichText.SelectionFont = new Font(Font.Name, Font.Size, FontStyle.Regular);
-                RichText.AppendText(" " + text.Value + Environment.NewLine + System.Environment.NewLine);
+                RichText.AppendText(" " + text.Value + Environment.NewLine + Environment.NewLine);
             }
         }
     }
