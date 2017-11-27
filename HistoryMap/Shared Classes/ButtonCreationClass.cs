@@ -44,7 +44,7 @@ namespace HistoryMap.Shared_Classes
                 return;
             }
             inUse = true;
-            if (!startDate.Equals(_startDateTime)|| !endDate.Equals(_endDateTime))
+            if (!startDate.Equals(_startDateTime) || !endDate.Equals(_endDateTime))
             {
                 _startDateTime = startDate;
                 _endDateTime = endDate;
@@ -58,52 +58,50 @@ namespace HistoryMap.Shared_Classes
             //empty the list
             _buttonControlList.Clear();
             //Check if we should continue to attempt to draw the buttons on
-            if (DrawClass.Zoom < 1.5 || DrawClass.Zoom > 25)
+            foreach (var localButtonStorage in _buttonsForTimePeriodList)
             {
-                foreach (var localButtonStorage in _buttonsForTimePeriodList)
+                Point? location = ButtonLocation(localForm, localClass, localButtonStorage);
+                //If the point returned is invalid we no longer want to add the label to the list
+                if (!location.HasValue) { }
+                else 
                 {
-                    Point location = ButtonLocation(localForm, localClass, localButtonStorage);
-                    //If the point returned is invalid we no longer want to add the label to the list
-                    if (location.X == -1 && location.Y == -1) { }
-                    //If they should be drawn at this view level
-                    else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass.Zoom < 1.5)) ||
-                        (localButtonStorage.viewLevel > 25) && (DrawClass.Zoom > 25))
+                    //Create the label and assign it the correct values
+                    Label tempButton = new Label
                     {
-                        //Create the label and assign it the correct values
-                        Label tempButton = new Label();
-                        tempButton.Height = 32;
-                        tempButton.Width = 32;
-                        tempButton.Image = HistoryMap.Properties.Resources.if_thefreeforty_location_1243686;
-                        tempButton.Location = ButtonLocation(localForm, localClass, localButtonStorage);
-                        //set up transparency
-                        tempButton.Parent = localForm.WorldMap;
-                        _buttonControlList.Add(tempButton);
-                    }
-                }
-                //add it to the control list for later removal
-                foreach (var tempButton in _buttonControlList)
-                {
-                    localForm.Controls.Add(tempButton);
+                        Height = 50,
+                        Width = 50,
+                        Image = HistoryMap.Properties.Resources.icons8_marker_50,
+                        Location = location.Value,
+                    };
+                    //set up transparency
+                    tempButton.BackColor = Color.Transparent;
+                    tempButton.Parent = localForm.WorldMap;
+                    //add it to the list
+                    _buttonControlList.Add(tempButton);
                 }
             }
+            //add it to the control list for later removal
+            foreach (var tempButton in _buttonControlList)
+            {
+                localForm.WorldMap.Controls.Add(tempButton);
+            }
+
             inUse = false;
         }
         /// <summary>
         /// this should calculate its location based on current zoom level, returning -1,-1 means that it's 
         /// not viewable at the stated view level
         /// </summary>
-        private Point ButtonLocation(WorldMapUser localForm, DrawClass localDrawClass, ButtonStorage localStorage)
+        private Point? ButtonLocation(WorldMapUser localForm, DrawClass localDrawClass, ButtonStorage localStorage)
         {
-            Point localPoint = localDrawClass.CalculateActualMouseClick(localStorage.ButtonCenterPoint.X,
-                localStorage.ButtonCenterPoint.Y);
-            if (localPoint.X < 0 || localPoint.X > localForm.WorldMap.Height || localPoint.Y < 0 || localPoint.Y > localForm.WorldMap.Width)
-            {
-                return new Point(-1, -1);
-            }
-            else
-            {
-                return localPoint;
-            }
+            var localPoint = localStorage.ButtonCenterPoint;
+            var renderRect = localDrawClass.RenderRectangle;
+            //Check the point is in the render rectangle
+            if (!renderRect.Contains(localPoint))
+                return null;
+            //The point is in the render rectangle of map - so lets translate back.
+            //The Mouse point should be zoomed in to - so we want to center it [0,0 is min coords]
+            return localDrawClass.CalculateMapToUi(localPoint.X, localPoint.Y);
         }
 
         /// <summary>
@@ -111,7 +109,8 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
-            ButtonStorage testButton = new ButtonStorage(new Point(100,100),"City", "This is a test object", 0 );
+            _buttonsForTimePeriodList.Clear();
+            ButtonStorage testButton = new ButtonStorage(new Point(600, 600), "City", "This is a test object", 0);
             _buttonsForTimePeriodList.Add(testButton);
         }
     }

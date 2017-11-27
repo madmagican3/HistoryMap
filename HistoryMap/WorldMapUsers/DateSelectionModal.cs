@@ -13,9 +13,20 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         public LocalDate ReturnTime;
 
-        public DateSelectionModal()
+        public DateSelectionModal(LocalDate startDate)
         {
             InitializeComponent();
+            Year.Text = startDate.Year.ToString();
+            if (startDate.Era == Era.Common)
+            {
+                TimeFrame.SelectedIndex = 0;
+            }
+            else
+            {
+                TimeFrame.SelectedIndex = 1;
+            }
+            DateTime tempDate = startDate.ToDateTimeUnspecified();
+            dateTimePicker1.Value = new DateTime(1753, tempDate.Month,tempDate.Day);
         }
 
         /// <summary>
@@ -53,7 +64,7 @@ namespace HistoryMap.WorldMapUsers
                 MessageBox.Show(@"Sorry but your year is not valid");
                 return false;
             }
-            if (years > DateTime.Today.Year - 20 || TimeFrame.SelectedIndex != 1)
+            if (years > DateTime.Today.Year - 20 && TimeFrame.SelectedIndex != 1)
             {
                 MessageBox.Show(@"Sorry but we need atleast a 20 year gap before considering an item history");
                 return false;
