@@ -1,14 +1,9 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HistoryMap.Shared_Classes
 {
@@ -27,7 +22,7 @@ namespace HistoryMap.Shared_Classes
         {
             //creates a new empty dataset and adapter
             var dataset = new DataSet();
-            var adapter = new SqlDataAdapter {SelectCommand = command};
+            var adapter = new SqlDataAdapter { SelectCommand = command };
             //set the adapter to use the command 
             //then get the adapter to fill the dataset based on the returned values
             adapter.Fill(dataset);
@@ -53,17 +48,17 @@ namespace HistoryMap.Shared_Classes
                     //set that new command using a prepared statement
                     command.CommandText = "Select id from IMAGES where date = @date";
                     //safely put that paramater into the sql statement
-                    var dateParam = new SqlParameter("@date", SqlDbType.Date) {Value = currentTime};
+                    var dateParam = new SqlParameter("@date", SqlDbType.Date) { Value = currentTime };
                     //prepare the new command
                     command.Prepare();
                     //get the dataset back and return it
-                    var actualId = SelectRows( command);
+                    var actualId = SelectRows(command);
                     return actualId;
                 }
             }
         }
 
-        public DataSet ExecutePDO(SqlCommand pdo)
+        public DataSet ExecutePdo(SqlCommand pdo)
         {
             //This is the connection string, will probably be re-written soon for security purposes but unsure how to handle that currently (also no ports open so currently secure)
             var connectionString = "Data Source=192.168.1.83;Initial Catalog=History_Map;Integrated Security=SSPI;";
@@ -75,12 +70,12 @@ namespace HistoryMap.Shared_Classes
                 //prepare the new command
                 pdo.Prepare();
                 //get the dataset back and return it
-                var dataRows = SelectRows( pdo);
+                var dataRows = SelectRows(pdo);
                 return dataRows;
-            } 
+            }
         }
 
-        public static List<ButtonCreationClass>GetListFromDateSelection(DateTime startDate, DateTime endDate)
+        public static List<ButtonCreationClass> GetListFromDateSelection(DateTime startDate, DateTime endDate)
         {
             return null;
         }

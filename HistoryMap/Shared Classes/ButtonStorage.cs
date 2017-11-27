@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
-namespace HistoryMap.WorldMapUsers
+namespace HistoryMap.Shared_Classes
 {
     class ButtonStorage
     {
@@ -16,7 +11,7 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         ///  this should mark the type for easier checking to see if the image is correct
         /// </summary>
-        public string Type { get;  }
+        public string Type { get; }
         /// <summary>
         /// This should be the full statement the user should be displayed. 
         /// * * for headings, | for enviroment.newline
@@ -34,7 +29,7 @@ namespace HistoryMap.WorldMapUsers
             this.ButtonCenterPoint = buttonCenterPoint;
             this.Type = type;
             this.Text = text;
-            this.viewLevel = viewLevel; 
+            this.viewLevel = viewLevel;
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HistoryMap.WorldMapUsers;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -15,12 +13,12 @@ namespace HistoryMap.Shared_Classes
         /// <param name="formUser"></param>
         public ListHandlerClass(WorldMapUser formUser)
         {
-            this.formUser = formUser;
+            this._formUser = formUser;
         }
         /// <summary>
         /// local pointer to our original form
         /// </summary>
-        private WorldMapUser formUser;
+        private WorldMapUser _formUser;
 
         /// <summary>
         /// This should maximise the list and populate it 
@@ -30,20 +28,20 @@ namespace HistoryMap.Shared_Classes
         public void MaximisedScreen(object sender, EventArgs e)
         {
             //Sets the panel and all subsidiaries to be transparent
-            formUser.ListPanel.Enabled = true;
-            formUser.ListPanel.Visible = true;
-            formUser.ListPanel.Parent = formUser.WorldMap;
-            formUser.ListPanel.BackColor = Color.Transparent;
-            formUser.MaximiseButton.Visible = false;
+            _formUser.ListPanel.Enabled = true;
+            _formUser.ListPanel.Visible = true;
+            _formUser.ListPanel.Parent = _formUser.WorldMap;
+            _formUser.ListPanel.BackColor = Color.Transparent;
+            _formUser.MaximiseButton.Visible = false;
             //popList();
             //TODO
         }
 
         public void MinimisedScreen(object sender, EventArgs e)
         {
-            formUser.ListPanel.Enabled = false;
-            formUser.ListPanel.Visible = false;
-            formUser.MaximiseButton.Visible = true;
+            _formUser.ListPanel.Enabled = false;
+            _formUser.ListPanel.Visible = false;
+            _formUser.MaximiseButton.Visible = true;
             //TODO
         }
         /// <summary>
@@ -69,7 +67,7 @@ namespace HistoryMap.Shared_Classes
         public void PopList()
         {
             //TODO
-            List<ButtonCreationClass> interestingStuffList =  LocalSqlGetter.GetListFromDateSelection(new DateTime(),new DateTime() );
+            List<ButtonCreationClass> interestingStuffList = LocalSqlGetter.GetListFromDateSelection(new DateTime(), new DateTime());
 
         }
     }

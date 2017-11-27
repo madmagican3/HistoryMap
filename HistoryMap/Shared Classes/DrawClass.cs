@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using HistoryMap.Shared_Classes;
+using HistoryMap.Properties;
+using HistoryMap.WorldMapUsers;
 using NodaTime;
 using NodaTime.Calendars;
-using NodaTime.Text;
-using static HistoryMap.Properties.Resources;
 
-namespace HistoryMap.WorldMapUsers
+namespace HistoryMap.Shared_Classes
 {
     public class DrawClass
     {
         /// <summary>
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
         /// </summary>
-        public Image LocalMap = maps_world_map_02;
+        private readonly Image _localMap = Resources.maps_world_map_02;
         /// <summary>
         /// This should hold the date the user is looking at currently
         /// </summary>
-        private LocalDate currentDate = new LocalDate(Era.Common, 302, 6, 1);
+        private LocalDate _currentDate = new LocalDate(Era.Common, 302, 6, 1);
 
         /// <summary>
         /// This is the rectangle we render into
@@ -27,7 +26,7 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         /// This tracks the current zoom level
         /// </summary>
-        public static double _zoom = 1;
+        public static double Zoom = 1;
         /// <summary>
         /// these track the level of max and min zoom along with the zoom increment
         /// </summary>
@@ -40,12 +39,12 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         /// This is a pointer to the actual form so as to manipulate it
         /// </summary>
-        private WorldMapUser formMapUser;
+        private WorldMapUser _formMapUser;
 
         /// <summary>
         /// This is a pointer to the button creation class so as to allow us to draw the buttons whenever we render/re-render the map
         /// </summary>
-        private ButtonCreationClass localButtonCreationClass = new ButtonCreationClass();
+        private ButtonCreationClass _localButtonCreationClass = new ButtonCreationClass();
 
         /// <summary>
         /// Draws the map at the current zoom level to the main UI
@@ -54,12 +53,12 @@ namespace HistoryMap.WorldMapUsers
         public DrawClass(WorldMapUser user)
         {
             //set up the rectangle based on the image size (incase we want to modify the image later)
-            _renderRectangle = new Rectangle(0, 0, LocalMap.Width, LocalMap.Height);
+            _renderRectangle = new Rectangle(0, 0, _localMap.Width, _localMap.Height);
             //We then draw the polygons on the map so as to allow them to zoom correctly
-            LocalMap = PolygonCreator.DrawBorders(LocalMap);
+            _localMap = PolygonCreator.DrawBorders(_localMap);
             //Then we create a local bitmap of the image so as to have something to draw on
-            _bitmap = new Bitmap(LocalMap);
-            formMapUser = user;
+            _bitmap = new Bitmap(_localMap);
+            _formMapUser = user;
             //finaly we draw the map
             RenderMap();
         }
@@ -69,13 +68,13 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         public void WorldMap_SizeChanged(object sender, EventArgs e)
         {
-            var ratioX = formMapUser.Width / (double)LocalMap.Width;
-            var ratioY = formMapUser.Height / (double)LocalMap.Height;
+            var ratioX = _formMapUser.Width / (double)_localMap.Width;
+            var ratioY = _formMapUser.Height / (double)_localMap.Height;
             var ratio = Math.Min(ratioX, ratioY);
-            var width = (int)(LocalMap.Width * ratio);
-            var height = (int)(LocalMap.Height * ratio);
-            if (Math.Abs(formMapUser.Width - width) >= 5 || Math.Abs(formMapUser.Height - height) >= 5)
-                formMapUser.WorldMap.Size = new Size(width, height);
+            var width = (int)(_localMap.Width * ratio);
+            var height = (int)(_localMap.Height * ratio);
+            if (Math.Abs(_formMapUser.Width - width) >= 5 || Math.Abs(_formMapUser.Height - height) >= 5)
+                _formMapUser.WorldMap.Size = new Size(width, height);
             RenderMap();
         }
 
@@ -88,8 +87,8 @@ namespace HistoryMap.WorldMapUsers
         public Point CalculateActualMouseClick(int x, int y)
         {
             //Ratio between the rectangle size we are rendering, including zoom level
-            var ratioX = _renderRectangle.Width / (double)formMapUser.WorldMap.Width;
-            var ratioY = _renderRectangle.Height / (double)formMapUser.WorldMap.Height;
+            var ratioX = _renderRectangle.Width / (double)_formMapUser.WorldMap.Width;
+            var ratioY = _renderRectangle.Height / (double)_formMapUser.WorldMap.Height;
 
             //Calculate the actual width across the cropped image you are pressing
             var widthD = (x * ratioX);
@@ -104,8 +103,8 @@ namespace HistoryMap.WorldMapUsers
         {
             //Create the point we clicked, as well as the width/height of the zoomed in area.
             var point = new Point(clicked.X, clicked.Y);
-            var width = LocalMap.Width / _zoom;
-            var height = LocalMap.Height / _zoom;
+            var width = _localMap.Width / Zoom;
+            var height = _localMap.Height / Zoom;
 
             var widthD = (int)(width / 2);
             var heightD = (int)(height / 2);
@@ -115,11 +114,11 @@ namespace HistoryMap.WorldMapUsers
             point.Y = Math.Max(0, point.Y - heightD);
 
             //If we went above the maximum X,Y to be able to render wholly on the screen, offset the render
-            if (point.X > LocalMap.Width - width)
-                point.X = (int)(LocalMap.Width - width);
+            if (point.X > _localMap.Width - width)
+                point.X = (int)(_localMap.Width - width);
 
-            if (point.Y > LocalMap.Height - height)
-                point.Y = (int)(LocalMap.Height - height);
+            if (point.Y > _localMap.Height - height)
+                point.Y = (int)(_localMap.Height - height);
             //Setup the rectangle to render
             _renderRectangle = new Rectangle(point.X, point.Y, (int)width, (int)height);
         }
@@ -132,7 +131,7 @@ namespace HistoryMap.WorldMapUsers
         public void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
             //First increment/decriment the zoom level depending on direction of scroll
-            _zoom = e.Delta > 0 ? Math.Min(_zoom * ZoomIncrement, MaxZoom) : Math.Max(_zoom / ZoomIncrement, MinZoom);
+            Zoom = e.Delta > 0 ? Math.Min(Zoom * ZoomIncrement, MaxZoom) : Math.Max(Zoom / ZoomIncrement, MinZoom);
             //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
             var actualClickPoint = CalculateActualMouseClick(e.X, e.Y);
 
@@ -146,9 +145,9 @@ namespace HistoryMap.WorldMapUsers
         public void WorldMap_zoomIn(object sender, EventArgs e)
         {
             //first increment the _zoom level
-            _zoom = Math.Min(_zoom * ZoomIncrement, MaxZoom);
+            Zoom = Math.Min(Zoom * ZoomIncrement, MaxZoom);
             //calculate the actual center area
-            var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width / 2, formMapUser.WorldMap.Height / 2);
+            var actualClickPoint = CalculateActualMouseClick(_formMapUser.WorldMap.Width / 2, _formMapUser.WorldMap.Height / 2);
             //then calculate the area of the map to render and render it
             CalculateRenderArea(actualClickPoint);
             RenderMap();
@@ -159,9 +158,9 @@ namespace HistoryMap.WorldMapUsers
         public void WorldMap_ZoomOut(object sender, EventArgs e)
         {
             //first increment the zoom level
-            _zoom = Math.Max(_zoom / ZoomIncrement, MinZoom);
+            Zoom = Math.Max(Zoom / ZoomIncrement, MinZoom);
             //then calculte the actual center area
-            var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width / 2, formMapUser.WorldMap.Height / 2);
+            var actualClickPoint = CalculateActualMouseClick(_formMapUser.WorldMap.Width / 2, _formMapUser.WorldMap.Height / 2);
             //then calculate the area of the map to render and render it
             CalculateRenderArea(actualClickPoint);
             RenderMap();
@@ -184,15 +183,15 @@ namespace HistoryMap.WorldMapUsers
         private void RenderMap()
         {
             //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
-            var cropRect = new Rectangle(0, 0, formMapUser.WorldMap.Width, formMapUser.WorldMap.Height);
+            var cropRect = new Rectangle(0, 0, _formMapUser.WorldMap.Width, _formMapUser.WorldMap.Height);
 
             using (var g = Graphics.FromImage(_bitmap))
             {
                 //formMapUser draws it to the local bitmap based on the size of the screen taking it from the renderrectangle
-                g.DrawImage(LocalMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
-                formMapUser.WorldMap.Image = _bitmap;
+                g.DrawImage(_localMap, cropRect, _renderRectangle, GraphicsUnit.Pixel);
+                _formMapUser.WorldMap.Image = _bitmap;
             }
-            var timeTuple = getTimes(formMapUser);
+            var timeTuple = getTimes(_formMapUser);
             //localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
         /// <summary>
@@ -203,29 +202,29 @@ namespace HistoryMap.WorldMapUsers
         /// <returns></returns>
         private Tuple<LocalDate, LocalDate> getTimes(WorldMapUser formMapUser)
         {
-            LocalDate EndDate = currentDate;
+            var endDate = _currentDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
-                    EndDate = EndDate.PlusDays(1);
+                    endDate = endDate.PlusDays(1);
                     break;
                 case 1:
-                    EndDate = EndDate.PlusDays(7);
+                    endDate = endDate.PlusDays(7);
                     break;
                 case 2:
-                    EndDate = EndDate.PlusMonths(1);
+                    endDate = endDate.PlusMonths(1);
                     break;
                 case 3:
-                    EndDate = EndDate.PlusYears(1);
+                    endDate = endDate.PlusYears(1);
                     break;
                 case 4:
-                    EndDate = EndDate.PlusYears(10);
+                    endDate = endDate.PlusYears(10);
                     break;
                 case 5:
-                    EndDate = EndDate.PlusYears(100);
+                    endDate = endDate.PlusYears(100);
                     break;
             }
-            return new Tuple<LocalDate, LocalDate>(currentDate, EndDate);
+            return new Tuple<LocalDate, LocalDate>(_currentDate, endDate);
         }
         /// <summary>
         /// This handles the displaying of the date modal and then sets the date to the date to currentDate
@@ -239,8 +238,8 @@ namespace HistoryMap.WorldMapUsers
                 var dialogResult = form.ShowDialog();
                 if (dialogResult == DialogResult.OK)
                 {
-                    currentDate = form.returnTime;
-                    formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+                    _currentDate = form.ReturnTime;
+                    _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
                 }
             }
         }
@@ -251,28 +250,28 @@ namespace HistoryMap.WorldMapUsers
         /// <param name="e"></param>
         public void OnLeftArrowClick(object sender, EventArgs e)
         {
-            switch (formMapUser.TimeSkipInterval.SelectedIndex)
+            switch (_formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
-                    currentDate = currentDate.PlusDays(-1);
+                    _currentDate = _currentDate.PlusDays(-1);
                     break;
                 case 1:
-                    currentDate = currentDate.PlusDays(-7);
+                    _currentDate = _currentDate.PlusDays(-7);
                     break;
                 case 2:
-                    currentDate = currentDate.PlusMonths(-1);
+                    _currentDate = _currentDate.PlusMonths(-1);
                     break;
                 case 3:
-                    currentDate = currentDate.PlusYears(-1);
+                    _currentDate = _currentDate.PlusYears(-1);
                     break;
                 case 4:
-                    currentDate = currentDate.PlusYears(-10);
+                    _currentDate = _currentDate.PlusYears(-10);
                     break;
                 case 5:
-                    currentDate = currentDate.PlusYears(-100);
+                    _currentDate = _currentDate.PlusYears(-100);
                     break;
             }
-            formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+            _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
         }
         /// <summary>
         /// this should handle the incrementation of time by the amount selected in the combobox and displays it to the user
@@ -283,8 +282,8 @@ namespace HistoryMap.WorldMapUsers
 
         public void OnRightArrowClick(object sender, EventArgs e)
         {
-            LocalDate verifyDate = currentDate;
-            switch (formMapUser.TimeSkipInterval.SelectedIndex)
+            LocalDate verifyDate = _currentDate;
+            switch (_formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
                     verifyDate = verifyDate.PlusDays(1);
@@ -307,12 +306,12 @@ namespace HistoryMap.WorldMapUsers
             }
             if (verifyDate.Year < DateTime.Today.Year - 20)
             {
-                formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+                _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
             }
             else
             {
                 MessageBox.Show(
-                    "Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
+                    @"Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
             }
         }
     }

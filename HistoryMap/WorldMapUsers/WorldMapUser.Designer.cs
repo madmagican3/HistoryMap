@@ -1,4 +1,4 @@
-﻿namespace HistoryMap
+﻿namespace HistoryMap.WorldMapUsers
 {
     partial class WorldMapUser
     {

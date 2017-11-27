@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Drawing;
-using System.Security.AccessControl;
 using System.Windows.Forms;
 using HistoryMap.Shared_Classes;
-using HistoryMap.WorldMapUsers;
-using static HistoryMap.Properties.Resources;
 using Color = System.Drawing.Color;
 
-namespace HistoryMap
+namespace HistoryMap.WorldMapUsers
 {
     public partial class WorldMapUser : Form
     {
         /// <summary>
         /// This contains a local instance of the drawclass
         /// </summary>
-        readonly DrawClass localDrawClass;
+        readonly DrawClass _localDrawClass;
         /// <summary>
         /// This contains a local instance of the buttoncreationclass
         /// </summary>
-        private readonly ButtonCreationClass localButtonCreationClass;
+        private readonly ButtonCreationClass _localButtonCreationClass;
         /// <summary>
         /// This contains a local instance of the listhandlerclass
         /// </summary>
-        private readonly ListHandlerClass localListHandlerClass;
+        private readonly ListHandlerClass _localListHandlerClass;
 
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
@@ -30,9 +27,9 @@ namespace HistoryMap
         public WorldMapUser()
         {
             InitializeComponent();
-            localDrawClass = new DrawClass(this);
-            localListHandlerClass = new ListHandlerClass(this);
-            localButtonCreationClass = new ButtonCreationClass();
+            _localDrawClass = new DrawClass(this);
+            _localListHandlerClass = new ListHandlerClass(this);
+            _localButtonCreationClass = new ButtonCreationClass();
             worldMapHandler();
             buttonHandler();
             panelHandler();
@@ -40,20 +37,21 @@ namespace HistoryMap
             SettingsIcon.Click += SettingsOpen;
         }
 
-        public void ControlPanelHandler()
+        private void ControlPanelHandler()
         {
             ControlPanel.BackColor = Color.Transparent;
             ControlPanel.Parent = WorldMap;
             TimeSkipInterval.SelectedIndex = 3;
         }
-        public void SettingsOpen(object sender, EventArgs e)
+
+        private void SettingsOpen(object sender, EventArgs e)
         {
             new SettingsForm().Visible = true;
         }
         /// <summary>
         /// This should hold all the other buttons which the user will interact with on the main 
         /// </summary>
-        public void panelHandler()
+        private void panelHandler()
         {
             //make the buttons back colour transparent
             ZoomOutLabel.Parent = WorldMap;
@@ -63,36 +61,36 @@ namespace HistoryMap
             ZoomInLabel.BackColor = Color.Transparent;
             SettingsIcon.BackColor = Color.Transparent;
 
-            ZoomInLabel.Click += localDrawClass.WorldMap_zoomIn;
-            ZoomOutLabel.Click += localDrawClass.WorldMap_ZoomOut;
+            ZoomInLabel.Click += _localDrawClass.WorldMap_zoomIn;
+            ZoomOutLabel.Click += _localDrawClass.WorldMap_ZoomOut;
         }
         /// <summary>
         /// This handles the button creation for the list to the left and the hooks required for it 
         /// </summary>
-        public void buttonHandler()
+        private void buttonHandler()
         {
             //This is so that the transparency actually works
             MaximiseButton.Parent = WorldMap;
             MaximiseButton.BackColor = System.Drawing.Color.Transparent;
             //set up the handlers
-            MaximiseButton.Click += localListHandlerClass.MaximisedScreen;
-            MinButton.Click += localListHandlerClass.MinimisedScreen;
-            InterestingItemsList.SelectedIndexChanged += localListHandlerClass.ChoseItem;
-            SearchTxtBox.KeyPress += localListHandlerClass.Search;
-            SearchIcoLabel.Click += localListHandlerClass.Search;
+            MaximiseButton.Click += _localListHandlerClass.MaximisedScreen;
+            MinButton.Click += _localListHandlerClass.MinimisedScreen;
+            InterestingItemsList.SelectedIndexChanged += _localListHandlerClass.ChoseItem;
+            SearchTxtBox.KeyPress += _localListHandlerClass.Search;
+            SearchIcoLabel.Click += _localListHandlerClass.Search;
         }
         /// <summary>
         /// This creates all the hooks for the worldMap
         /// </summary>
-        public void worldMapHandler()
+        private void worldMapHandler()
         {
-            this.WorldMap.MouseWheel += localDrawClass.WorldMap_MouseWheel;
-            this.WorldMap.MouseUp += localDrawClass.WorldMap_Up;
-            this.WorldMap.SizeChanged += localDrawClass.WorldMap_SizeChanged;
-            this.CurrentDate.Click += localDrawClass.DateHandler;
-            this.SearchIcon.Click += localDrawClass.DateHandler;
-            this.timeSkipArrowLeft.Click += localDrawClass.OnLeftArrowClick;
-            this.timeSkipArrowRight.Click += localDrawClass.OnRightArrowClick;
+            WorldMap.MouseWheel += _localDrawClass.WorldMap_MouseWheel;
+            WorldMap.MouseUp += _localDrawClass.WorldMap_Up;
+            WorldMap.SizeChanged += _localDrawClass.WorldMap_SizeChanged;
+            CurrentDate.Click += _localDrawClass.DateHandler;
+            SearchIcon.Click += _localDrawClass.DateHandler;
+            timeSkipArrowLeft.Click += _localDrawClass.OnLeftArrowClick;
+            timeSkipArrowRight.Click += _localDrawClass.OnRightArrowClick;
         }
         /// <summary>
         /// This will occur on someone resizing the form so as to display the form correctly
@@ -102,13 +100,13 @@ namespace HistoryMap
         private void WorldMapUser_ResizeEnd(object sender, EventArgs e)
         {
             ControlPanel.Left = WorldMap.Width / 2 - (ControlPanel.Width / 2);
-            ControlPanel.Top = Math.Min(WorldMap.Height, this.Height - 60) - 32;
-            MaximiseButton.Location = new Point(0, this.Height / 2);
-            MinButton.Location = new Point(MinButton.Location.X, this.Height / 2);
+            ControlPanel.Top = Math.Min(WorldMap.Height, Height - 60) - 32;
+            MaximiseButton.Location = new Point(0, Height / 2);
+            MinButton.Location = new Point(MinButton.Location.X, Height / 2);
             SettingsIcon.Left = WorldMap.Width - 64;
             ZoomOutLabel.Left = WorldMap.Width - 96;
             ZoomInLabel.Left = WorldMap.Width - 128;
-            InterestingItemsList.Height = this.Height - 40;
+            InterestingItemsList.Height = Height - 40;
         }
 
         private void WorldMapUser_Load(object sender, EventArgs e)
