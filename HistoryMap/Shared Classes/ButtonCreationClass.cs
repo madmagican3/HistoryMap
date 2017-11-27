@@ -25,6 +25,11 @@ namespace HistoryMap.Shared_Classes
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
         List<Label> _buttonControlList = new List<Label>();
+        /// <summary>
+        /// This is used in order to make sure that the method is only running once, if this is not included
+        /// there is a high likelehood of issues with accessing the button array
+        /// </summary>
+        private bool inUse = false;
 
 
 
@@ -34,6 +39,11 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void CreateButtons(WorldMapUser localForm, DrawClass localClass, LocalDate startDate, LocalDate endDate)
         {
+            if (inUse)
+            {
+                return;
+            }
+            inUse = true;
             if (!startDate.Equals(_startDateTime)|| !endDate.Equals(_endDateTime))
             {
                 _startDateTime = startDate;
@@ -76,6 +86,7 @@ namespace HistoryMap.Shared_Classes
                     localForm.Controls.Add(tempButton);
                 }
             }
+            inUse = false;
         }
         /// <summary>
         /// this should calculate its location based on current zoom level, returning -1,-1 means that it's 
