@@ -192,7 +192,7 @@ namespace HistoryMap.Shared_Classes
                 _formMapUser.WorldMap.Image = _bitmap;
             }
             var timeTuple = getTimes(_formMapUser);
-            //localButtonCreationClass.CreateButtons(formMapUser, this,timeTuple.Item1,timeTuple.Item2);
+            _localButtonCreationClass.CreateButtons(_formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
         /// <summary>
         /// This should get the start and end date for the sql statement by adding a value of the combobox to a second date and then returning

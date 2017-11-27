@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
+using NodaTime;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -11,11 +12,11 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is the end date time for the _buttonsForTimePeriodList
         /// </summary>
-        private DateTime _endDateTime;
+        private LocalDate _endDateTime = new LocalDate();
         /// <summary>
         /// This is the start date time for the _buttonsForTimePeriodList
         /// </summary>
-        private DateTime _startDateTime;
+        private LocalDate _startDateTime = new LocalDate();
         /// <summary>
         /// This is a list for all the dates in the time period stored in the global date 
         /// </summary>
@@ -31,10 +32,12 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// this creates and displays all the buttons that should be shown on the ui at this point in time
         /// </summary>
-        public void CreateButtons(WorldMapUser localForm, DrawClass localClass, DateTime startDate, DateTime endDate)
+        public void CreateButtons(WorldMapUser localForm, DrawClass localClass, LocalDate startDate, LocalDate endDate)
         {
-            if (startDate != _startDateTime || endDate != _endDateTime)
+            if (!startDate.Equals(_startDateTime)|| !endDate.Equals(_endDateTime))
             {
+                _startDateTime = startDate;
+                _endDateTime = endDate;
                 GetButtons(startDate, endDate);
             }
             //get rid of all the old buttons
@@ -95,9 +98,10 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This should update the _buttonsForTimePeriod list
         /// </summary>
-        private void GetButtons(DateTime startDate, DateTime endDate)
+        private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
-
+            ButtonStorage testButton = new ButtonStorage(new Point(100,100),"City", "This is a test object", 0 );
+            _buttonsForTimePeriodList.Add(testButton);
         }
     }
 }
