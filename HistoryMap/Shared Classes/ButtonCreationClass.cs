@@ -39,11 +39,13 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void CreateButtons(WorldMapUser localForm, DrawClass localClass, LocalDate startDate, LocalDate endDate)
         {
+            //this had issues with being accessed multiple times on original load, added this to stop issues with pointers
             if (inUse)
             {
                 return;
             }
             inUse = true;
+            //if we have a new time
             if (!startDate.Equals(_startDateTime) || !endDate.Equals(_endDateTime))
             {
                 _startDateTime = startDate;

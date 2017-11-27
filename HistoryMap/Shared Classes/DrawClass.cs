@@ -99,19 +99,23 @@ namespace HistoryMap.Shared_Classes
             var yClicked = (int)(heightD) + RenderRectangle.Y;
             return new Point(xClicked, yClicked);
         }
-
+        /// <summary>
+        /// Calculates the maps actual locations of a specified point in relation to the UI and returns a point with the updated values based on 
+        /// the UI
+        /// </summary>
         public Point CalculateMapToUi(int x, int y)
         {
-            // width/height delta
+            // remove the top left coordinate of the cropped location stored in renderrectangle
             x -= RenderRectangle.X;
             y -= RenderRectangle.Y;
-            //Ratio between the rectangle size we are rendering, including zoom level
+            //work out the ratio between the rectangle size we are rendering including zoom level
             var ratioX = RenderRectangle.Width / (double)_formMapUser.WorldMap.Width;
             var ratioY = RenderRectangle.Height / (double)_formMapUser.WorldMap.Height;
-            //Calculate the actual width across the cropped image you are pressing
+            
+            //calculate the actual width across the UI
             var newX = (x / ratioX);
             var newY = (y / ratioY);
-            //Add on the top left coordinate of the cropped location, stored in renderRectangle
+            //return the point
             return new Point((int)newX, (int)newY);
         }
 
