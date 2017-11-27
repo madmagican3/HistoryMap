@@ -48,7 +48,7 @@ namespace HistoryMap.Shared_Classes
             //empty the list
             _buttonControlList.Clear();
             //Check if we should continue to attempt to draw the buttons on
-            if (DrawClass._zoom < 1.5 || DrawClass._zoom > 25)
+            if (DrawClass.Zoom < 1.5 || DrawClass.Zoom > 25)
             {
                 foreach (var localButtonStorage in _buttonsForTimePeriodList)
                 {
@@ -56,8 +56,8 @@ namespace HistoryMap.Shared_Classes
                     //If the point returned is invalid we no longer want to add the label to the list
                     if (location.X == -1 && location.Y == -1 ) {}
                     //If they should be drawn at this view level
-                    else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass._zoom < 1.5)) ||
-                        (localButtonStorage.viewLevel > 25) && (DrawClass._zoom > 25))
+                    else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass.Zoom < 1.5)) ||
+                        (localButtonStorage.viewLevel > 25) && (DrawClass.Zoom > 25))
                     {
                         //Create the label and assign it the correct values
                         Label tempButton = new Label();

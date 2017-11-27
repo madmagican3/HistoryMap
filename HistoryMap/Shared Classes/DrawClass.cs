@@ -27,7 +27,7 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         /// This tracks the current zoom level
         /// </summary>
-        public static double _zoom = 1;
+        public static double Zoom = 1;
         /// <summary>
         /// these track the level of max and min zoom along with the zoom increment
         /// </summary>
@@ -104,8 +104,8 @@ namespace HistoryMap.WorldMapUsers
         {
             //Create the point we clicked, as well as the width/height of the zoomed in area.
             var point = new Point(clicked.X, clicked.Y);
-            var width = LocalMap.Width / _zoom;
-            var height = LocalMap.Height / _zoom;
+            var width = LocalMap.Width / Zoom;
+            var height = LocalMap.Height / Zoom;
 
             var widthD = (int)(width / 2);
             var heightD = (int)(height / 2);
@@ -132,7 +132,7 @@ namespace HistoryMap.WorldMapUsers
         public void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
             //First increment/decriment the zoom level depending on direction of scroll
-            _zoom = e.Delta > 0 ? Math.Min(_zoom * ZoomIncrement, MaxZoom) : Math.Max(_zoom / ZoomIncrement, MinZoom);
+            Zoom = e.Delta > 0 ? Math.Min(Zoom * ZoomIncrement, MaxZoom) : Math.Max(Zoom / ZoomIncrement, MinZoom);
             //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
             var actualClickPoint = CalculateActualMouseClick(e.X, e.Y);
 
@@ -146,7 +146,7 @@ namespace HistoryMap.WorldMapUsers
         public void WorldMap_zoomIn(object sender, EventArgs e)
         {
             //first increment the _zoom level
-            _zoom = Math.Min(_zoom * ZoomIncrement, MaxZoom);
+            Zoom = Math.Min(Zoom * ZoomIncrement, MaxZoom);
             //calculate the actual center area
             var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width / 2, formMapUser.WorldMap.Height / 2);
             //then calculate the area of the map to render and render it
@@ -159,7 +159,7 @@ namespace HistoryMap.WorldMapUsers
         public void WorldMap_ZoomOut(object sender, EventArgs e)
         {
             //first increment the zoom level
-            _zoom = Math.Max(_zoom / ZoomIncrement, MinZoom);
+            Zoom = Math.Max(Zoom / ZoomIncrement, MinZoom);
             //then calculte the actual center area
             var actualClickPoint = CalculateActualMouseClick(formMapUser.WorldMap.Width / 2, formMapUser.WorldMap.Height / 2);
             //then calculate the area of the map to render and render it
@@ -272,7 +272,7 @@ namespace HistoryMap.WorldMapUsers
                     currentDate = currentDate.PlusYears(-100);
                     break;
             }
-            formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+            formMapUser.CurrentDate.Text = currentDate.ToString() + @" " + currentDate.Era;
         }
         /// <summary>
         /// this should handle the incrementation of time by the amount selected in the combobox and displays it to the user
@@ -307,12 +307,12 @@ namespace HistoryMap.WorldMapUsers
             }
             if (verifyDate.Year < DateTime.Today.Year - 20)
             {
-                formMapUser.CurrentDate.Text = currentDate.ToString() + " " + currentDate.Era;
+                formMapUser.CurrentDate.Text = currentDate.ToString() + @" " + currentDate.Era;
             }
             else
             {
                 MessageBox.Show(
-                    "Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
+                    @"Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
             }
         }
     }
