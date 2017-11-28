@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -27,13 +28,13 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
 
         //TODO make sure you warn the user that they should not use these chars
-        public string Text { get; }
+        public Dictionary<string, string> Text { get; }
         /// <summary>
         /// This is an int for showing what sort of zoom level this should be displayed at. Currently 0
         /// is max zoom level and 1 is min zoom level, int for further expansion if required
         /// </summary>
         public int ViewLevel { get; }
-        public GenericLabelForWorldMap(Point buttonCenterPoint, string type, string text, int viewLevel, int height, int width)
+        public GenericLabelForWorldMap(Point buttonCenterPoint, string type, Dictionary<string,string> text, int viewLevel, int height, int width)
         {
             this.ButtonCenterPoint = buttonCenterPoint;
             this.Type = type;

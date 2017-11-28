@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
@@ -25,7 +26,7 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         List<Label> _buttonControlList = new List<Label>();
         /// <summary>
-        /// This is used in order to make sure that the method is only running once, if this is not included
+        /// This is used in order to make sure that the method is only running once, if this is not included    
         /// there is a high likelehood of issues with accessing the button array
         /// </summary>
         private bool _inUse = false;
@@ -74,6 +75,11 @@ namespace HistoryMap.Shared_Classes
                         Image = Properties.Resources.icons8_marker_50,
                         Location = location.Value,
                     };
+                    tempButton.Click += (a, b) =>
+                    {
+                      InformationPanel infoPanel = new InformationPanel(localButtonStorage.Text);
+                        infoPanel.ShowDialog();
+                    };
                     //set up transparency
                     tempButton.BackColor = Color.Transparent;
                     tempButton.Parent = localForm.WorldMap;
@@ -89,6 +95,7 @@ namespace HistoryMap.Shared_Classes
 
             _inUse = false;
         }
+
         /// <summary>
         /// this should calculate its location based on current zoom level, returning -1,-1 means that it's 
         /// not viewable at the stated view level
@@ -116,7 +123,10 @@ namespace HistoryMap.Shared_Classes
         private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
             _buttonsForTimePeriodList.Clear();
-            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City", "This is a test object", 0, 50, 50);
+            Dictionary<string,string> testString = new Dictionary<string, string>(){
+                { "Test", "value" }
+                };
+            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString , 0, 50, 50);
             _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);
         }
     }
