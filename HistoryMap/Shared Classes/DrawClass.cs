@@ -145,7 +145,7 @@ namespace HistoryMap.Shared_Classes
             point.X = Math.Max(0, point.X - widthD);
             point.Y = Math.Max(0, point.Y - heightD);
 
-            //If we went above the maximum X,Y to be able to render wholly on the screen, offset the render
+            //If we went above the maximmaximum X,Y to be able to render wholly on the screen, offset the render
             if (point.X > _localMap.Width - width)
                 point.X = (int)(_localMap.Width - width);
 

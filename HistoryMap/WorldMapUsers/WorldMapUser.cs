@@ -28,6 +28,7 @@ namespace HistoryMap.WorldMapUsers
             worldMapHandler();
             buttonHandler();
             panelHandler();
+            InterestingListHandler();
             ControlPanelHandler();
             SettingsIcon.Click += SettingsOpen;
         }
@@ -37,6 +38,15 @@ namespace HistoryMap.WorldMapUsers
             ControlPanel.BackColor = Color.Transparent;
             ControlPanel.Parent = WorldMap;
             TimeSkipInterval.SelectedIndex = 3;
+        }
+
+        private void InterestingListHandler()
+        {
+            ListPanel.BackColor = Color.Transparent;
+            ListPanel.Parent = WorldMap;
+            ListPanel.Enabled = false;
+            ListPanel.Visible = false;
+            MaximiseButton.Visible = true;
         }
 
         private void SettingsOpen(object sender, EventArgs e)
