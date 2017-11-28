@@ -39,7 +39,9 @@ namespace HistoryMap.WorldMapUsers
             ControlPanel.Parent = WorldMap;
             TimeSkipInterval.SelectedIndex = 3;
         }
-
+        /// <summary>
+        /// this sets up the list handler panel and makes it so it doesnt start off visible
+        /// </summary>
         private void InterestingListHandler()
         {
             ListPanel.BackColor = Color.Transparent;
