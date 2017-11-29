@@ -77,7 +77,8 @@ namespace HistoryMap.Shared_Classes
             }
             foreach (var id in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
             {
-               if (id.name.Equals(_formUser.InterestingItemsList.Items[_formUser.InterestingItemsList.SelectedIndex]))
+                _formUser._localDrawClass.CenterOnButton(id.ButtonCenterPoint);
+                if (id.name.Equals(_formUser.InterestingItemsList.Items[_formUser.InterestingItemsList.SelectedIndex]))
                 {
                     InformationPanel infoPanel = new InformationPanel(id.Text);
                     infoPanel.ShowDialog();

@@ -172,6 +172,18 @@ namespace HistoryMap.Shared_Classes
             RenderMap();
         }
         /// <summary>
+        /// This event is used to center on a button when the list is pressed
+        /// </summary>
+        public void CenterOnButton(Point locationOfButton)
+        {
+            //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
+            Zoom = MaxZoom / 2;
+
+            //Now we have the actual click location on the image, calculate the area to render
+            RenderRectangle = CalculateRenderArea(locationOfButton);
+            RenderMap();
+        }
+        /// <summary>
         /// This handles the zoom in from the button, zooming in on the center of the screen
         /// </summary>
         public void WorldMap_zoomIn(object sender, EventArgs e)
@@ -211,7 +223,6 @@ namespace HistoryMap.Shared_Classes
             RenderRectangle = CalculateRenderArea(actualClickPoint);
             RenderMap();
         }
-
         private void RenderMap()
         {
             //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
