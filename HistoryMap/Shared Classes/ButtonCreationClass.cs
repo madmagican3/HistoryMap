@@ -45,13 +45,15 @@ namespace HistoryMap.Shared_Classes
                 return;
             }
             _inUse = true;
-            //if we have a new time
-            if (!startDate.Equals(_startDateTime) || !endDate.Equals(_endDateTime))
+            //if we dont have a new time
+            if (startDate.Equals(_startDateTime) || endDate.Equals(_endDateTime))
             {
-                _startDateTime = startDate;
-                _endDateTime = endDate;
-                GetButtons(startDate, endDate);
+                return;
             }
+            _startDateTime = startDate;
+            _endDateTime = endDate;
+            GetButtons(startDate, endDate);
+            localForm.InterestingItemsList.Items.Clear();
             //get rid of all the old buttons
             foreach (var tempButton in _buttonControlList)
             {
@@ -80,6 +82,7 @@ namespace HistoryMap.Shared_Classes
                       InformationPanel infoPanel = new InformationPanel(localButtonStorage.Text);
                         infoPanel.ShowDialog();
                     };
+                    localForm.InterestingItemsList.Items.Add(localButtonStorage.name);
                     //set up transparency
                     tempButton.BackColor = Color.Transparent;
                     tempButton.Parent = localForm.WorldMap;
@@ -126,7 +129,7 @@ namespace HistoryMap.Shared_Classes
             Dictionary<string,string> testString = new Dictionary<string, string>(){
                 { "Test", "value" }
                 };
-            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString , 0, 50, 50);
+            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString , 0, 50, 50, "Test Event");
             _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);
         }
     }

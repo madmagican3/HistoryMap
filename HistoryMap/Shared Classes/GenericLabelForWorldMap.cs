@@ -33,8 +33,13 @@ namespace HistoryMap.Shared_Classes
         /// This is an int for showing what sort of zoom level this should be displayed at. Currently 0
         /// is max zoom level and 1 is min zoom level, int for further expansion if required
         /// </summary>
+        //TODO DEPRECATED, remove all references to this
         public int ViewLevel { get; }
-        public GenericLabelForWorldMap(Point buttonCenterPoint, string type, Dictionary<string,string> text, int viewLevel, int height, int width)
+        /// <summary>
+        /// This should be a ID for the list
+        /// </summary>
+        public string name { get; }
+        public GenericLabelForWorldMap(Point buttonCenterPoint, string type, Dictionary<string,string> text, int viewLevel, int height, int width, string id)
         {
             this.ButtonCenterPoint = buttonCenterPoint;
             this.Type = type;
@@ -42,6 +47,7 @@ namespace HistoryMap.Shared_Classes
             this.ViewLevel = viewLevel;
             this.Height = height;
             this.Width = width;
+            this.name = id;
         }
     }
 }

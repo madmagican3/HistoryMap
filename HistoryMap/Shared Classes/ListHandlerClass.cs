@@ -33,8 +33,6 @@ namespace HistoryMap.Shared_Classes
             _formUser.ListPanel.Parent = _formUser.WorldMap;
             _formUser.ListPanel.BackColor = Color.Transparent;
             _formUser.MaximiseButton.Visible = false;
-            //popList();
-            //TODO
         }
 
         public void MinimisedScreen(object sender, EventArgs e)
@@ -42,7 +40,6 @@ namespace HistoryMap.Shared_Classes
             _formUser.ListPanel.Enabled = false;
             _formUser.ListPanel.Visible = false;
             _formUser.MaximiseButton.Visible = true;
-            //TODO
         }
         /// <summary>
         /// This handles either pressing the button or the key press, gotta do a check on 
@@ -61,14 +58,6 @@ namespace HistoryMap.Shared_Classes
             //TODO
         }
 
-        /// <summary>
-        /// This should populate the list contained in the panel
-        /// </summary>
-        public void PopList()
-        {
-            //TODO
-            List<ButtonCreationClass> interestingStuffList = LocalSqlGetter.GetListFromDateSelection(new DateTime(), new DateTime());
 
-        }
     }
 }
