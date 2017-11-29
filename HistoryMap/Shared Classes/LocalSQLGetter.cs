@@ -11,6 +11,15 @@ namespace HistoryMap.Shared_Classes
     {
         public static Dictionary<Color, List<Point>> GetCountries(DateTime currentTime)
         {
+            return new Dictionary<Color, List<Point>>()
+            {
+                {
+                    Color.Blue, new List<Point>()
+                    {
+                        new Point(0,0),new Point(0,200), new Point (20,200), new Point(200,200), new Point(0,50)
+                    }
+                }
+            };
             return null;
         }
         /// <summary>
