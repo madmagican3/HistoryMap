@@ -100,7 +100,6 @@ namespace HistoryMap.Shared_Classes
             var yClicked = (int)(heightD) + RenderRectangle.Y;
             return new Point(xClicked, yClicked);
         }
-        //TODO this is the same as above so just make it work with that
         /// <summary>
         /// Ratio between the rectangle size we are rendering, including zoom level
         /// </summary>
@@ -161,7 +160,6 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //TODO look into moving renderMap into renderRectangle
         public void WorldMap_MouseWheel(object sender, MouseEventArgs e)
         {
             //First increment/decriment the zoom level depending on direction of scroll

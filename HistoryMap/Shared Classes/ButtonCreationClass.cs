@@ -46,14 +46,18 @@ namespace HistoryMap.Shared_Classes
             }
             _inUse = true;
             //if we dont have a new time
-            if (startDate.Equals(_startDateTime) || endDate.Equals(_endDateTime))
+            //if we have a new time
+            if (!startDate.Equals(_startDateTime) || !endDate.Equals(_endDateTime))
             {
-                return;
+                _startDateTime = startDate;
+                _endDateTime = endDate;
+                GetButtons(startDate, endDate);
+                localForm.InterestingItemsList.Items.Clear();
+                foreach (var localButtonStorage in _buttonsForTimePeriodList)
+                {
+                    localForm.InterestingItemsList.Items.Add(localButtonStorage.name);
+                }
             }
-            _startDateTime = startDate;
-            _endDateTime = endDate;
-            GetButtons(startDate, endDate);
-            localForm.InterestingItemsList.Items.Clear();
             //get rid of all the old buttons
             foreach (var tempButton in _buttonControlList)
             {
@@ -82,7 +86,6 @@ namespace HistoryMap.Shared_Classes
                       InformationPanel infoPanel = new InformationPanel(localButtonStorage.Text);
                         infoPanel.ShowDialog();
                     };
-                    localForm.InterestingItemsList.Items.Add(localButtonStorage.name);
                     //set up transparency
                     tempButton.BackColor = Color.Transparent;
                     tempButton.Parent = localForm.WorldMap;

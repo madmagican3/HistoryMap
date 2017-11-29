@@ -20,7 +20,6 @@ namespace HistoryMap.Shared_Classes
                     }
                 }
             };
-            return null;
         }
         /// <summary>
         /// This takes the dataset and then selects the rows based on the command and passes the databset back
