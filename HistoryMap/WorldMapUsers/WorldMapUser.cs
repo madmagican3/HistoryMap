@@ -11,7 +11,7 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         /// This contains a local instance of the drawclass
         /// </summary>
-        readonly DrawClass _localDrawClass;
+        public readonly DrawClass _localDrawClass;
         /// <summary>
         /// This contains a local instance of the listhandlerclass
         /// </summary>
@@ -83,7 +83,8 @@ namespace HistoryMap.WorldMapUsers
             MaximiseButton.Click += _localListHandlerClass.MaximisedScreen;
             MinButton.Click += _localListHandlerClass.MinimisedScreen;
             InterestingItemsList.SelectedIndexChanged += _localListHandlerClass.ChoseItem;
-            SearchTxtBox.KeyPress += _localListHandlerClass.Search;
+            
+            SearchTxtBox.KeyPress += _localListHandlerClass.KeyPress;
             SearchIcoLabel.Click += _localListHandlerClass.Search;
         }
         /// <summary>

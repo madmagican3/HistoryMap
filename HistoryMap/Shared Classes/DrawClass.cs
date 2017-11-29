@@ -44,8 +44,9 @@ namespace HistoryMap.Shared_Classes
 
         /// <summary>
         /// This is a pointer to the button creation class so as to allow us to draw the buttons whenever we render/re-render the map
+        /// it's public as listHandlerClass needs access
         /// </summary>
-        private ButtonCreationClass _localButtonCreationClass = new ButtonCreationClass();
+        public ButtonCreationClass LocalButtonCreationClass = new ButtonCreationClass();
 
         /// <summary>
         /// Draws the map at the current zoom level to the main UI
@@ -225,7 +226,7 @@ namespace HistoryMap.Shared_Classes
                 _formMapUser.WorldMap.Image = _bitmap;
             }
             var timeTuple = GetTimes(_formMapUser);
-            _localButtonCreationClass.CreateButtons(_formMapUser, this,timeTuple.Item1,timeTuple.Item2);
+            LocalButtonCreationClass.CreateButtons(_formMapUser, this,timeTuple.Item1,timeTuple.Item2);
         }
         /// <summary>
         /// This should get the start and end date for the sql statement by adding a value of the combobox to a second date and then returning

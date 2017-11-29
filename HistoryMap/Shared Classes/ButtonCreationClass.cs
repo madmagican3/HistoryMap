@@ -7,7 +7,7 @@ using NodaTime;
 
 namespace HistoryMap.Shared_Classes
 {
-    class ButtonCreationClass
+    public class ButtonCreationClass
     {
         /// <summary>
         /// This is the end date time for the _buttonsForTimePeriodList
@@ -20,7 +20,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is a list for all the dates in the time period stored in the global date 
         /// </summary>
-        private readonly List<GenericLabelForWorldMap> _buttonsForTimePeriodList = new List<GenericLabelForWorldMap>();
+        public readonly List<GenericLabelForWorldMap> _buttonsForTimePeriodList = new List<GenericLabelForWorldMap>();
         /// <summary>
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
@@ -129,7 +129,7 @@ namespace HistoryMap.Shared_Classes
             Dictionary<string,string> testString = new Dictionary<string, string>(){
                 { "Test", "value" }
                 };
-            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString , 0, 50, 50, "Test Event");
+            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString ,  50, 50, "Test Event");
             _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);
         }
     }

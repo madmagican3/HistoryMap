@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
 
 namespace HistoryMap.Shared_Classes
@@ -47,7 +48,22 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void Search(object sender, EventArgs e)
         {
-            //TODO
+            String searchVal = _formUser.SearchTxtBox.Text;
+            _formUser.SearchTxtBox.Text = "";
+            _formUser.InterestingItemsList.Items.Clear();
+            foreach (var text in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
+            {
+                if (text.name.Contains(searchVal)|| text.Type.Equals(searchVal))
+                {
+                    _formUser.InterestingItemsList.Items.Add(text.name);
+                }
+            }
+        }
+
+        public void KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+                Search(this, EventArgs.Empty);
         }
         /// <summary>
         /// This should display the item, focus the world map on that item and then
@@ -55,9 +71,18 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void ChoseItem(object sender, EventArgs e)
         {
-            //TODO
+            if (_formUser.InterestingItemsList.SelectedIndex == -1)
+            {
+                return;
+            }
+            foreach (var id in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
+            {
+               if (id.name.Equals(_formUser.InterestingItemsList.Items[_formUser.InterestingItemsList.SelectedIndex]))
+                {
+                    InformationPanel infoPanel = new InformationPanel(id.Text);
+                    infoPanel.ShowDialog();
+                }
+            }
         }
-
-
     }
 }
