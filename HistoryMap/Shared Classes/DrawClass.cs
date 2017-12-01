@@ -347,8 +347,9 @@ namespace HistoryMap.Shared_Classes
                     verifyDate = verifyDate.PlusYears(100);
                     break;
             }
-            if (verifyDate.Year < DateTime.Today.Year - 20)
+            if (verifyDate.Era == Era.Common||verifyDate.Year < DateTime.Today.Year - 20 )
             {
+                _currentDate = verifyDate;
                 _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
             }
             else
