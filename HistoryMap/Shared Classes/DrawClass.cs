@@ -17,7 +17,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This should hold the date the user is looking at currently
         /// </summary>
-        private LocalDate _currentDate = new LocalDate(Era.Common, 302, 6, 1);
+        private LocalDate _currentDate = new LocalDate(Era.BeforeCommon, 302, 6, 1);
 
         /// <summary>
         /// This is the rectangle we render into
@@ -347,15 +347,15 @@ namespace HistoryMap.Shared_Classes
                     verifyDate = verifyDate.PlusYears(100);
                     break;
             }
-            if (verifyDate.Era == Era.Common||verifyDate.Year < DateTime.Today.Year - 20 )
-            {
-                _currentDate = verifyDate;
-                _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
-            }
-            else
+            if (verifyDate.Era == Era.Common&&verifyDate.Year > DateTime.Today.Year - 20 )
             {
                 MessageBox.Show(
                     @"Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
+            }
+            else
+            {
+                _currentDate = verifyDate;
+                _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
             }
         }
     }
