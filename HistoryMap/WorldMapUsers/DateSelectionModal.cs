@@ -25,8 +25,7 @@ namespace HistoryMap.WorldMapUsers
             {
                 TimeFrame.SelectedIndex = 1;
             }
-            DateTime tempDate = startDate.ToDateTimeUnspecified();
-            dateTimePicker1.Value = new DateTime(1753, tempDate.Month,tempDate.Day);
+            dateTimePicker1.Value = new DateTime(1753, startDate.Month,startDate.Day);
         }
 
         /// <summary>
