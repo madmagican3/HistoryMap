@@ -19,11 +19,11 @@ namespace HistoryMap.WorldMapUsers
             Year.Text = startDate.Year.ToString();
             if (startDate.Era == Era.Common)
             {
-                TimeFrame.SelectedIndex = 1;
+                TimeFrame.SelectedIndex = 0;
             }
             else
             {
-                TimeFrame.SelectedIndex = 0;
+                TimeFrame.SelectedIndex = 1;
             }
             dateTimePicker1.Value = new DateTime(1753, startDate.Month,startDate.Day);
         }
