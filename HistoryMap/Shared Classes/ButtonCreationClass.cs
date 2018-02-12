@@ -1,44 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
+using NodaTime;
 
 namespace HistoryMap.Shared_Classes
 {
-    class ButtonCreationClass
+    public class ButtonCreationClass
     {
         /// <summary>
         /// This is the end date time for the _buttonsForTimePeriodList
         /// </summary>
-        private DateTime endDateTime;
+        private LocalDate _endDateTime = new LocalDate();
         /// <summary>
         /// This is the start date time for the _buttonsForTimePeriodList
         /// </summary>
-        private DateTime startDateTime;
+        private LocalDate _startDateTime = new LocalDate();
         /// <summary>
         /// This is a list for all the dates in the time period stored in the global date 
         /// </summary>
-        private List<ButtonStorage> _buttonsForTimePeriodList = new List<ButtonStorage>();
+        public readonly List<GenericLabelForWorldMap> _buttonsForTimePeriodList = new List<GenericLabelForWorldMap>();
         /// <summary>
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
         List<Label> _buttonControlList = new List<Label>();
+        /// <summary>
+        /// This is used in order to make sure that the method is only running once, if this is not included    
+        /// there is a high likelehood of issues with accessing the button array
+        /// </summary>
+        private bool _inUse = false;
 
 
-   
+
 
         /// <summary>
         /// this creates and displays all the buttons that should be shown on the ui at this point in time
         /// </summary>
-        public void CreateButtons(WorldMapUser localForm, DrawClass localClass, DateTime startDate, DateTime endDate)
+        public void CreateButtons(WorldMapUser localForm, DrawClass localClass, LocalDate startDate, LocalDate endDate)
         {
-            if (startDate != startDateTime || endDate != endDateTime)
+            //this had issues with being accessed multiple times on original load, added this to stop issues with pointers
+            if (_inUse)
             {
-                GetButtons(startDate,endDate);   
+                return;
+            }
+            _inUse = true;
+            //if we dont have a new time
+            //if we have a new time
+            if (!startDate.Equals(_startDateTime) || !endDate.Equals(_endDateTime))
+            {
+                _startDateTime = startDate;
+                _endDateTime = endDate;
+                GetButtons(startDate, endDate);
+                localForm.InterestingItemsList.Items.Clear();
+                foreach (var localButtonStorage in _buttonsForTimePeriodList)
+                {
+                    localForm.InterestingItemsList.Items.Add(localButtonStorage.name);
+                }
             }
             //get rid of all the old buttons
             foreach (var tempButton in _buttonControlList)
@@ -48,59 +66,74 @@ namespace HistoryMap.Shared_Classes
             //empty the list
             _buttonControlList.Clear();
             //Check if we should continue to attempt to draw the buttons on
-            if (DrawClass._zoom < 1.5 || DrawClass._zoom > 25)
+            foreach (var localButtonStorage in _buttonsForTimePeriodList)
             {
-                foreach (var localButtonStorage in _buttonsForTimePeriodList)
+                Point? location = ButtonLocation(localClass, localButtonStorage);
+                //If the point returned is invalid we no longer want to add the label to the list
+                if (!location.HasValue) { }
+                else
                 {
-                    Point location = ButtonLocation(localForm, localClass, localButtonStorage);
-                    //If the point returned is invalid we no longer want to add the label to the list
-                    if (location.X == -1 && location.Y == -1 ) {}
-                    //If they should be drawn at this view level
-                    else if ((localButtonStorage.viewLevel < 1.5 && (DrawClass._zoom < 1.5)) ||
-                        (localButtonStorage.viewLevel > 25) && (DrawClass._zoom > 25))
+                    //Create the label and assign it the correct values
+                    Label tempButton = new Label
                     {
-                        //Create the label and assign it the correct values
-                        Label tempButton = new Label();
-                        tempButton.Height = 32;
-                        tempButton.Width = 32;
-                        tempButton.Image = HistoryMap.Properties.Resources.if_thefreeforty_location_1243686;
-                        tempButton.Location = ButtonLocation(localForm,localClass, localButtonStorage);
-                        //set up transparency
-                        tempButton.Parent = localForm.WorldMap;
-                        _buttonControlList.Add(tempButton);
-                    }
+                        Height = 50,
+                        Width = 50,
+                        Image = Properties.Resources.icons8_marker_50,
+                        Location = location.Value,
+                    };
+                    tempButton.Click += (a, b) =>
+                    {
+                      InformationPanel infoPanel = new InformationPanel(localButtonStorage.Text);
+                        infoPanel.ShowDialog();
+                    };
+                    //set up transparency
+                    tempButton.BackColor = Color.Transparent;
+                    tempButton.Parent = localForm.WorldMap;
+                    //add it to the list
+                    _buttonControlList.Add(tempButton);
                 }
-                //add it to the control list for later removal
-                foreach (var tempButton in _buttonControlList)
-                {
-                    localForm.Controls.Add(tempButton);
-                }
-            }           
+            }
+            //add it to the control list for later removal
+            foreach (var tempButton in _buttonControlList)
+            {
+                localForm.WorldMap.Controls.Add(tempButton);
+            }
+
+            _inUse = false;
         }
+
         /// <summary>
         /// this should calculate its location based on current zoom level, returning -1,-1 means that it's 
         /// not viewable at the stated view level
         /// </summary>
-        private Point ButtonLocation(WorldMapUser localForm, DrawClass localDrawClass, ButtonStorage localStorage)
+        private Point? ButtonLocation(DrawClass localDrawClass, GenericLabelForWorldMap local)
         {
-            Point localPoint = localDrawClass.CalculateActualMouseClick(localStorage.ButtonCenterPoint.X,
-                localStorage.ButtonCenterPoint.Y);
-            if (localPoint.X < 0 || localPoint.X > localForm.WorldMap.Height|| localPoint.Y < 0 || localPoint.Y > localForm.WorldMap.Width )
-            {
-                return new Point(-1, -1);
-            }
-            else
-            {
-                return localPoint;
-            }
+            //this is to offset it to get it to the correct location
+            var ratios = localDrawClass.GetUiToMapRatio();
+            var xOffset = (local.Width / 2) * ratios.Item1;
+            var yOffset = local.Height * ratios.Item2;
+
+            var localPoint = local.ButtonCenterPoint;
+            var renderRect = localDrawClass.RenderRectangle;
+            //Check the point is in the render rectangle
+            if (!renderRect.Contains(localPoint))
+                return null;
+            //The point is in the render rectangle of map - so lets translate back.
+            //The Mouse point should be zoomed in to - so we want to center it [0,0 is min coords]
+            return localDrawClass.CalculateMapToUi((int)(localPoint.X - xOffset), (int)(localPoint.Y - yOffset));
         }
 
         /// <summary>
         /// This should update the _buttonsForTimePeriod list
         /// </summary>
-        private void GetButtons(DateTime startDate, DateTime endDate)
+        private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
-
+            _buttonsForTimePeriodList.Clear();
+            Dictionary<string,string> testString = new Dictionary<string, string>(){
+                { "Test", "value" }
+                };
+            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString ,  50, 50, "Test Event");
+            _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);
         }
     }
 }

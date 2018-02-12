@@ -63,6 +63,16 @@ namespace HistoryMap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_marker_50 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_marker_50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap if_057_CircledArrowLeft_183186 {
             get {
                 object obj = ResourceManager.GetObject("if_057_CircledArrowLeft_183186", resourceCulture);

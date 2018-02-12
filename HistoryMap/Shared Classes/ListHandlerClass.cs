@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using HistoryMap.WorldMapUsers;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -15,12 +14,12 @@ namespace HistoryMap.Shared_Classes
         /// <param name="formUser"></param>
         public ListHandlerClass(WorldMapUser formUser)
         {
-            this.formUser = formUser;
+            this._formUser = formUser;
         }
         /// <summary>
         /// local pointer to our original form
         /// </summary>
-        private WorldMapUser formUser;
+        private WorldMapUser _formUser;
 
         /// <summary>
         /// This should maximise the list and populate it 
@@ -30,21 +29,18 @@ namespace HistoryMap.Shared_Classes
         public void MaximisedScreen(object sender, EventArgs e)
         {
             //Sets the panel and all subsidiaries to be transparent
-            formUser.ListPanel.Enabled = true;
-            formUser.ListPanel.Visible = true;
-            formUser.ListPanel.Parent = formUser.WorldMap;
-            formUser.ListPanel.BackColor = Color.Transparent;
-            formUser.MaximiseButton.Visible = false;
-            //popList();
-            //TODO
+            _formUser.ListPanel.Enabled = true;
+            _formUser.ListPanel.Visible = true;
+            _formUser.ListPanel.Parent = _formUser.WorldMap;
+            _formUser.ListPanel.BackColor = Color.Transparent;
+            _formUser.MaximiseButton.Visible = false;
         }
 
         public void MinimisedScreen(object sender, EventArgs e)
         {
-            formUser.ListPanel.Enabled = false;
-            formUser.ListPanel.Visible = false;
-            formUser.MaximiseButton.Visible = true;
-            //TODO
+            _formUser.ListPanel.Enabled = false;
+            _formUser.ListPanel.Visible = false;
+            _formUser.MaximiseButton.Visible = true;
         }
         /// <summary>
         /// This handles either pressing the button or the key press, gotta do a check on 
@@ -52,7 +48,22 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void Search(object sender, EventArgs e)
         {
-            //TODO
+            String searchVal = _formUser.SearchTxtBox.Text;
+            _formUser.SearchTxtBox.Text = "";
+            _formUser.InterestingItemsList.Items.Clear();
+            foreach (var text in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
+            {
+                if (text.name.Contains(searchVal)|| text.Type.Equals(searchVal))
+                {
+                    _formUser.InterestingItemsList.Items.Add(text.name);
+                }
+            }
+        }
+
+        public void KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+                Search(this, EventArgs.Empty);
         }
         /// <summary>
         /// This should display the item, focus the world map on that item and then
@@ -60,17 +71,19 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void ChoseItem(object sender, EventArgs e)
         {
-            //TODO
-        }
-
-        /// <summary>
-        /// This should populate the list contained in the panel
-        /// </summary>
-        public void PopList()
-        {
-            //TODO
-            List<ButtonCreationClass> interestingStuffList =  LocalSqlGetter.GetListFromDateSelection(new DateTime(),new DateTime() );
-
+            if (_formUser.InterestingItemsList.SelectedIndex == -1)
+            {
+                return;
+            }
+            foreach (var id in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
+            {
+                _formUser._localDrawClass.CenterOnButton(id.ButtonCenterPoint);
+                if (id.name.Equals(_formUser.InterestingItemsList.Items[_formUser.InterestingItemsList.SelectedIndex]))
+                {
+                    InformationPanel infoPanel = new InformationPanel(id.Text);
+                    infoPanel.ShowDialog();
+                }
+            }
         }
     }
 }

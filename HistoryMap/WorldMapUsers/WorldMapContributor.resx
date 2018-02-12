@@ -117,41 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="maps_world_map_02" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\maps-world-map-02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Martz90_Circle_Books" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Martz90-Circle-Books.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_057_CircledArrowLeft_183186" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_057_CircledArrowLeft_183186.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_058_CircledArrowRight_183187" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_058_CircledArrowRight_183187.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_12_Zoom_in_106237" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_12_Zoom_in_106237.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_13_Zoom_out_106233" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_13_Zoom_out_106233.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_icon_ios7_search_211818" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_icon-ios7-search_211818.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_settings_alt_2628490" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_settings-alt_2628490.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_arrow_left_01_186410" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_arrow-left-01_186410.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_arrow_right_01_186409" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_arrow-right-01_186409.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="if_thefreeforty_location_1243686" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\if_thefreeforty_location_1243686.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="icons8_marker_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-marker-50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
 </root>
