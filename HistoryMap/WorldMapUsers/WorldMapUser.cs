@@ -53,7 +53,8 @@ namespace HistoryMap.WorldMapUsers
 
         private void SettingsOpen(object sender, EventArgs e)
         {
-            new SettingsForm().Visible = true;
+            var settingsForm = new SettingsForm(this);
+            settingsForm.Visible = true;
         }
         /// <summary>
         /// This should hold all the other buttons which the user will interact with on the main 
@@ -121,6 +122,16 @@ namespace HistoryMap.WorldMapUsers
         private void WorldMapUser_Load(object sender, EventArgs e)
         {
             WorldMapUser_ResizeEnd(this, new EventArgs());
+        }
+
+        /// <summary>
+        /// This shuts down the enviroment upon clicking close
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WorldMapUser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(1);
         }
     }
 }

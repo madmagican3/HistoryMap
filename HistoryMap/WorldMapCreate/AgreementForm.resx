@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="warningTxtBox.Text" xml:space="preserve">
+    <value>Please read these terms of use carefully before you start to use the program. By using our Program, you indicate that you accept these terms of use and that you agree to abide by them. If you do not agree to these terms of use, please refrain from using our Program.
+
+Reliance On Information Posted Disclaimer
+
+The materials contained on our site are provided for general information purposes only and do not claim to be or constitute legal or other professional advice and shall not be relied upon as such.
+We do not accept any responsibility for any loss which may arise from accessing or reliance on the information on this site and to the fullest extent permitted by European law, we exclude all liability for loss or damages direct or indirect arising from use of this site.
+
+ Information about us
+
+This is a project done for Sheffield Hallam University as Andrew Beaumont’s final year project. The source code is available at (INSERT WEBSITE HERE) and is available for free use and modification. Contact with the author can be made at abeaumont@hambies.com.
+
+Access to the software
+
+Access to our servers (database) is permitted on a temporary basis, and we reserve the right to withdraw or amend the service we provide on the servers without notice (see below). We will not be liable if for any reason our site is unavailable at any time or for any period.
+
+Intellectual property rights
+
+We are the owner or the licensee of all intellectual property rights in our site, and in the material published on it. Those works are protected by copyright laws and treaties around the world. All such rights are reserved.
+Our status (and that of any identified contributors) as the creators of the software must always be acknowledged.
+You may use any part of the materials on the program for commercial purposes without obtaining a licence to do so from us or our licensors.
+
+Our liability
+The material displayed on our site is provided without any guarantees, conditions or warranties as to its accuracy. To the extent permitted by law, we, and third parties connected to us hereby expressly exclude:
+All conditions, warranties and other terms which might otherwise be implied by statute, common law or the law of equity.
+Any liability for any direct, indirect or consequential loss or damage incurred by any user in connection with our program or in connection with the use, inability to use, or results of the use of our program, any websites linked to it and any materials posted on it, including, without limitation any liability for
+•	loss of income or revenue
+•	loss of business
+•	loss of profits or contracts
+•	loss of anticipated savings
+•	loss of data
+•	loss of goodwill
+•	wasted management or office time
+ and for any other loss or damage of any kind, however arising and whether caused by tort (including negligence), breach of contract or otherwise, even if foreseeable, provided that this condition shall not prevent claims for loss of or damage to your tangible property or any other claims for direct financial loss that are not excluded by any of the categories set out above.
+This does not affect our liability for death or personal injury arising from our negligence, nor our liability for fraudulent misrepresentation or misrepresentation as to a fundamental matter, nor any other liability which cannot be excluded or limited under applicable law.
+
+Media licensing
+
+The software revolves around users sharing, connecting, and collaborating around world history from users sourced information verified by a moderator. In order to create the most useful, lasting, and accessible archive, we make this content available to the world in a number of ways.
+Our software allows Users to contribute Text Content to our Services. This is referred to by us as “Contributed Content“. We set out below what these terms mean.
+As stated above, you promise that all content that you contribute via the Services is yours and/or you have all rights required to grant the licences set out herein.
+Text Content
+•	What it is: text-based creative content including stories and comments (“Text Content“).
+•	How it’s licensed: by sharing your Text Content through our Services, you agree to allow us to license your Text Content under the Creative Commons Attribution-ShareAlike 3.0 Unported Licence https://creativecommons.org/licenses/by-sa/3.0/, otherwise known as the “CC BY-SA 3.0 Licence” (Please see below for a definition).
+•	How others can use it: you allow History map, and others, to freely re-use and adapt your Text Content. If it is altered, transformed, or built upon, the resulting work may be distributed only under the same or similar licence.
+
+Media Content Licences
+
+As mentioned above, when you contribute Media Content via or to our Services, you may choose one of the following licences to govern the use of your Media Content by other users: 
+Public Domain: This should be selected for all content where the Media Content is already out of copyright protection by nature of its age or has otherwise been designated as having been dedicated for public use and consumption. Other users are therefore free to copy, reproduce, republish, download, post, broadcast, record, transmit, commercially exploit, edit, communicate to the public or distribute in any way this content for personal or commercial use.
+Regardless of license, the information may not be viable for our system and therefore might be removed at any time. 
+Although we reserve our rights to do so, we do not monitor Contributed Content and therefore, since it is not ours and we do not check or verify it, we will not be responsible or liable for the content or accuracy of any Contributed Content.
+You understand that by using the Services you may be exposed to content that is inaccurate or that you may find offensive, indecent or objectionable and that, in this respect, you use the Services at your own risk.
+Contributed Content submitted must not be unlawful in any way. You must not submit any Contributed Content through the Services that is or has ever been the subject of any threatened or actual legal proceedings or other similar complaint.
+As part of our copyright policy, we can terminate user access to the Services if a user uses content in a manner which is not permitted.
+We reserve the right to remove or modify any material submitted via our Services, or stored on our servers, or hosted or published upon our Website.
+
+
+Viruses, hacking and other offences
+
+You must not misuse our program by knowingly introducing viruses, trojans, worms, logic bombs or other material which is malicious or technologically harmful. You must not attempt to gain unauthorised access to our program, the server on which our database is stored or any server, computer or database connected to our site. You must not attack our database via a denial-of-service attack or a distributed denial-of service attack.
+By breaching this provision, you would commit a criminal offence under the Computer Misuse Act 1990. We will report any such breach to the relevant law enforcement authorities and we will co-operate with those authorities by disclosing your identity to them. In the event of such a breach, your right to use our site will cease immediately.
+We will not be liable for any loss or damage caused by a distributed denial-of-service attack, viruses or other technologically harmful material that may infect your computer equipment, computer programs, data or other proprietary material due to your use of our site or to your downloading of any material posted on it, or on any website linked to it.
+
+Variations
+
+We may revise these terms of use at any time by amending this information. You will be forced to agree again if these terms and conditions change, as they are binding on you. Some of the provisions contained in these terms of use may also be superseded by provisions or notices published elsewhere on our site.
+Your concerns
+If you have any concerns about material which appears on our site, please email us directly at abeaumont@hambies.com
+Thank you for using our software.</value>
+  </data>
+</root>

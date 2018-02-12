@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
+using HistoryMap.WorldMapCreate;
 
 namespace HistoryMap
 {
@@ -14,7 +15,7 @@ namespace HistoryMap
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WorldMapUser());
+            Application.Run(new AgreementForm());
         }
     }
 }

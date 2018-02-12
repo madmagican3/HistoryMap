@@ -1,6 +1,6 @@
-﻿namespace HistoryMap.WorldMapUsers
+﻿namespace HistoryMap.WorldMapCreate
 {
-    partial class SettingsForm
+    partial class CreateForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,33 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CreateBtn = new System.Windows.Forms.Button();
+            this.WorldMapPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // CreateBtn
+            // WorldMapPanel
             // 
-            this.CreateBtn.Location = new System.Drawing.Point(12, 12);
-            this.CreateBtn.Name = "CreateBtn";
-            this.CreateBtn.Size = new System.Drawing.Size(75, 23);
-            this.CreateBtn.TabIndex = 0;
-            this.CreateBtn.Text = "Create";
-            this.CreateBtn.UseVisualStyleBackColor = true;
-            this.CreateBtn.Click += new System.EventHandler(this.CreateBtn_Click);
+            this.WorldMapPanel.Location = new System.Drawing.Point(1, 1);
+            this.WorldMapPanel.Name = "WorldMapPanel";
+            this.WorldMapPanel.Size = new System.Drawing.Size(833, 573);
+            this.WorldMapPanel.TabIndex = 0;
             // 
-            // SettingsForm
+            // CreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.CreateBtn);
-            this.Name = "SettingsForm";
-            this.Text = "SettingsForm";
+            this.ClientSize = new System.Drawing.Size(1178, 603);
+            this.Controls.Add(this.WorldMapPanel);
+            this.Name = "CreateForm";
+            this.Text = "CreateForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateForm_FormClosing);
+            this.Load += new System.EventHandler(this.CreateForm_Load);
+            this.ResizeEnd += new System.EventHandler(this.CreateForm_ResizeEnd);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button CreateBtn;
+        private System.Windows.Forms.Panel WorldMapPanel;
     }
 }
