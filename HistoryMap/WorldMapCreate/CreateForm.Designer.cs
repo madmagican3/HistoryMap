@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateForm));
             this.WorldMapPanel = new System.Windows.Forms.Panel();
             this.ControlsPanel = new System.Windows.Forms.Panel();
             this.InterestingInfoBtn = new System.Windows.Forms.CheckBox();
@@ -84,6 +85,7 @@
             this.ClientSize = new System.Drawing.Size(1178, 603);
             this.Controls.Add(this.ControlsPanel);
             this.Controls.Add(this.WorldMapPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateForm";
             this.Text = "CreateForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

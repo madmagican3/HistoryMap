@@ -28,16 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.CreateBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // CreateBtn
             // 
-            this.CreateBtn.Location = new System.Drawing.Point(12, 12);
+            this.CreateBtn.Location = new System.Drawing.Point(69, 42);
             this.CreateBtn.Name = "CreateBtn";
-            this.CreateBtn.Size = new System.Drawing.Size(75, 23);
+            this.CreateBtn.Size = new System.Drawing.Size(127, 23);
             this.CreateBtn.TabIndex = 0;
-            this.CreateBtn.Text = "Create";
+            this.CreateBtn.Text = "Contribute Data";
             this.CreateBtn.UseVisualStyleBackColor = true;
             this.CreateBtn.Click += new System.EventHandler(this.CreateBtn_Click);
             // 
@@ -47,8 +48,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.CreateBtn);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
-            this.Text = "SettingsForm";
+            this.Text = "Settings";
             this.ResumeLayout(false);
 
         }

@@ -72,8 +72,9 @@
             this.Controls.Add(this.warningTxtBox);
             this.Controls.Add(this.RefuseBtn);
             this.Controls.Add(this.AcceptBtn);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AgreementForm";
-            this.Text = "AgreementForm";
+            this.Text = "Terms and conditions";
             this.ResumeLayout(false);
             this.PerformLayout();
 
