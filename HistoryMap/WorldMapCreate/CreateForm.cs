@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HistoryMap.Shared_Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,10 @@ namespace HistoryMap.WorldMapCreate
 {
     public partial class CreateForm : Form
     {
+        /// <summary>
+        /// This is the instance of the form displayed on the creation class
+        /// </summary>
+        WorldMapUsers.WorldMapUser viewForm = new WorldMapUsers.WorldMapUser();
         public CreateForm()
         {
            InitializeComponent();
@@ -22,21 +27,27 @@ namespace HistoryMap.WorldMapCreate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CreateForm_Load(object sender, EventArgs e)
-        {
-            CreateForm_ResizeEnd(this, new EventArgs());
+        { 
+            CreateFormInstance();
         }
 
         /// <summary>
         /// This will create an instance of the view form in the create form
         /// </summary>
-        private void createForminstance()
+        private void CreateFormInstance()
         {
-            Form viewForm = new WorldMapUsers.WorldMapUser();
+            WorldMapPanel.Width = this.Width - 180;
+            WorldMapPanel.Height = this.Height;
+            ControlsPanel.Height = this.Height;
+            ControlsPanel.Left = this.Width - 180;
+            viewForm.Height = WorldMapPanel.Height;
+            viewForm.Width = WorldMapPanel.Width;
             viewForm.TopLevel = false;
-            viewForm.AutoScroll = true;
+            viewForm.renderButtons = true; //make the form conform to our style requirements
             viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.WorldMapPanel.Controls.Clear();
             this.WorldMapPanel.Controls.Add(viewForm);
+            viewForm._localDrawClass.WorldMap_SizeChanged(this, new EventArgs());
             viewForm.Show();
         }
         /// <summary>
@@ -53,12 +64,8 @@ namespace HistoryMap.WorldMapCreate
         /// </summary>
         private void CreateForm_ResizeEnd(object sender, EventArgs e)
         {
-            WorldMapPanel.Width = this.Width - 180;
-            WorldMapPanel.Height = this.Height;
-            ControlsPanel.Height = this.Height;
-            ControlsPanel.Left = this.Width - 180;
-            if (!InterestingInfoBtn.Checked && !BorderDrawingBtn.Checked)
-                createForminstance();
+            if (!BorderDrawingBtn.Checked && !InterestingInfoBtn.Checked)
+                CreateFormInstance();
             else
                 createFormWithNoButtons();
         }
@@ -77,7 +84,7 @@ namespace HistoryMap.WorldMapCreate
             }
             else if (!BorderDrawingBtn.Checked)
             {
-                createForminstance();
+                CreateFormInstance();
             }
         }
 
@@ -95,7 +102,7 @@ namespace HistoryMap.WorldMapCreate
             }
             else if (!InterestingInfoBtn.Checked)
             {
-                createForminstance();
+                CreateFormInstance();
             }
         }
 
@@ -104,16 +111,29 @@ namespace HistoryMap.WorldMapCreate
         /// </summary>
         private void createFormWithNoButtons()
         {
-            WorldMapUsers.WorldMapUser viewForm = new WorldMapUsers.WorldMapUser();
+            WorldMapPanel.Width = this.Width - 180;
+            WorldMapPanel.Height = this.Height;
+            ControlsPanel.Height = this.Height;
+            ControlsPanel.Left = this.Width - 180;
+            viewForm.Height = WorldMapPanel.Height;
+            viewForm.Width = WorldMapPanel.Width;
             viewForm.TopLevel = false;
-            viewForm.AutoScroll = true;
+            viewForm.renderButtons = false; //make the form conform to our style requirements
             viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            viewForm.renderButtons = false;
             this.WorldMapPanel.Controls.Clear();
             this.WorldMapPanel.Controls.Add(viewForm);
             viewForm.Show();
+        }
+        /// <summary>
+        /// This on click event should be passed to the world form in order to get the vals we need to work with
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void clickDelegate(object sender, EventArgs e)
+        {
+            MouseEventArgs click = (MouseEventArgs)e; //Static cast the event args to get them to be the only type they ever will be
+            var actualClickPoint = viewForm._localDrawClass.CalculateUiToMap(click.X, click.Y);
 
         }
-
     }
 }

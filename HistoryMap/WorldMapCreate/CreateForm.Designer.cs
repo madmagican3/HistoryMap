@@ -37,6 +37,7 @@
             // 
             // WorldMapPanel
             // 
+            this.WorldMapPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.WorldMapPanel.Location = new System.Drawing.Point(1, 1);
             this.WorldMapPanel.Name = "WorldMapPanel";
             this.WorldMapPanel.Size = new System.Drawing.Size(833, 573);
@@ -49,7 +50,7 @@
             this.ControlsPanel.Location = new System.Drawing.Point(946, 12);
             this.ControlsPanel.MaximumSize = new System.Drawing.Size(180, 0);
             this.ControlsPanel.Name = "ControlsPanel";
-            this.ControlsPanel.Size = new System.Drawing.Size(180, 368);
+            this.ControlsPanel.Size = new System.Drawing.Size(180, 0);
             this.ControlsPanel.TabIndex = 1;
             // 
             // InterestingInfoBtn

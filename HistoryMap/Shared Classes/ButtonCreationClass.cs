@@ -67,6 +67,7 @@ namespace HistoryMap.Shared_Classes
             _buttonControlList.Clear();
             if (!localForm.renderButtons)
             {
+                _inUse = false;
                 return;
             }
             //Check if we should continue to attempt to draw the buttons on
