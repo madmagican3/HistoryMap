@@ -65,6 +65,10 @@ namespace HistoryMap.Shared_Classes
             }
             //empty the list
             _buttonControlList.Clear();
+            if (!localForm.renderButtons)
+            {
+                return;
+            }
             //Check if we should continue to attempt to draw the buttons on
             foreach (var localButtonStorage in _buttonsForTimePeriodList)
             {
@@ -133,7 +137,7 @@ namespace HistoryMap.Shared_Classes
                 { "Test", "value" }
                 };
             GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString ,  50, 50, "Test Event");
-            _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);
+            _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);//TODO remove
         }
     }
 }

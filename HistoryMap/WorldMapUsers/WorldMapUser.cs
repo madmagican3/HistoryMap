@@ -16,6 +16,10 @@ namespace HistoryMap.WorldMapUsers
         /// This contains a local instance of the listhandlerclass
         /// </summary>
         private readonly ListHandlerClass _localListHandlerClass;
+        /// <summary>
+        /// This is used to hide buttons when we're creating new info
+        /// </summary>
+        public Boolean renderButtons = true;
 
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap

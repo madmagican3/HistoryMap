@@ -191,6 +191,7 @@
             // 
             // TimeSkipInterval
             // 
+            this.TimeSkipInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TimeSkipInterval.FormattingEnabled = true;
             this.TimeSkipInterval.Items.AddRange(new object[] {
             "Day",

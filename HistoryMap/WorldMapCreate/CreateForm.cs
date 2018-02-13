@@ -16,7 +16,11 @@ namespace HistoryMap.WorldMapCreate
         {
            InitializeComponent();
         }
-
+        /// <summary>
+        /// Set up the form upon load
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateForm_Load(object sender, EventArgs e)
         {
             CreateForm_ResizeEnd(this, new EventArgs());
@@ -38,8 +42,6 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This shuts down the form properley taking out any hidden forms to properley dispose of the program
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CreateForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(1);
@@ -53,7 +55,64 @@ namespace HistoryMap.WorldMapCreate
         {
             WorldMapPanel.Width = this.Width - 180;
             WorldMapPanel.Height = this.Height;
-            createForminstance();
+            ControlsPanel.Height = this.Height;
+            ControlsPanel.Left = this.Width - 180;
+            if (!InterestingInfoBtn.Checked && !BorderDrawingBtn.Checked)
+                createForminstance();
+            else
+                createFormWithNoButtons();
+        }
+
+        /// <summary>
+        /// This sets the form up to be able to create interesting information buttons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InterestingInfoBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (InterestingInfoBtn.Checked)
+            {
+                BorderDrawingBtn.Checked = false;
+                createFormWithNoButtons();
+            }
+            else if (!BorderDrawingBtn.Checked)
+            {
+                createForminstance();
+            }
+        }
+
+        /// <summary>
+        /// This sets the form up for drawing borders
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BorderDrawingBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BorderDrawingBtn.Checked)
+            {
+                InterestingInfoBtn.Checked = false;
+                createFormWithNoButtons();
+            }
+            else if (!InterestingInfoBtn.Checked)
+            {
+                createForminstance();
+            }
+        }
+
+        /// <summary>
+        /// This creates a copy of the form with no buttons and makes the interaction panel interactable
+        /// </summary>
+        private void createFormWithNoButtons()
+        {
+            WorldMapUsers.WorldMapUser viewForm = new WorldMapUsers.WorldMapUser();
+            viewForm.TopLevel = false;
+            viewForm.AutoScroll = true;
+            viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            viewForm.renderButtons = false;
+            this.WorldMapPanel.Controls.Clear();
+            this.WorldMapPanel.Controls.Add(viewForm);
+            viewForm.Show();
+
         }
 
     }
