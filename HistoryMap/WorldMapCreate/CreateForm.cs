@@ -28,13 +28,13 @@ namespace HistoryMap.WorldMapCreate
         /// <param name="e"></param>
         private void CreateForm_Load(object sender, EventArgs e)
         { 
-            CreateFormInstance();
+            CreateFormInstance(true);
         }
 
         /// <summary>
         /// This will create an instance of the view form in the create form
         /// </summary>
-        private void CreateFormInstance()
+        private void CreateFormInstance(bool showButtons)
         {
             WorldMapPanel.Width = this.Width - 180;
             WorldMapPanel.Height = this.Height;
@@ -43,7 +43,7 @@ namespace HistoryMap.WorldMapCreate
             viewForm.Height = WorldMapPanel.Height;
             viewForm.Width = WorldMapPanel.Width;
             viewForm.TopLevel = false;
-            viewForm.renderButtons = true; //make the form conform to our style requirements
+            viewForm.renderButtons = showButtons; //make the form conform to our style requirements
             viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.WorldMapPanel.Controls.Clear();
             this.WorldMapPanel.Controls.Add(viewForm);
@@ -65,9 +65,9 @@ namespace HistoryMap.WorldMapCreate
         private void CreateForm_ResizeEnd(object sender, EventArgs e)
         {
             if (!BorderDrawingBtn.Checked && !InterestingInfoBtn.Checked)
-                CreateFormInstance();
+                CreateFormInstance(true);
             else
-                createFormWithNoButtons();
+                CreateFormInstance(false);
         }
 
         /// <summary>
@@ -80,11 +80,11 @@ namespace HistoryMap.WorldMapCreate
             if (InterestingInfoBtn.Checked)
             {
                 BorderDrawingBtn.Checked = false;
-                createFormWithNoButtons();
+                CreateFormInstance(false);
             }
             else if (!BorderDrawingBtn.Checked)
             {
-                CreateFormInstance();
+                CreateFormInstance(true);
             }
         }
 
@@ -98,32 +98,14 @@ namespace HistoryMap.WorldMapCreate
             if (BorderDrawingBtn.Checked)
             {
                 InterestingInfoBtn.Checked = false;
-                createFormWithNoButtons();
+                CreateFormInstance(false);
             }
             else if (!InterestingInfoBtn.Checked)
             {
-                CreateFormInstance();
+                CreateFormInstance(true);
             }
         }
 
-        /// <summary>
-        /// This creates a copy of the form with no buttons and makes the interaction panel interactable
-        /// </summary>
-        private void createFormWithNoButtons()
-        {
-            WorldMapPanel.Width = this.Width - 180;
-            WorldMapPanel.Height = this.Height;
-            ControlsPanel.Height = this.Height;
-            ControlsPanel.Left = this.Width - 180;
-            viewForm.Height = WorldMapPanel.Height;
-            viewForm.Width = WorldMapPanel.Width;
-            viewForm.TopLevel = false;
-            viewForm.renderButtons = false; //make the form conform to our style requirements
-            viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.WorldMapPanel.Controls.Clear();
-            this.WorldMapPanel.Controls.Add(viewForm);
-            viewForm.Show();
-        }
         /// <summary>
         /// This on click event should be passed to the world form in order to get the vals we need to work with
         /// </summary>
