@@ -48,16 +48,19 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         public void Search(object sender, EventArgs e)
         {
-            String searchVal = _formUser.SearchTxtBox.Text;
+            String searchVal = _formUser.SearchTxtBox.Text.ToLower();
             _formUser.SearchTxtBox.Text = "";
             _formUser.InterestingItemsList.Items.Clear();
+            int resultAmount = 0;
             foreach (var text in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
             {
-                if (text.name.Contains(searchVal)|| text.Type.Equals(searchVal))
+                if (text.name.ToLower().Contains(searchVal)|| text.Type.ToLower().Equals(searchVal))
                 {
+                    resultAmount += 1;
                     _formUser.InterestingItemsList.Items.Add(text.name);
                 }
             }
+            _formUser.SearchInfoLabel.Text = "We found " + resultAmount + " results";
         }
 
         public void KeyPress(object sender, KeyPressEventArgs e)

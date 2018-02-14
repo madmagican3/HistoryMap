@@ -45,6 +45,7 @@
             this.TimeSkipInterval = new System.Windows.Forms.ComboBox();
             this.SearchIcon = new System.Windows.Forms.Label();
             this.timeSkipArrowLeft = new System.Windows.Forms.Label();
+            this.SearchInfoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).BeginInit();
             this.ListPanel.SuspendLayout();
             this.ControlPanel.SuspendLayout();
@@ -86,6 +87,7 @@
             // 
             // ListPanel
             // 
+            this.ListPanel.Controls.Add(this.SearchInfoLabel);
             this.ListPanel.Controls.Add(this.SearchIcoLabel);
             this.ListPanel.Controls.Add(this.SearchTxtBox);
             this.ListPanel.Controls.Add(this.InterestingItemsList);
@@ -117,9 +119,9 @@
             // InterestingItemsList
             // 
             this.InterestingItemsList.FormattingEnabled = true;
-            this.InterestingItemsList.Location = new System.Drawing.Point(0, 36);
+            this.InterestingItemsList.Location = new System.Drawing.Point(0, 62);
             this.InterestingItemsList.Name = "InterestingItemsList";
-            this.InterestingItemsList.Size = new System.Drawing.Size(156, 654);
+            this.InterestingItemsList.Size = new System.Drawing.Size(156, 628);
             this.InterestingItemsList.TabIndex = 3;
             // 
             // SettingsIcon
@@ -227,18 +229,26 @@
             this.timeSkipArrowLeft.Size = new System.Drawing.Size(32, 32);
             this.timeSkipArrowLeft.TabIndex = 0;
             // 
+            // SearchInfoLabel
+            // 
+            this.SearchInfoLabel.AutoSize = true;
+            this.SearchInfoLabel.Location = new System.Drawing.Point(4, 40);
+            this.SearchInfoLabel.Name = "SearchInfoLabel";
+            this.SearchInfoLabel.Size = new System.Drawing.Size(0, 13);
+            this.SearchInfoLabel.TabIndex = 6;
+            // 
             // WorldMapUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1293, 691);
+            this.Controls.Add(this.ListPanel);
             this.Controls.Add(this.ZoomInLabel);
             this.Controls.Add(this.ZoomOutLabel);
             this.Controls.Add(this.SettingsIcon);
             this.Controls.Add(this.MaximiseButton);
             this.Controls.Add(this.WorldMap);
             this.Controls.Add(this.ControlPanel);
-            this.Controls.Add(this.ListPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WorldMapUser";
             this.Text = "World History Map";
@@ -274,6 +284,7 @@
         internal System.Windows.Forms.ComboBox TimeSkipInterval;
         internal System.Windows.Forms.TextBox CurrentDate;
         private System.Windows.Forms.Label SearchIcon;
+        public System.Windows.Forms.Label SearchInfoLabel;
     }
 }
 

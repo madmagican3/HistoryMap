@@ -20,7 +20,6 @@ namespace HistoryMap.WorldMapUsers
         /// This is used to hide buttons when we're creating new info
         /// </summary>
         public Boolean renderButtons = true;
-        public EventHandler clickDelegate;
 
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
@@ -127,10 +126,6 @@ namespace HistoryMap.WorldMapUsers
         private void WorldMapUser_Load(object sender, EventArgs e)
         {
             WorldMapUser_ResizeEnd(this, new EventArgs());
-            if (clickDelegate != null)
-            {
-                WorldMap.Click += clickDelegate;
-            }
         }
 
         /// <summary>

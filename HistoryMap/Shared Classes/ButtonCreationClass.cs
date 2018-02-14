@@ -20,7 +20,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is a list for all the dates in the time period stored in the global date 
         /// </summary>
-        public readonly List<GenericLabelForWorldMap> _buttonsForTimePeriodList = new List<GenericLabelForWorldMap>();
+        public List<GenericLabelForWorldMap> _buttonsForTimePeriodList = new List<GenericLabelForWorldMap>();
         /// <summary>
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
@@ -134,11 +134,7 @@ namespace HistoryMap.Shared_Classes
         private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
             _buttonsForTimePeriodList.Clear();
-            Dictionary<string,string> testString = new Dictionary<string, string>(){
-                { "Test", "value" }
-                };
-            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString ,  50, 50, "Test Event");
-            _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);//TODO remove
+            _buttonsForTimePeriodList = LocalSqlGetter.GetListFromDateSelection(new DateTime(), new DateTime());//TODO fix up
         }
     }
 }

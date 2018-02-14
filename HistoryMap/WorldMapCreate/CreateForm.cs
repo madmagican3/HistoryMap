@@ -44,6 +44,17 @@ namespace HistoryMap.WorldMapCreate
             viewForm.Width = WorldMapPanel.Width;
             viewForm.TopLevel = false;
             viewForm.renderButtons = showButtons; //make the form conform to our style requirements
+            if (InterestingInfoBtn.Checked) 
+            {
+                viewForm.WorldMap.Click += clickDelegate;
+            }
+            else if (BorderDrawingBtn.Checked)
+            {
+
+            }else
+            {
+                viewForm.WorldMap.Click += null;
+            }
             viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.WorldMapPanel.Controls.Clear();
             this.WorldMapPanel.Controls.Add(viewForm);
@@ -73,8 +84,6 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This sets the form up to be able to create interesting information buttons
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void InterestingInfoBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (InterestingInfoBtn.Checked)
@@ -91,8 +100,6 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This sets the form up for drawing borders
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void BorderDrawingBtn_CheckedChanged(object sender, EventArgs e)
         {
             if (BorderDrawingBtn.Checked)
@@ -109,13 +116,12 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This on click event should be passed to the world form in order to get the vals we need to work with
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void clickDelegate(object sender, EventArgs e)
         {
             MouseEventArgs click = (MouseEventArgs)e; //Static cast the event args to get them to be the only type they ever will be
             var actualClickPoint = viewForm._localDrawClass.CalculateUiToMap(click.X, click.Y);
 
+            var newGenericLabelForWorldMap = new GenericLabelForWorldMap();
         }
     }
 }

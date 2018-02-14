@@ -87,7 +87,7 @@
             this.Controls.Add(this.WorldMapPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateForm";
-            this.Text = "CreateForm";
+            this.Text = "Create Data";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CreateForm_FormClosing);
             this.Load += new System.EventHandler(this.CreateForm_Load);

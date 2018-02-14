@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -43,15 +44,14 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         private DataSet GetDateId(DateTime currentTime)
         {
-            //This is the connection string, will probably be re-written soon for security purposes but unsure how to handle that currently (also no ports open so currently secure)
-            var connectionString = "Data Source=192.168.1.83;Initial Catalog=History_Map;Integrated Security=SSPI;";
+            HiddenVars tempVars = new HiddenVars();
             //create a new connection
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new MySqlConnection (tempVars.GetConnectionString()))
             {
                 //open that connection
                 connection.Open();
                 //create a new command
-                using (var command = new SqlCommand(null, connection))
+                using (var command = new MySqlCommand(null, connection))
                 {
                     //set that new command using a prepared statement
                     command.CommandText = "Select id from IMAGES where date = @date";
@@ -60,15 +60,14 @@ namespace HistoryMap.Shared_Classes
                     //prepare the new command
                     command.Prepare();
                     //get the dataset back and return it
-                    var actualId = SelectRows(command);
-                    return actualId;
+                   // var actualId = SelectRows(command);
+                    return null;
                 }
             }
         }
 
         public DataSet ExecutePdo(SqlCommand pdo)
         {
-            //This is the connection string, will probably be re-written soon for security purposes but unsure how to handle that currently (also no ports open so currently secure)
             var connectionString = "Data Source=192.168.1.83;Initial Catalog=History_Map;Integrated Security=SSPI;";
             //create a new connection
             using (var connection = new SqlConnection(connectionString))
@@ -83,9 +82,17 @@ namespace HistoryMap.Shared_Classes
             }
         }
 
-        public static List<ButtonCreationClass> GetListFromDateSelection(DateTime startDate, DateTime endDate)
+        public static List<GenericLabelForWorldMap> GetListFromDateSelection(DateTime startDate, DateTime endDate)
         {
-            return null;
+            List<GenericLabelForWorldMap> localList = new List<GenericLabelForWorldMap>();
+            Dictionary<string, string> testString = new Dictionary<string, string>(){
+                { "Test", "value" }
+                };
+            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City", testString, 50, 50, "Test Event");
+            GenericLabelForWorldMap test2 = new GenericLabelForWorldMap(new Point(2888, 1153), "City", testString, 50, 50, "Test event 2");
+            localList.Add(testGenericLabelForWorldMap);//TODO remove
+            localList.Add(test2);
+            return localList;
         }
     }
 }
