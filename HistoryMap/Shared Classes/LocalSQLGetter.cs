@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using NodaTime;
 
 
 namespace HistoryMap.Shared_Classes
@@ -93,6 +94,49 @@ namespace HistoryMap.Shared_Classes
             localList.Add(testGenericLabelForWorldMap);//TODO remove
             localList.Add(test2);
             return localList;
+        }
+
+
+        /*
+
+
+
+            change all this to mongo and then save the items in object for ease 
+
+
+
+
+        */
+
+        internal void addButton(GenericLabelForWorldMap label, LocalDate DateOfButton)
+        {
+            HiddenVars tempVars = new HiddenVars();
+            //create a new connection
+            using (var connection = new MySqlConnection(tempVars.GetConnectionString()))
+            {
+                //open that connection
+                connection.Open();
+                //create a new command
+                using (var command = new MySqlCommand(null, connection))
+                {
+                    //set that new command using a prepared statement
+                    command.CommandText = "insert into Buttons (name, Type, Text, height, width, date,verified, point)" +
+                        " values (@name, @type, @dictionary, @width, @height, @date, 0, @point";
+                    //safely put that paramater into the sql statement
+                    command.Parameters.AddWithValue("@name", label.name);
+                    command.Parameters.AddWithValue("@type", label.Type);
+                    command.Parameters.AddWithValue("@dictionary", label.Text);
+                    command.Parameters.AddWithValue("@width", 50);
+                    command.Parameters.AddWithValue("@height", 50);
+                    command.Parameters.AddWithValue("@date", DateOfButton);
+                    command.Parameters.AddWithValue("@point", label.ButtonCenterPoint);
+
+                    //prepare the new command
+                    command.Prepare();
+                    //get the dataset back and return it
+                    // var actualId = SelectRows(command);
+                }
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This should hold the date the user is looking at currently
         /// </summary>
-        private LocalDate _currentDate = new LocalDate(Era.Common, 302, 6, 1);
+        public LocalDate _currentDate = new LocalDate(Era.Common, 302, 6, 1);
 
         /// <summary>
         /// This is the rectangle we render into

@@ -17,6 +17,8 @@ namespace HistoryMap.WorldMapCreate
         /// This is the instance of the form displayed on the creation class
         /// </summary>
         WorldMapUsers.WorldMapUser viewForm = new WorldMapUsers.WorldMapUser();
+
+        public static GenericLabelForWorldMap newGenericLabelForWorldMap;
         public CreateForm()
         {
            InitializeComponent();
@@ -120,8 +122,13 @@ namespace HistoryMap.WorldMapCreate
         {
             MouseEventArgs click = (MouseEventArgs)e; //Static cast the event args to get them to be the only type they ever will be
             var actualClickPoint = viewForm._localDrawClass.CalculateUiToMap(click.X, click.Y);
-
-            var newGenericLabelForWorldMap = new GenericLabelForWorldMap();
+            ButtonCreator infoPanel = new ButtonCreator(actualClickPoint);
+            var result = infoPanel.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                LocalSqlGetter.addButton(newGenericLabelForWorldMap, viewForm._localDrawClass._currentDate);
+                newGenericLabelForWorldMap = null;
+            }
         }
     }
 }

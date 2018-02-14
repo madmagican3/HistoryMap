@@ -97,6 +97,12 @@
     <Compile Include="WorldMapCreate\AgreementForm.Designer.cs">
       <DependentUpon>AgreementForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WorldMapCreate\ButtonCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WorldMapCreate\ButtonCreator.Designer.cs">
+      <DependentUpon>ButtonCreator.cs</DependentUpon>
+    </Compile>
     <Compile Include="WorldMapCreate\CreateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="WorldMapCreate\AgreementForm.resx">
       <DependentUpon>AgreementForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WorldMapCreate\ButtonCreator.resx">
+      <DependentUpon>ButtonCreator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldMapCreate\CreateForm.resx">
       <DependentUpon>CreateForm.cs</DependentUpon>
