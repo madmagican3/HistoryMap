@@ -122,7 +122,7 @@ namespace HistoryMap.WorldMapCreate
         {
             MouseEventArgs click = (MouseEventArgs)e; //Static cast the event args to get them to be the only type they ever will be
             var actualClickPoint = viewForm._localDrawClass.CalculateUiToMap(click.X, click.Y);
-            ButtonCreator infoPanel = new ButtonCreator(actualClickPoint);
+            ButtonCreator infoPanel = new ButtonCreator(actualClickPoint, viewForm._localDrawClass._currentDate);
             var result = infoPanel.ShowDialog();
             if (result == DialogResult.OK)
             {

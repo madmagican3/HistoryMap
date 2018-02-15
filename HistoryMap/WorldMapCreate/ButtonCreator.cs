@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NodaTime;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,9 +21,11 @@ namespace HistoryMap.WorldMapCreate
         /// This is a copy of the point for easier creation of the genericLabelForWOrldMap
         /// </summary>
         Point localPoint;
-        public ButtonCreator(Point pointOfNewButton)
+        LocalDate date;
+        public ButtonCreator(Point pointOfNewButton, LocalDate date)
         {
             localPoint = pointOfNewButton;
+            this.date = date;
             InitializeComponent();
         }
 
@@ -185,7 +188,7 @@ namespace HistoryMap.WorldMapCreate
                 MessageBox.Show("Please populate all fields");
                 return;
             }
-            CreateForm.newGenericLabelForWorldMap = new Shared_Classes.GenericLabelForWorldMap( localPoint, TypeOfInformation.Text, ButtonDictionary, 50, 50,NameField.Text);
+            CreateForm.newGenericLabelForWorldMap = new Shared_Classes.GenericLabelForWorldMap(date,  localPoint, TypeOfInformation.Text, ButtonDictionary, 50, 50,NameField.Text, false);
             DialogResult = DialogResult.OK;
             this.Close();
         }

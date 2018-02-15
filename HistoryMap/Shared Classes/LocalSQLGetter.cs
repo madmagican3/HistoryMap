@@ -1,11 +1,17 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using NodaTime;
-
+using MongoDB.Driver;
+using Newtonsoft;
+using Newtonsoft.Json;
+using MongoDB.Bson;
+using NodaTime.Text;
+using NodaTime.Calendars;
+using MongoDB.Bson.Serialization;
+using Newtonsoft.Json.Linq;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -46,8 +52,9 @@ namespace HistoryMap.Shared_Classes
         private DataSet GetDateId(DateTime currentTime)
         {
             HiddenVars tempVars = new HiddenVars();
+            return null;
             //create a new connection
-            using (var connection = new MySqlConnection (tempVars.GetConnectionString()))
+          /*  using (var connection = new MySqlConnection (tempVars.GetConnectionString()))
             {
                 //open that connection
                 connection.Open();
@@ -64,7 +71,7 @@ namespace HistoryMap.Shared_Classes
                    // var actualId = SelectRows(command);
                     return null;
                 }
-            }
+            }*/
         }
 
         public DataSet ExecutePdo(SqlCommand pdo)
@@ -83,60 +90,64 @@ namespace HistoryMap.Shared_Classes
             }
         }
 
-        public static List<GenericLabelForWorldMap> GetListFromDateSelection(DateTime startDate, DateTime endDate)
+        public static List<GenericLabelForWorldMap> GetListFromDateSelection(LocalDate startDate,LocalDate endDate)
         {
+            HiddenVars tempVars = new HiddenVars();
             List<GenericLabelForWorldMap> localList = new List<GenericLabelForWorldMap>();
+            //create a new connection
+            var connection = new MongoClient(tempVars.GetConnectionString());
+            var database = connection.GetDatabase("WebProject");
+            var collection = database.GetCollection<BsonDocument>("test3");
+
+            var ResultList = collection.Find(_ => true).ToList();
+
+            foreach (var result in ResultList)
+            {
+                var temp = JsonConvert.DeserializeObject<GenericLabelForWorldMap>(result.ToString());
+                var tempEntry = result.GetElement("date").Value;
+                var pattern = LocalDatePattern.CreateWithCurrentCulture("yyyy/M/d/g");          
+                var actualDateResult = pattern.Parse(tempEntry.ToString());
+                var actualDate = actualDateResult.GetValueOrThrow();
+
+
+                if (actualDate >= startDate && actualDate <= endDate)
+                {
+                 //   var temp = JsonConvert.DeserializeObject<JValue>(result.ToString());
+                   // var pointNewton = JsonConvert.DeserializeObject<Point>(temp);
+                    // var pointNewton = JsonConvert.DeserializeObject<Point>(result.GetElement("centerPoint").Value.ToString());
+                    var point = BsonSerializer.Deserialize<Point>(result.GetElement("centerPoint").Value.ToBsonDocument());
+                    var dictionary = BsonSerializer.Deserialize<Dictionary<string,string>>(result.GetElement("text").ToBsonDocument()); 
+                 //   localList.Add(new GenericLabelForWorldMap(,point, result.GetElement("type").Value.ToString(), dictionary, int.Parse(result.GetElement("height").Value.ToString()), 
+                      //  int.Parse(result.GetElement("width").Value.ToString()), result.GetElement("name").Value.ToString()));
+                }
+               
+            }
+
+           /* List<GenericLabelForWorldMap> localList = new List<GenericLabelForWorldMap>();
+
             Dictionary<string, string> testString = new Dictionary<string, string>(){
                 { "Test", "value" }
                 };
             GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City", testString, 50, 50, "Test Event");
             GenericLabelForWorldMap test2 = new GenericLabelForWorldMap(new Point(2888, 1153), "City", testString, 50, 50, "Test event 2");
             localList.Add(testGenericLabelForWorldMap);//TODO remove
-            localList.Add(test2);
+            localList.Add(test2);*/
             return localList;
         }
 
 
-        /*
 
 
-
-            change all this to mongo and then save the items in object for ease 
-
-
-
-
-        */
-
-        internal void addButton(GenericLabelForWorldMap label, LocalDate DateOfButton)
+        internal static void addButton(GenericLabelForWorldMap label, LocalDate DateOfButton)
         {
             HiddenVars tempVars = new HiddenVars();
             //create a new connection
-            using (var connection = new MySqlConnection(tempVars.GetConnectionString()))
-            {
-                //open that connection
-                connection.Open();
-                //create a new command
-                using (var command = new MySqlCommand(null, connection))
-                {
-                    //set that new command using a prepared statement
-                    command.CommandText = "insert into Buttons (name, Type, Text, height, width, date,verified, point)" +
-                        " values (@name, @type, @dictionary, @width, @height, @date, 0, @point";
-                    //safely put that paramater into the sql statement
-                    command.Parameters.AddWithValue("@name", label.name);
-                    command.Parameters.AddWithValue("@type", label.Type);
-                    command.Parameters.AddWithValue("@dictionary", label.Text);
-                    command.Parameters.AddWithValue("@width", 50);
-                    command.Parameters.AddWithValue("@height", 50);
-                    command.Parameters.AddWithValue("@date", DateOfButton);
-                    command.Parameters.AddWithValue("@point", label.ButtonCenterPoint);
+            var connection = new MongoClient(tempVars.GetConnectionString());
+            var database = connection.GetDatabase("WebProject");
+            var collection = database.GetCollection<BsonDocument>("test3");
 
-                    //prepare the new command
-                    command.Prepare();
-                    //get the dataset back and return it
-                    // var actualId = SelectRows(command);
-                }
-            }
+            var jObject = JsonConvert.SerializeObject(label);
+            collection.InsertOne(jObject);          
         }
     }
 }

@@ -134,7 +134,7 @@ namespace HistoryMap.Shared_Classes
         private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
             _buttonsForTimePeriodList.Clear();
-            _buttonsForTimePeriodList = LocalSqlGetter.GetListFromDateSelection(new DateTime(), new DateTime());//TODO fix up
+            _buttonsForTimePeriodList = LocalSqlGetter.GetListFromDateSelection( startDate,endDate);//TODO fix up
         }
     }
 }

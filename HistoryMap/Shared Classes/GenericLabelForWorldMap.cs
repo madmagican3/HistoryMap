@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using NodaTime;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace HistoryMap.Shared_Classes
@@ -33,7 +34,7 @@ namespace HistoryMap.Shared_Classes
         /// This should be a ID for the list
         /// </summary>
         public string name { get; }
-        public GenericLabelForWorldMap(Point buttonCenterPoint, string type, Dictionary<string,string> text, int height, int width, string id)
+        public GenericLabelForWorldMap(LocalDate time,Point buttonCenterPoint, string type, Dictionary<string,string> text, int height, int width, string id, bool verified)
         {
             this.ButtonCenterPoint = buttonCenterPoint;
             this.Type = type;

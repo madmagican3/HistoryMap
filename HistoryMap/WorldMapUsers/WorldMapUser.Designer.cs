@@ -33,6 +33,7 @@
             this.MinButton = new System.Windows.Forms.Label();
             this.MaximiseButton = new System.Windows.Forms.Label();
             this.ListPanel = new System.Windows.Forms.Panel();
+            this.SearchInfoLabel = new System.Windows.Forms.Label();
             this.SearchIcoLabel = new System.Windows.Forms.Label();
             this.SearchTxtBox = new System.Windows.Forms.TextBox();
             this.InterestingItemsList = new System.Windows.Forms.ListBox();
@@ -45,7 +46,6 @@
             this.TimeSkipInterval = new System.Windows.Forms.ComboBox();
             this.SearchIcon = new System.Windows.Forms.Label();
             this.timeSkipArrowLeft = new System.Windows.Forms.Label();
-            this.SearchInfoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).BeginInit();
             this.ListPanel.SuspendLayout();
             this.ControlPanel.SuspendLayout();
@@ -97,6 +97,14 @@
             this.ListPanel.Name = "ListPanel";
             this.ListPanel.Size = new System.Drawing.Size(194, 691);
             this.ListPanel.TabIndex = 4;
+            // 
+            // SearchInfoLabel
+            // 
+            this.SearchInfoLabel.AutoSize = true;
+            this.SearchInfoLabel.Location = new System.Drawing.Point(4, 40);
+            this.SearchInfoLabel.Name = "SearchInfoLabel";
+            this.SearchInfoLabel.Size = new System.Drawing.Size(0, 13);
+            this.SearchInfoLabel.TabIndex = 6;
             // 
             // SearchIcoLabel
             // 
@@ -178,7 +186,7 @@
             this.CurrentDate.ReadOnly = true;
             this.CurrentDate.Size = new System.Drawing.Size(168, 20);
             this.CurrentDate.TabIndex = 5;
-            this.CurrentDate.Text = "01 June 0302 BCE";
+            this.CurrentDate.Text = "01 June 0302 CE";
             // 
             // timeSkipArrowRight
             // 
@@ -228,14 +236,6 @@
             this.timeSkipArrowLeft.Name = "timeSkipArrowLeft";
             this.timeSkipArrowLeft.Size = new System.Drawing.Size(32, 32);
             this.timeSkipArrowLeft.TabIndex = 0;
-            // 
-            // SearchInfoLabel
-            // 
-            this.SearchInfoLabel.AutoSize = true;
-            this.SearchInfoLabel.Location = new System.Drawing.Point(4, 40);
-            this.SearchInfoLabel.Name = "SearchInfoLabel";
-            this.SearchInfoLabel.Size = new System.Drawing.Size(0, 13);
-            this.SearchInfoLabel.TabIndex = 6;
             // 
             // WorldMapUser
             // 
