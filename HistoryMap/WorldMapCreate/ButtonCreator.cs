@@ -188,7 +188,7 @@ namespace HistoryMap.WorldMapCreate
                 MessageBox.Show("Please populate all fields");
                 return;
             }
-            CreateForm.newGenericLabelForWorldMap = new Shared_Classes.GenericLabelForWorldMap(date,  localPoint, TypeOfInformation.Text, ButtonDictionary, 50, 50,NameField.Text, false);
+            CreateForm.newGenericLabelForWorldMap = new Shared_Classes.GenericLabelForWorldMap(date,  localPoint, TypeOfInformation.Text, ButtonDictionary, 50, 50,NameField.Text);
             DialogResult = DialogResult.OK;
             this.Close();
         }
