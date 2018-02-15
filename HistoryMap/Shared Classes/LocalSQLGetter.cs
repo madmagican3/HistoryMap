@@ -97,29 +97,17 @@ namespace HistoryMap.Shared_Classes
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
             var database = connection.GetDatabase("WebProject");
-            var collection = database.GetCollection<BsonDocument>("test3");
+            var collection = database.GetCollection<GenericLabelForWorldMap>("test3");
 
             var ResultList = collection.Find(_ => true).ToList();
 
             foreach (var result in ResultList)
             {
-                var temp = JsonConvert.DeserializeObject<GenericLabelForWorldMap>(result.ToString());
-                var tempEntry = result.GetElement("date").Value;
-                var pattern = LocalDatePattern.CreateWithCurrentCulture("yyyy/M/d/g");          
-                var actualDateResult = pattern.Parse(tempEntry.ToString());
-                var actualDate = actualDateResult.GetValueOrThrow();
+                Console.WriteLine(result.name);
 
-
-                if (actualDate >= startDate && actualDate <= endDate)
+               /* if (actualDate >= startDate && actualDate <= endDate)
                 {
-                 //   var temp = JsonConvert.DeserializeObject<JValue>(result.ToString());
-                   // var pointNewton = JsonConvert.DeserializeObject<Point>(temp);
-                    // var pointNewton = JsonConvert.DeserializeObject<Point>(result.GetElement("centerPoint").Value.ToString());
-                    var point = BsonSerializer.Deserialize<Point>(result.GetElement("centerPoint").Value.ToBsonDocument());
-                    var dictionary = BsonSerializer.Deserialize<Dictionary<string,string>>(result.GetElement("text").ToBsonDocument()); 
-                 //   localList.Add(new GenericLabelForWorldMap(,point, result.GetElement("type").Value.ToString(), dictionary, int.Parse(result.GetElement("height").Value.ToString()), 
-                      //  int.Parse(result.GetElement("width").Value.ToString()), result.GetElement("name").Value.ToString()));
-                }
+                }*/
                
             }
 
@@ -144,10 +132,9 @@ namespace HistoryMap.Shared_Classes
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
             var database = connection.GetDatabase("WebProject");
-            var collection = database.GetCollection<BsonDocument>("test3");
+            var collection = database.GetCollection<GenericLabelForWorldMap>("test3");
 
-            var jObject = JsonConvert.SerializeObject(label);
-            collection.InsertOne(jObject);          
+            collection.InsertOne(label);          
         }
     }
 }
