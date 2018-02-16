@@ -36,6 +36,8 @@
             this.InterestingInfoBtn = new System.Windows.Forms.CheckBox();
             this.BorderDrawingBtn = new System.Windows.Forms.CheckBox();
             this.ColourDialog = new System.Windows.Forms.ColorDialog();
+            this.ViewCompleteBtn = new System.Windows.Forms.Button();
+            this.CompleteBtn = new System.Windows.Forms.Button();
             this.ControlsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +51,8 @@
             // 
             // ControlsPanel
             // 
+            this.ControlsPanel.Controls.Add(this.CompleteBtn);
+            this.ControlsPanel.Controls.Add(this.ViewCompleteBtn);
             this.ControlsPanel.Controls.Add(this.DeleteIndexBtn);
             this.ControlsPanel.Controls.Add(this.IndexList);
             this.ControlsPanel.Controls.Add(this.InterestingInfoBtn);
@@ -56,7 +60,7 @@
             this.ControlsPanel.Location = new System.Drawing.Point(946, 12);
             this.ControlsPanel.MaximumSize = new System.Drawing.Size(180, 0);
             this.ControlsPanel.Name = "ControlsPanel";
-            this.ControlsPanel.Size = new System.Drawing.Size(180, 594);
+            this.ControlsPanel.Size = new System.Drawing.Size(180, 635);
             this.ControlsPanel.TabIndex = 1;
             // 
             // DeleteIndexBtn
@@ -105,11 +109,38 @@
             this.BorderDrawingBtn.UseVisualStyleBackColor = true;
             this.BorderDrawingBtn.CheckedChanged += new System.EventHandler(this.BorderDrawingBtn_CheckedChanged);
             // 
+            // ColourDialog
+            // 
+            this.ColourDialog.FullOpen = true;
+            // 
+            // ViewCompleteBtn
+            // 
+            this.ViewCompleteBtn.Location = new System.Drawing.Point(38, 557);
+            this.ViewCompleteBtn.Name = "ViewCompleteBtn";
+            this.ViewCompleteBtn.Size = new System.Drawing.Size(93, 23);
+            this.ViewCompleteBtn.TabIndex = 5;
+            this.ViewCompleteBtn.Text = "See completed";
+            this.ViewCompleteBtn.UseVisualStyleBackColor = true;
+            this.ViewCompleteBtn.Visible = false;
+            this.ViewCompleteBtn.Click += new System.EventHandler(this.ViewCompleteBtn_Click);
+            // 
+            // CompleteBtn
+            // 
+            this.CompleteBtn.Enabled = false;
+            this.CompleteBtn.Location = new System.Drawing.Point(52, 587);
+            this.CompleteBtn.Name = "CompleteBtn";
+            this.CompleteBtn.Size = new System.Drawing.Size(75, 23);
+            this.CompleteBtn.TabIndex = 6;
+            this.CompleteBtn.Text = "Save Border";
+            this.CompleteBtn.UseVisualStyleBackColor = true;
+            this.CompleteBtn.Visible = false;
+            this.CompleteBtn.Click += new System.EventHandler(this.CompleteBtn_Click);
+            // 
             // CreateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1178, 603);
+            this.ClientSize = new System.Drawing.Size(1178, 659);
             this.Controls.Add(this.ControlsPanel);
             this.Controls.Add(this.WorldMapPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -134,5 +165,7 @@
         private System.Windows.Forms.ColorDialog ColourDialog;
         private System.Windows.Forms.Button DeleteIndexBtn;
         private System.Windows.Forms.ListBox IndexList;
+        private System.Windows.Forms.Button CompleteBtn;
+        private System.Windows.Forms.Button ViewCompleteBtn;
     }
 }

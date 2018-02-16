@@ -43,25 +43,37 @@ namespace HistoryMap.Shared_Classes
                     //then it writes them to the image to return
                     using (var g = Graphics.FromImage(localMap))
                     {
-                        g.FillPolygon(new SolidBrush(tempEntry.Key), tempEntry.Value.ToArray());
                         if (!drawing)
                         {
+                            var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Key.R, tempEntry.Key.G, tempEntry.Key.B));
+                            g.FillPolygon(new SolidBrush(tempEntry.Key), tempEntry.Value.ToArray());
                             g.DrawPolygon(pen, tempEntry.Value.ToArray());
                         }
                         else
                         {
-                            int i = 0;
-                           // if (theyIntersect) //TODO work out the maths for this
-                            foreach (var point in  tempEntry.Value.ToArray())
+                            if ( tempEntry.Value.Count > 2&&tempEntry.Value[0].Equals(tempEntry.Value[tempEntry.Value.Count-1]))
                             {
-                                if (i != WorldMapCreate.CreateForm.selectedIndex)
-                                    g.DrawIcon(Resources.if_circle_red_10282, point.X -(Resources.if_circle_red_10282.Width/2), point.Y - (Resources.if_circle_red_10282.Height/2));
-                                else
-                                    g.DrawIcon(Resources.if_circle_blue_10279, point.X - (Resources.if_circle_blue_10279.Width / 2), point.Y - (Resources.if_circle_blue_10279.Height / 2));
-                                i += 1;
-
+                                var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Key.R, tempEntry.Key.G, tempEntry.Key.B));
+                                g.FillPolygon(brush, tempEntry.Value.ToArray());
+                                g.DrawPolygon(pen, tempEntry.Value.ToArray());
                             }
-                            //g.DrawPolygon(pen, tempEntry.Value.ToArray());
+                            else
+                            {
+                                var width = Resources.if_circle_red_10282.Width / 2;
+                                var height = Resources.if_circle_red_10282.Height / 2;
+
+                                int i = 0;
+                                foreach (var point in tempEntry.Value.ToArray())
+                                {
+                                    const int finalPixels = 16;
+                                    var rect = new Rectangle(point.X - finalPixels / 2, point.Y - finalPixels / 2, finalPixels, finalPixels);
+                                    if (i != WorldMapCreate.CreateForm.selectedIndex)
+                                        g.DrawIcon(Resources.if_circle_red_10282, rect);
+                                    else
+                                        g.DrawIcon(Resources.if_circle_blue_10279, rect);
+                                    i += 1;
+                                }
+                            }
                         }
                     }
                 } 

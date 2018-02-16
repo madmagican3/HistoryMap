@@ -27,9 +27,13 @@ namespace HistoryMap.WorldMapCreate
         /// This is the colour of the entry the user wants to draw
         /// </summary>
         public Color localColor;
-
+        /// <summary>
+        /// This is a pointer to the selcted index on the BorderPointList
+        /// </summary>
         public static int selectedIndex = -1;
-
+        /// <summary>
+        /// This a instance of the generic label for creation purposes
+        /// </summary>
         public static GenericLabelForWorldMap NewGenericLabelForWorldMap;
         public CreateForm()
         {
@@ -125,13 +129,14 @@ namespace HistoryMap.WorldMapCreate
                 var result = ColourDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    var colour = ColourDialog.Color;
+                    localColor = ColourDialog.Color;
                     PolygonCreator.drawing = true;
-                    drawingListDictionary.Add(colour, new List<Point>());
+                    drawingListDictionary.Add(localColor, new List<Point>());
                     viewForm._localDrawClass.RenderMap();
                     IndexList.Visible = true;
                     DeleteIndexBtn.Visible = true;
                     viewForm._localDrawClass.MoveForm = false;
+                    ViewCompleteBtn.Visible = true;
                 }
                 else
                 {
@@ -210,8 +215,60 @@ namespace HistoryMap.WorldMapCreate
         {
             if (IndexList.SelectedIndex != -1)
                 DeleteIndexBtn.Enabled = true;
+            if (LocalPointList[0].Equals(LocalPointList[LocalPointList.Count - 1]))
+            {
+                LocalPointList.RemoveAt(LocalPointList.Count - 1);
+                drawingListDictionary.Clear();
+                drawingListDictionary.Add(localColor, LocalPointList);
+                viewForm._localDrawClass.RenderMap();
+                IndexList.Items.Clear();
+                for (int i = 0; i < LocalPointList.Count; i++)
+                {
+                    IndexList.Items.Add(i);
+                }
+
+                CompleteBtn.Visible = false;
+                CompleteBtn.Enabled = false;
+            }
             selectedIndex = IndexList.SelectedIndex;
             viewForm._localDrawClass.RenderMap();
+        }
+        /// <summary>
+        /// This makes us view the borders in a complete form as a polygon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ViewCompleteBtn_Click(object sender, EventArgs e)
+        {
+            LocalPointList.Add(LocalPointList[0]);
+            drawingListDictionary.Clear();
+            drawingListDictionary.Add(localColor, LocalPointList);
+            viewForm._localDrawClass.RenderMap();
+            IndexList.Items.Clear();
+            for (int i = 0; i < LocalPointList.Count; i++)
+            {
+                IndexList.Items.Add(i);
+            }
+
+            CompleteBtn.Enabled = true;
+            CompleteBtn.Visible = true;
+        }
+        /// <summary>
+        /// This saves the border to the db 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CompleteBtn_Click(object sender, EventArgs e)
+        {//TODO complete
+            DeleteIndexBtn.Visible = false;
+            CompleteBtn.Visible = false;
+            ViewCompleteBtn.Visible = false;
+            IndexList.Visible = false;
+            BorderDrawingBtn.Checked = false;
+            CreateFormInstance(true);
+            PolygonCreator.drawing = false;
+            viewForm.WorldMap.Click -= BorderDrawingClickDelegate;
+            viewForm._localDrawClass.MoveForm = false;
         }
     }
 }
