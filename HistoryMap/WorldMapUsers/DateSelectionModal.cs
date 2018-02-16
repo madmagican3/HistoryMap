@@ -16,7 +16,7 @@ namespace HistoryMap.WorldMapUsers
         public DateSelectionModal(LocalDate startDate)
         {
             InitializeComponent();
-            Year.Text = startDate.Year.ToString();
+            Year.Text = startDate.YearOfEra.ToString();
             if (startDate.Era == Era.Common)
             {
                 TimeFrame.SelectedIndex = 0;
@@ -25,8 +25,7 @@ namespace HistoryMap.WorldMapUsers
             {
                 TimeFrame.SelectedIndex = 1;
             }
-            DateTime tempDate = startDate.ToDateTimeUnspecified();
-            dateTimePicker1.Value = new DateTime(1753, tempDate.Month,tempDate.Day);
+            dateTimePicker1.Value = new DateTime(1753, startDate.Month,startDate.Day);
         }
 
         /// <summary>
@@ -34,7 +33,6 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         private void DateSelectionModal_Load(object sender, EventArgs e)
         {
-            TimeFrame.SelectedIndex = 0;
         }
 
         /// <summary>

@@ -53,7 +53,7 @@
             this.label1.Location = new System.Drawing.Point(12, 106);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(771, 13);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 7;
             this.label1.Text = "Here you can create your own information to display on the history map. We sugges" +
     "t including sources (for verification purposes) and submitter (for credit purpos" +
     "es)\r\n";
@@ -64,7 +64,7 @@
             this.label2.Location = new System.Drawing.Point(12, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 5;
             this.label2.Text = "Name";
             // 
             // label3
@@ -73,7 +73,7 @@
             this.label3.Location = new System.Drawing.Point(12, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 13);
-            this.label3.TabIndex = 2;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Type of information";
             // 
             // NameField
@@ -81,14 +81,14 @@
             this.NameField.Location = new System.Drawing.Point(151, 32);
             this.NameField.Name = "NameField";
             this.NameField.Size = new System.Drawing.Size(608, 20);
-            this.NameField.TabIndex = 3;
+            this.NameField.TabIndex = 0;
             // 
             // TypeOfInformation
             // 
             this.TypeOfInformation.Location = new System.Drawing.Point(151, 65);
             this.TypeOfInformation.Name = "TypeOfInformation";
             this.TypeOfInformation.Size = new System.Drawing.Size(608, 20);
-            this.TypeOfInformation.TabIndex = 4;
+            this.TypeOfInformation.TabIndex = 1;
             // 
             // TextTxt
             // 
@@ -96,14 +96,14 @@
             this.TextTxt.Multiline = true;
             this.TextTxt.Name = "TextTxt";
             this.TextTxt.Size = new System.Drawing.Size(330, 226);
-            this.TextTxt.TabIndex = 5;
+            this.TextTxt.TabIndex = 3;
             // 
             // LabelTxt
             // 
             this.LabelTxt.Location = new System.Drawing.Point(540, 145);
             this.LabelTxt.Name = "LabelTxt";
             this.LabelTxt.Size = new System.Drawing.Size(330, 20);
-            this.LabelTxt.TabIndex = 6;
+            this.LabelTxt.TabIndex = 2;
             // 
             // label4
             // 
@@ -111,7 +111,7 @@
             this.label4.Location = new System.Drawing.Point(478, 304);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(28, 13);
-            this.label4.TabIndex = 7;
+            this.label4.TabIndex = 11;
             this.label4.Text = "Text";
             // 
             // label5
@@ -129,7 +129,7 @@
             this.ItemsList.Location = new System.Drawing.Point(12, 145);
             this.ItemsList.Name = "ItemsList";
             this.ItemsList.Size = new System.Drawing.Size(275, 277);
-            this.ItemsList.TabIndex = 9;
+            this.ItemsList.TabIndex = 15;
             this.ItemsList.SelectedIndexChanged += new System.EventHandler(this.ItemsList_SelectedIndexChanged);
             // 
             // NewBtn
@@ -138,7 +138,7 @@
             this.NewBtn.Location = new System.Drawing.Point(319, 170);
             this.NewBtn.Name = "NewBtn";
             this.NewBtn.Size = new System.Drawing.Size(75, 23);
-            this.NewBtn.TabIndex = 10;
+            this.NewBtn.TabIndex = 9;
             this.NewBtn.Text = "New";
             this.NewBtn.UseVisualStyleBackColor = true;
             this.NewBtn.Click += new System.EventHandler(this.NewBtn_Click);
@@ -149,7 +149,7 @@
             this.DeleteBtn.Location = new System.Drawing.Point(319, 294);
             this.DeleteBtn.Name = "DeleteBtn";
             this.DeleteBtn.Size = new System.Drawing.Size(75, 23);
-            this.DeleteBtn.TabIndex = 11;
+            this.DeleteBtn.TabIndex = 10;
             this.DeleteBtn.Text = "Delete";
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
@@ -170,7 +170,7 @@
             this.DemonstrationRtf.Location = new System.Drawing.Point(12, 495);
             this.DemonstrationRtf.Name = "DemonstrationRtf";
             this.DemonstrationRtf.Size = new System.Drawing.Size(887, 194);
-            this.DemonstrationRtf.TabIndex = 13;
+            this.DemonstrationRtf.TabIndex = 4;
             this.DemonstrationRtf.Text = "";
             // 
             // CompleteBtn
@@ -178,7 +178,7 @@
             this.CompleteBtn.Location = new System.Drawing.Point(415, 739);
             this.CompleteBtn.Name = "CompleteBtn";
             this.CompleteBtn.Size = new System.Drawing.Size(75, 23);
-            this.CompleteBtn.TabIndex = 14;
+            this.CompleteBtn.TabIndex = 13;
             this.CompleteBtn.Text = "Complete";
             this.CompleteBtn.UseVisualStyleBackColor = true;
             this.CompleteBtn.Click += new System.EventHandler(this.CompleteBtn_Click);
@@ -189,7 +189,7 @@
             this.label6.Location = new System.Drawing.Point(15, 476);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(45, 13);
-            this.label6.TabIndex = 15;
+            this.label6.TabIndex = 13;
             this.label6.Text = "Preview";
             // 
             // ButtonCreator

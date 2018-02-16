@@ -223,7 +223,7 @@ namespace HistoryMap.Shared_Classes
             RenderRectangle = CalculateRenderArea(actualClickPoint);
             RenderMap();
         }
-        private void RenderMap()
+        public void RenderMap()
         {
             //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
             var cropRect = new Rectangle(0, 0, _formMapUser.WorldMap.Width, _formMapUser.WorldMap.Height);
@@ -283,6 +283,7 @@ namespace HistoryMap.Shared_Classes
                 {
                     _currentDate = form.ReturnTime;
                     _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+                    RenderMap();
                 }
             }
         }

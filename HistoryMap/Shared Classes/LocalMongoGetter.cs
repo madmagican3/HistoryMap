@@ -15,7 +15,7 @@ using Newtonsoft.Json.Linq;
 
 namespace HistoryMap.Shared_Classes
 {
-    class LocalSqlGetter
+    class LocalMongoGetter
     {
         public static Dictionary<Color, List<Point>> GetCountries(DateTime currentTime)
         {
@@ -44,12 +44,12 @@ namespace HistoryMap.Shared_Classes
             List<GenericLabelForWorldMap> localList = new List<GenericLabelForWorldMap>();
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("WebProject");
-            var collection = database.GetCollection<GenericLabelForWorldMap>("test3");
+            var database = connection.GetDatabase("HistoryMap");
+            var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
 
-            var ResultList = collection.Find(_ => true).ToList();
+            var resultList = collection.Find(_ => true).ToList();
 
-            foreach (var result in ResultList)
+            foreach (var result in resultList)
             {
 
                 if (!result.verified&&(result.timeOf >= startDate && result.timeOf <= endDate))//TODO reverse this verified thing
@@ -67,13 +67,13 @@ namespace HistoryMap.Shared_Classes
         /// This will save the button item
         /// </summary>
         /// <param name="label">The button we want to save</param>
-        internal static void addButton(GenericLabelForWorldMap label, LocalDate DateOfButton)
+        internal static void AddButton(GenericLabelForWorldMap label, LocalDate DateOfButton)
         {
             HiddenVars tempVars = new HiddenVars();
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("WebProject");
-            var collection = database.GetCollection<GenericLabelForWorldMap>("test3");
+            var database = connection.GetDatabase("HistoryMap");
+            var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
 
             collection.InsertOne(label);          
         }

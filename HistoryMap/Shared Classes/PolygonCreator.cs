@@ -13,7 +13,7 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         public static Image DrawBorders(Image localMap)
         {
-            return DrawImage(localMap, LocalSqlGetter.GetCountries(new DateTime()));
+            return DrawImage(localMap, LocalMongoGetter.GetCountries(new DateTime()));
         }
         /// <summary>
         /// This draws all the borders on the countries

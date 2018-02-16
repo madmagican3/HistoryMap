@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace HistoryMap.Shared_Classes
 {
-    class HiddenVars
+    internal class HiddenVars
     {
-        private String connectionString = string.Format("mongodb://80.240.137.168:27017");
-       // private String connectionString = string.Format("mongodb://localhost:27017");
+        private String connectionString = string.Format("mongodb://80.240.137.162:27017");
 
 
         public String GetConnectionString()

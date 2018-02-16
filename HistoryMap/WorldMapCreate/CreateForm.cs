@@ -18,7 +18,7 @@ namespace HistoryMap.WorldMapCreate
         /// </summary>
         WorldMapUsers.WorldMapUser viewForm = new WorldMapUsers.WorldMapUser();
 
-        public static GenericLabelForWorldMap newGenericLabelForWorldMap;
+        public static GenericLabelForWorldMap NewGenericLabelForWorldMap;
         public CreateForm()
         {
            InitializeComponent();
@@ -55,7 +55,7 @@ namespace HistoryMap.WorldMapCreate
 
             }else
             {
-                viewForm.WorldMap.Click += null;
+                viewForm.WorldMap.Click -= clickDelegate;
             }
             viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.WorldMapPanel.Controls.Clear();
@@ -97,6 +97,7 @@ namespace HistoryMap.WorldMapCreate
             {
                 CreateFormInstance(true);
             }
+            viewForm._localDrawClass.RenderMap();
         }
 
         /// <summary>
@@ -113,6 +114,8 @@ namespace HistoryMap.WorldMapCreate
             {
                 CreateFormInstance(true);
             }
+            viewForm._localDrawClass.RenderMap();
+
         }
 
         /// <summary>
@@ -126,8 +129,8 @@ namespace HistoryMap.WorldMapCreate
             var result = infoPanel.ShowDialog();
             if (result == DialogResult.OK)
             {
-                LocalSqlGetter.addButton(newGenericLabelForWorldMap, viewForm._localDrawClass._currentDate);
-                newGenericLabelForWorldMap = null;
+                LocalMongoGetter.AddButton(NewGenericLabelForWorldMap, viewForm._localDrawClass._currentDate);
+                NewGenericLabelForWorldMap = null;
             }
         }
     }
