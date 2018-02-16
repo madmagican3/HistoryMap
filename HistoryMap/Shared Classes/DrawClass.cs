@@ -11,9 +11,13 @@ namespace HistoryMap.Shared_Classes
     public class DrawClass
     {
         /// <summary>
+        /// This is used to control if left mouse click should move the screen
+        /// </summary>
+        public bool MoveForm = true;
+        /// <summary>
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
         /// </summary>
-        private readonly Image _localMap = Resources.maps_world_map_02;
+        private Image _localMap = Resources.maps_world_map_02;
         /// <summary>
         /// This should hold the date the user is looking at currently
         /// </summary>
@@ -57,7 +61,7 @@ namespace HistoryMap.Shared_Classes
             //set up the rectangle based on the image size (incase we want to modify the image later)
             RenderRectangle = new Rectangle(0, 0, _localMap.Width, _localMap.Height);
             //We then draw the polygons on the map so as to allow them to zoom correctly
-            _localMap = PolygonCreator.DrawBorders(_localMap);
+            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, _currentDate, Zoom);
             //Then we create a local bitmap of the image so as to have something to draw on
             _bitmap = new Bitmap(_localMap);
             _formMapUser = user;
@@ -216,7 +220,7 @@ namespace HistoryMap.Shared_Classes
         /// <param name="e"></param>
         public void WorldMap_Up(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left) return;
+            if (e.Button != MouseButtons.Left || !MoveForm) return;
             //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
             var actualClickPoint = CalculateUiToMap(e.X, e.Y);
             //Now we have the actual click location on the image, calculate the area to render
@@ -227,6 +231,8 @@ namespace HistoryMap.Shared_Classes
         {
             //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
             var cropRect = new Rectangle(0, 0, _formMapUser.WorldMap.Width, _formMapUser.WorldMap.Height);
+            //redraw the map with the new borders on it
+            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, _currentDate, Zoom);
 
             using (var g = Graphics.FromImage(_bitmap))
             {

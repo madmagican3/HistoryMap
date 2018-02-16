@@ -49,7 +49,7 @@ namespace HistoryMap.Shared_Classes
         [BsonIgnore]
         public LocalDate timeOf { get; set; }
         /// <summary>
-        /// 
+        /// This is used to format the string correctly when saving it to the db
         /// </summary>
         private const string NodaTimeFormat = "gg yyyy MM dd";
         /// <summary>

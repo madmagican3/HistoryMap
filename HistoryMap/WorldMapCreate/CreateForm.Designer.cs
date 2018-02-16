@@ -31,8 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateForm));
             this.WorldMapPanel = new System.Windows.Forms.Panel();
             this.ControlsPanel = new System.Windows.Forms.Panel();
+            this.DeleteIndexBtn = new System.Windows.Forms.Button();
+            this.IndexList = new System.Windows.Forms.ListBox();
             this.InterestingInfoBtn = new System.Windows.Forms.CheckBox();
             this.BorderDrawingBtn = new System.Windows.Forms.CheckBox();
+            this.ColourDialog = new System.Windows.Forms.ColorDialog();
             this.ControlsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,19 +49,43 @@
             // 
             // ControlsPanel
             // 
+            this.ControlsPanel.Controls.Add(this.DeleteIndexBtn);
+            this.ControlsPanel.Controls.Add(this.IndexList);
             this.ControlsPanel.Controls.Add(this.InterestingInfoBtn);
             this.ControlsPanel.Controls.Add(this.BorderDrawingBtn);
             this.ControlsPanel.Location = new System.Drawing.Point(946, 12);
             this.ControlsPanel.MaximumSize = new System.Drawing.Size(180, 0);
             this.ControlsPanel.Name = "ControlsPanel";
-            this.ControlsPanel.Size = new System.Drawing.Size(180, 0);
+            this.ControlsPanel.Size = new System.Drawing.Size(180, 594);
             this.ControlsPanel.TabIndex = 1;
+            // 
+            // DeleteIndexBtn
+            // 
+            this.DeleteIndexBtn.Enabled = false;
+            this.DeleteIndexBtn.Location = new System.Drawing.Point(50, 527);
+            this.DeleteIndexBtn.Name = "DeleteIndexBtn";
+            this.DeleteIndexBtn.Size = new System.Drawing.Size(75, 24);
+            this.DeleteIndexBtn.TabIndex = 4;
+            this.DeleteIndexBtn.Text = "Delete";
+            this.DeleteIndexBtn.UseVisualStyleBackColor = true;
+            this.DeleteIndexBtn.Visible = false;
+            this.DeleteIndexBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // IndexList
+            // 
+            this.IndexList.FormattingEnabled = true;
+            this.IndexList.Location = new System.Drawing.Point(17, 335);
+            this.IndexList.Name = "IndexList";
+            this.IndexList.Size = new System.Drawing.Size(140, 186);
+            this.IndexList.TabIndex = 3;
+            this.IndexList.Visible = false;
+            this.IndexList.SelectedIndexChanged += new System.EventHandler(this.IndexList_SelectedIndexChanged);
             // 
             // InterestingInfoBtn
             // 
             this.InterestingInfoBtn.Appearance = System.Windows.Forms.Appearance.Button;
             this.InterestingInfoBtn.AutoSize = true;
-            this.InterestingInfoBtn.Location = new System.Drawing.Point(35, 206);
+            this.InterestingInfoBtn.Location = new System.Drawing.Point(38, 275);
             this.InterestingInfoBtn.Name = "InterestingInfoBtn";
             this.InterestingInfoBtn.Size = new System.Drawing.Size(87, 23);
             this.InterestingInfoBtn.TabIndex = 2;
@@ -104,5 +131,8 @@
         private System.Windows.Forms.Panel ControlsPanel;
         private System.Windows.Forms.CheckBox BorderDrawingBtn;
         private System.Windows.Forms.CheckBox InterestingInfoBtn;
+        private System.Windows.Forms.ColorDialog ColourDialog;
+        private System.Windows.Forms.Button DeleteIndexBtn;
+        private System.Windows.Forms.ListBox IndexList;
     }
 }

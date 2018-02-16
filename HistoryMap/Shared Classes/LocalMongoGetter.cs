@@ -17,17 +17,33 @@ namespace HistoryMap.Shared_Classes
 {
     class LocalMongoGetter
     {
-        public static Dictionary<Color, List<Point>> GetCountries(DateTime currentTime)
+        public static Dictionary<Color, List<Point>> GetCountries(LocalDate currentTime)
         {
-            return new Dictionary<Color, List<Point>>()
+            if (currentTime > new LocalDate(Era.Common, 500, 2, 11))
             {
+                return new Dictionary<Color, List<Point>>()
                 {
-                    Color.Blue, new List<Point>()
                     {
-                        new Point(0,0),new Point(0,200), new Point (20,200), new Point(200,200), new Point(0,50)
+                        Color.Red, new List<Point>()
+                        {
+                            new Point(0,0),new Point(0,200), new Point (20,200), new Point(200,200), new Point(0,50)
+                        }
                     }
-                }
-            };
+                };
+            }
+            else
+            {
+                return new Dictionary<Color, List<Point>>()
+                {
+                    {
+                        Color.Blue, new List<Point>()
+                        {
+                            new Point(0,0),new Point(0,200), new Point (20,200), new Point(200,200), new Point(0,50)
+                        }
+                    }
+                };
+            }
+          
         }
 
 

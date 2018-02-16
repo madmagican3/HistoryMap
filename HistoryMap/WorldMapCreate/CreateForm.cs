@@ -1,12 +1,7 @@
 ﻿using HistoryMap.Shared_Classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HistoryMap.WorldMapCreate
@@ -17,6 +12,23 @@ namespace HistoryMap.WorldMapCreate
         /// This is the instance of the form displayed on the creation class
         /// </summary>
         WorldMapUsers.WorldMapUser viewForm = new WorldMapUsers.WorldMapUser();
+
+        /// <summary>
+        /// This is used as a reference to get the dictionary to draw when needed
+        /// </summary>
+        public static Dictionary<Color, List<Point>> drawingListDictionary = new Dictionary<Color, List<Point>>();
+
+        /// <summary>
+        /// This is used to store the onclick event when drawing borders
+        /// </summary>
+        public List<Point> LocalPointList = new List<Point>();
+
+        /// <summary>
+        /// This is the colour of the entry the user wants to draw
+        /// </summary>
+        public Color localColor;
+
+        public static int selectedIndex = -1;
 
         public static GenericLabelForWorldMap NewGenericLabelForWorldMap;
         public CreateForm()
@@ -52,10 +64,11 @@ namespace HistoryMap.WorldMapCreate
             }
             else if (BorderDrawingBtn.Checked)
             {
-
+                viewForm.WorldMap.Click += BorderDrawingClickDelegate;
             }else
             {
                 viewForm.WorldMap.Click -= clickDelegate;
+                viewForm.WorldMap.Click -= BorderDrawingClickDelegate;
             }
             viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.WorldMapPanel.Controls.Clear();
@@ -109,6 +122,21 @@ namespace HistoryMap.WorldMapCreate
             {
                 InterestingInfoBtn.Checked = false;
                 CreateFormInstance(false);
+                var result = ColourDialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var colour = ColourDialog.Color;
+                    PolygonCreator.drawing = true;
+                    drawingListDictionary.Add(colour, new List<Point>());
+                    viewForm._localDrawClass.RenderMap();
+                    IndexList.Visible = true;
+                    DeleteIndexBtn.Visible = true;
+                    viewForm._localDrawClass.MoveForm = false;
+                }
+                else
+                {
+                    BorderDrawingBtn.Checked = false;
+                }
             }
             else if (!InterestingInfoBtn.Checked)
             {
@@ -132,6 +160,58 @@ namespace HistoryMap.WorldMapCreate
                 LocalMongoGetter.AddButton(NewGenericLabelForWorldMap, viewForm._localDrawClass._currentDate);
                 NewGenericLabelForWorldMap = null;
             }
+        }
+
+        /// <summary>
+        /// This delegate is used for recording click points and displaying them on the map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void BorderDrawingClickDelegate(object sender, EventArgs e)
+        {
+            MouseEventArgs click = (MouseEventArgs)e; //Static cast the event args to get them to be the only type they ever will be
+            var actualClickPoint = viewForm._localDrawClass.CalculateUiToMap(click.X, click.Y);
+            LocalPointList.Add(actualClickPoint);
+            drawingListDictionary.Clear();
+            drawingListDictionary.Add(localColor, LocalPointList);
+            viewForm._localDrawClass.RenderMap();
+            IndexList.Items.Clear();
+            for (int i = 0; i < LocalPointList.Count; i++)
+            {
+                IndexList.Items.Add(i);
+            }
+        }
+        /// <summary>
+        /// This will remove the sleected index and refresh the screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (IndexList.SelectedIndex == -1) return;
+            LocalPointList.RemoveAt(IndexList.SelectedIndex);
+            selectedIndex = -1;
+            IndexList.Items.Clear();
+            for (int i = 0; i < LocalPointList.Count; i++)
+            {
+                IndexList.Items.Add(i);
+            }
+            viewForm._localDrawClass.RenderMap();
+            IndexList.SelectedIndex = -1;
+            DeleteIndexBtn.Enabled = false;
+        }
+
+        /// <summary>
+        /// This is used to set up the ui and inform the user what index they've selected and how it appears on the map
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void IndexList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (IndexList.SelectedIndex != -1)
+                DeleteIndexBtn.Enabled = true;
+            selectedIndex = IndexList.SelectedIndex;
+            viewForm._localDrawClass.RenderMap();
         }
     }
 }

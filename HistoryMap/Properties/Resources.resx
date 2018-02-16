@@ -154,4 +154,10 @@
   <data name="icons8_marker_50" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-marker-50.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="if_circle_blue_10279" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\if_circle_blue_10279.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="if_circle_red_10282" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\if_circle_red_10282.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
