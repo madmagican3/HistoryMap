@@ -18,12 +18,13 @@ namespace HistoryMap.Shared_Classes
         public static Image DrawBorders(Image localMap, LocalDate localDate, double zoom)
         {
             if (!drawing)
-                return DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom);
+                return DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom, false);
             else
             {
                 List<BorderStorageClass> tempBorderStorageList =
                     new List<BorderStorageClass> {WorldMapCreate.CreateForm.LocalBorderStorageClass};
-                return DrawImage(localMap, tempBorderStorageList, zoom);
+                localMap = DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom, true);
+                return DrawImage(localMap, tempBorderStorageList, zoom, false);
             }
 
         }
@@ -33,7 +34,7 @@ namespace HistoryMap.Shared_Classes
         /// <param name="localMap"> This is a copy of the main image</param>
         /// <param name="allBordersList">this is a dictionary returned from the sql that gets all the colours</param>
         /// <returns></returns>
-        public static Image DrawImage(Image localMap, List<BorderStorageClass> allBordersList, double zoom)
+        public static Image DrawImage(Image localMap, List<BorderStorageClass> allBordersList, double zoom, bool forceGetBorders)
         {
             var pen = new Pen(Color.Black, 3);
             //this gets every entry in the dictionary
@@ -45,7 +46,7 @@ namespace HistoryMap.Shared_Classes
                     //then it writes them to the image to return
                     using (var g = Graphics.FromImage(localMap))
                     {
-                        if (!drawing)
+                        if (!drawing|| forceGetBorders)
                         {
                             var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Colour.R, tempEntry.Colour.G, tempEntry.Colour.B));
                             g.FillPolygon(brush, tempEntry.AllPointsofBorder.ToArray());
@@ -60,8 +61,7 @@ namespace HistoryMap.Shared_Classes
                                 g.DrawPolygon(pen, tempEntry.AllPointsofBorder.ToArray());
                             }
                             else
-                            {
-                          
+                            {                  
                                 int i = 0;
                                 foreach (var point in tempEntry.AllPointsofBorder.ToArray())
                                 {
