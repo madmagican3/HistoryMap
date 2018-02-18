@@ -21,7 +21,9 @@ namespace HistoryMap.Shared_Classes
                 return DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom);
             else
             {
-                return DrawImage(localMap, WorldMapCreate.CreateForm.drawingListDictionary, zoom);
+                List<BorderStorageClass> tempBorderStorageList =
+                    new List<BorderStorageClass> {WorldMapCreate.CreateForm.LocalBorderStorageClass};
+                return DrawImage(localMap, tempBorderStorageList, zoom);
             }
 
         }
@@ -31,41 +33,39 @@ namespace HistoryMap.Shared_Classes
         /// <param name="localMap"> This is a copy of the main image</param>
         /// <param name="allBordersList">this is a dictionary returned from the sql that gets all the colours</param>
         /// <returns></returns>
-        public static Image DrawImage(Image localMap, Dictionary<Color, List<Point>> allBordersList, double zoom)
+        public static Image DrawImage(Image localMap, List<BorderStorageClass> allBordersList, double zoom)
         {
             var pen = new Pen(Color.Black, 3);
             //this gets every entry in the dictionary
             if (allBordersList == null) return localMap;
             foreach (var tempEntry in allBordersList)
             {
-                if (tempEntry.Value.Count != 0)
+                if (tempEntry.AllPointsofBorder.Count != 0)
                 {
                     //then it writes them to the image to return
                     using (var g = Graphics.FromImage(localMap))
                     {
                         if (!drawing)
                         {
-                            var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Key.R, tempEntry.Key.G, tempEntry.Key.B));
-                            g.FillPolygon(new SolidBrush(tempEntry.Key), tempEntry.Value.ToArray());
-                            g.DrawPolygon(pen, tempEntry.Value.ToArray());
+                            var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Colour.R, tempEntry.Colour.G, tempEntry.Colour.B));
+                            g.FillPolygon(brush, tempEntry.AllPointsofBorder.ToArray());
+                            g.DrawPolygon(pen, tempEntry.AllPointsofBorder.ToArray());
                         }
                         else
                         {
-                            if ( tempEntry.Value.Count > 2&&tempEntry.Value[0].Equals(tempEntry.Value[tempEntry.Value.Count-1]))
+                            if ( tempEntry.AllPointsofBorder.Count > 2&&tempEntry.AllPointsofBorder[0].Equals(tempEntry.AllPointsofBorder[tempEntry.AllPointsofBorder.Count-1]))
                             {
-                                var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Key.R, tempEntry.Key.G, tempEntry.Key.B));
-                                g.FillPolygon(brush, tempEntry.Value.ToArray());
-                                g.DrawPolygon(pen, tempEntry.Value.ToArray());
+                                var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Colour.R, tempEntry.Colour.G, tempEntry.Colour.B));
+                                g.FillPolygon(brush, tempEntry.AllPointsofBorder.ToArray());
+                                g.DrawPolygon(pen, tempEntry.AllPointsofBorder.ToArray());
                             }
                             else
                             {
-                                var width = Resources.if_circle_red_10282.Width / 2;
-                                var height = Resources.if_circle_red_10282.Height / 2;
-
+                          
                                 int i = 0;
-                                foreach (var point in tempEntry.Value.ToArray())
+                                foreach (var point in tempEntry.AllPointsofBorder.ToArray())
                                 {
-                                    const int finalPixels = 16;
+                                    const int finalPixels = 8;
                                     var rect = new Rectangle(point.X - finalPixels / 2, point.Y - finalPixels / 2, finalPixels, finalPixels);
                                     if (i != WorldMapCreate.CreateForm.selectedIndex)
                                         g.DrawIcon(Resources.if_circle_red_10282, rect);

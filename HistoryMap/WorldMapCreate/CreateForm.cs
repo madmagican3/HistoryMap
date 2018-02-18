@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using HistoryMap.WorldMapUsers;
 
 namespace HistoryMap.WorldMapCreate
 {
@@ -16,7 +17,7 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This is used as a reference to get the dictionary to draw when needed
         /// </summary>
-        public static Dictionary<Color, List<Point>> drawingListDictionary = new Dictionary<Color, List<Point>>();
+        public static BorderStorageClass LocalBorderStorageClass = new BorderStorageClass();
 
         /// <summary>
         /// This is used to store the onclick event when drawing borders
@@ -35,9 +36,11 @@ namespace HistoryMap.WorldMapCreate
         /// This a instance of the generic label for creation purposes
         /// </summary>
         public static GenericLabelForWorldMap NewGenericLabelForWorldMap;
+
+        private ClickAndDrag clickAndDrag;
         public CreateForm()
         {
-           InitializeComponent();
+            InitializeComponent();
         }
         /// <summary>
         /// Set up the form upon load
@@ -45,8 +48,11 @@ namespace HistoryMap.WorldMapCreate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CreateForm_Load(object sender, EventArgs e)
-        { 
+        {
             CreateFormInstance(true);
+            clickAndDrag = new ClickAndDrag(viewForm, (ev) => this.BorderDrawingClickDelegate(null, ev));
+            Closing += (a, b) => { clickAndDrag.ClearEvents(); };
+
         }
 
         /// <summary>
@@ -62,16 +68,17 @@ namespace HistoryMap.WorldMapCreate
             viewForm.Width = WorldMapPanel.Width;
             viewForm.TopLevel = false;
             viewForm.renderButtons = showButtons; //make the form conform to our style requirements
-            if (InterestingInfoBtn.Checked) 
+            if (InterestingInfoBtn.Checked)
             {
-                viewForm.WorldMap.Click += clickDelegate;
+                viewForm.WorldMap.Click += ClickDelegate;
             }
             else if (BorderDrawingBtn.Checked)
             {
                 viewForm.WorldMap.Click += BorderDrawingClickDelegate;
-            }else
+            }
+            else
             {
-                viewForm.WorldMap.Click -= clickDelegate;
+                viewForm.WorldMap.Click -= ClickDelegate;
                 viewForm.WorldMap.Click -= BorderDrawingClickDelegate;
             }
             viewForm.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -122,6 +129,7 @@ namespace HistoryMap.WorldMapCreate
         /// </summary>
         private void BorderDrawingBtn_CheckedChanged(object sender, EventArgs e)
         {
+            clickAndDrag.IsEditing = BorderDrawingBtn.Checked;
             if (BorderDrawingBtn.Checked)
             {
                 InterestingInfoBtn.Checked = false;
@@ -131,7 +139,8 @@ namespace HistoryMap.WorldMapCreate
                 {
                     localColor = ColourDialog.Color;
                     PolygonCreator.drawing = true;
-                    drawingListDictionary.Add(localColor, new List<Point>());
+                    LocalBorderStorageClass.Colour = localColor;
+                    LocalBorderStorageClass.AllPointsofBorder = new List<Point>();
                     viewForm._localDrawClass.RenderMap();
                     IndexList.Visible = true;
                     DeleteIndexBtn.Visible = true;
@@ -140,12 +149,21 @@ namespace HistoryMap.WorldMapCreate
                 }
                 else
                 {
+
                     BorderDrawingBtn.Checked = false;
                 }
             }
             else if (!InterestingInfoBtn.Checked)
             {
+                DeleteIndexBtn.Visible = false;
+                CompleteBtn.Visible = false;
+                ViewCompleteBtn.Visible = false;
+                IndexList.Visible = false;
+                BorderDrawingBtn.Checked = false;
                 CreateFormInstance(true);
+                PolygonCreator.drawing = false;
+                viewForm.WorldMap.Click -= BorderDrawingClickDelegate;
+                viewForm._localDrawClass.MoveForm = false;
             }
             viewForm._localDrawClass.RenderMap();
 
@@ -154,7 +172,7 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This on click event should be passed to the world form in order to get the vals we need to work with
         /// </summary>
-        public void clickDelegate(object sender, EventArgs e)
+        public void ClickDelegate(object sender, EventArgs e)
         {
             MouseEventArgs click = (MouseEventArgs)e; //Static cast the event args to get them to be the only type they ever will be
             var actualClickPoint = viewForm._localDrawClass.CalculateUiToMap(click.X, click.Y);
@@ -177,8 +195,8 @@ namespace HistoryMap.WorldMapCreate
             MouseEventArgs click = (MouseEventArgs)e; //Static cast the event args to get them to be the only type they ever will be
             var actualClickPoint = viewForm._localDrawClass.CalculateUiToMap(click.X, click.Y);
             LocalPointList.Add(actualClickPoint);
-            drawingListDictionary.Clear();
-            drawingListDictionary.Add(localColor, LocalPointList);
+            LocalBorderStorageClass.AllPointsofBorder.Clear();
+            LocalBorderStorageClass.AllPointsofBorder.AddRange(LocalPointList);
             viewForm._localDrawClass.RenderMap();
             IndexList.Items.Clear();
             for (int i = 0; i < LocalPointList.Count; i++)
@@ -191,7 +209,7 @@ namespace HistoryMap.WorldMapCreate
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             if (IndexList.SelectedIndex == -1) return;
             LocalPointList.RemoveAt(IndexList.SelectedIndex);
@@ -218,8 +236,8 @@ namespace HistoryMap.WorldMapCreate
             if (LocalPointList[0].Equals(LocalPointList[LocalPointList.Count - 1]))
             {
                 LocalPointList.RemoveAt(LocalPointList.Count - 1);
-                drawingListDictionary.Clear();
-                drawingListDictionary.Add(localColor, LocalPointList);
+                LocalBorderStorageClass.AllPointsofBorder.Clear();
+                LocalBorderStorageClass.AllPointsofBorder.AddRange(LocalPointList);
                 viewForm._localDrawClass.RenderMap();
                 IndexList.Items.Clear();
                 for (int i = 0; i < LocalPointList.Count; i++)
@@ -241,8 +259,8 @@ namespace HistoryMap.WorldMapCreate
         private void ViewCompleteBtn_Click(object sender, EventArgs e)
         {
             LocalPointList.Add(LocalPointList[0]);
-            drawingListDictionary.Clear();
-            drawingListDictionary.Add(localColor, LocalPointList);
+            LocalBorderStorageClass.AllPointsofBorder.Clear();
+            LocalBorderStorageClass.AllPointsofBorder.AddRange(LocalPointList);
             viewForm._localDrawClass.RenderMap();
             IndexList.Items.Clear();
             for (int i = 0; i < LocalPointList.Count; i++)
@@ -259,7 +277,28 @@ namespace HistoryMap.WorldMapCreate
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CompleteBtn_Click(object sender, EventArgs e)
-        {//TODO complete
+        {
+            using (var form = new DateSelectionModal(viewForm._localDrawClass._currentDate))
+            {
+                var dialogResult = form.ShowDialog();
+                if (dialogResult == DialogResult.OK)
+                {
+                    if (viewForm._localDrawClass._currentDate > form.ReturnTime)
+                    {
+                        MessageBox.Show("You're trying to create a start time before an end time");
+                        return;
+                    }
+                    else
+                    {
+                        LocalBorderStorageClass.ValidTill = form.ReturnTime;
+                    }
+                    
+                }
+                else
+                {
+                    return;
+                }
+            }
             DeleteIndexBtn.Visible = false;
             CompleteBtn.Visible = false;
             ViewCompleteBtn.Visible = false;
@@ -269,6 +308,65 @@ namespace HistoryMap.WorldMapCreate
             PolygonCreator.drawing = false;
             viewForm.WorldMap.Click -= BorderDrawingClickDelegate;
             viewForm._localDrawClass.MoveForm = false;
+            LocalBorderStorageClass.TimeOf= viewForm._localDrawClass._currentDate;
+            LocalBorderStorageClass._id = System.Guid.NewGuid().ToString();
+            LocalBorderStorageClass.Verified = false;
+            LocalMongoGetter.SaveBorder(LocalBorderStorageClass);
+            LocalBorderStorageClass = null;
+        }
+
+
+        public class ClickAndDrag
+        {
+            private WorldMapUser _users;
+            private Action<MouseEventArgs> _update;
+            public bool IsEditing { get; set; }
+            public bool IsDragging { get; private set; }
+            public Point LastPoint { get; private set; }
+            public int PixelDistance { get; set; }
+
+            public ClickAndDrag(WorldMapUser users, Action<MouseEventArgs> eventCallback)
+            {
+                _users = users;
+                PixelDistance = 24;
+                _update = eventCallback;
+                SetupEvents();
+            }
+
+            private void SetupEvents()
+            {
+                _users.WorldMap.MouseDown += MouseDown;
+                _users.WorldMap.MouseMove += MouseDragEvent;
+                _users.WorldMap.MouseUp += MouseUp;
+            }
+            public void ClearEvents()
+            {
+                _users.WorldMap.MouseDown -= MouseDown;
+                _users.WorldMap.MouseMove -= MouseDragEvent;
+                _users.WorldMap.MouseUp -= MouseUp;
+            }
+
+            public void MouseDown(object sender, EventArgs e)
+            {
+                IsDragging = true;
+            }
+
+            public void MouseUp(object sender, EventArgs e)
+            {
+                IsDragging = false;
+            }
+            public void MouseDragEvent(object sender, EventArgs e)
+            {
+                if (!IsDragging || !IsEditing) return;
+                var mouseMove = e as MouseEventArgs;
+
+                if (Math.Abs(mouseMove.X - LastPoint.X) + Math.Abs(mouseMove.Y - LastPoint.Y) >
+                    PixelDistance)
+                {
+                    _update(mouseMove);
+                    LastPoint = mouseMove.Location;
+                }
+            }
         }
     }
 }

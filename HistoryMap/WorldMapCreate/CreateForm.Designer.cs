@@ -31,13 +31,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateForm));
             this.WorldMapPanel = new System.Windows.Forms.Panel();
             this.ControlsPanel = new System.Windows.Forms.Panel();
+            this.CompleteBtn = new System.Windows.Forms.Button();
+            this.ViewCompleteBtn = new System.Windows.Forms.Button();
             this.DeleteIndexBtn = new System.Windows.Forms.Button();
             this.IndexList = new System.Windows.Forms.ListBox();
             this.InterestingInfoBtn = new System.Windows.Forms.CheckBox();
             this.BorderDrawingBtn = new System.Windows.Forms.CheckBox();
             this.ColourDialog = new System.Windows.Forms.ColorDialog();
-            this.ViewCompleteBtn = new System.Windows.Forms.Button();
-            this.CompleteBtn = new System.Windows.Forms.Button();
             this.ControlsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,11 +57,34 @@
             this.ControlsPanel.Controls.Add(this.IndexList);
             this.ControlsPanel.Controls.Add(this.InterestingInfoBtn);
             this.ControlsPanel.Controls.Add(this.BorderDrawingBtn);
-            this.ControlsPanel.Location = new System.Drawing.Point(946, 12);
+            this.ControlsPanel.Location = new System.Drawing.Point(946, 2);
             this.ControlsPanel.MaximumSize = new System.Drawing.Size(180, 0);
             this.ControlsPanel.Name = "ControlsPanel";
-            this.ControlsPanel.Size = new System.Drawing.Size(180, 635);
+            this.ControlsPanel.Size = new System.Drawing.Size(180, 645);
             this.ControlsPanel.TabIndex = 1;
+            // 
+            // CompleteBtn
+            // 
+            this.CompleteBtn.Enabled = false;
+            this.CompleteBtn.Location = new System.Drawing.Point(52, 587);
+            this.CompleteBtn.Name = "CompleteBtn";
+            this.CompleteBtn.Size = new System.Drawing.Size(75, 23);
+            this.CompleteBtn.TabIndex = 6;
+            this.CompleteBtn.Text = "Save Border";
+            this.CompleteBtn.UseVisualStyleBackColor = true;
+            this.CompleteBtn.Visible = false;
+            this.CompleteBtn.Click += new System.EventHandler(this.CompleteBtn_Click);
+            // 
+            // ViewCompleteBtn
+            // 
+            this.ViewCompleteBtn.Location = new System.Drawing.Point(38, 557);
+            this.ViewCompleteBtn.Name = "ViewCompleteBtn";
+            this.ViewCompleteBtn.Size = new System.Drawing.Size(93, 23);
+            this.ViewCompleteBtn.TabIndex = 5;
+            this.ViewCompleteBtn.Text = "See completed";
+            this.ViewCompleteBtn.UseVisualStyleBackColor = true;
+            this.ViewCompleteBtn.Visible = false;
+            this.ViewCompleteBtn.Click += new System.EventHandler(this.ViewCompleteBtn_Click);
             // 
             // DeleteIndexBtn
             // 
@@ -73,7 +96,7 @@
             this.DeleteIndexBtn.Text = "Delete";
             this.DeleteIndexBtn.UseVisualStyleBackColor = true;
             this.DeleteIndexBtn.Visible = false;
-            this.DeleteIndexBtn.Click += new System.EventHandler(this.button1_Click);
+            this.DeleteIndexBtn.Click += new System.EventHandler(this.Button1_Click);
             // 
             // IndexList
             // 
@@ -112,29 +135,6 @@
             // ColourDialog
             // 
             this.ColourDialog.FullOpen = true;
-            // 
-            // ViewCompleteBtn
-            // 
-            this.ViewCompleteBtn.Location = new System.Drawing.Point(38, 557);
-            this.ViewCompleteBtn.Name = "ViewCompleteBtn";
-            this.ViewCompleteBtn.Size = new System.Drawing.Size(93, 23);
-            this.ViewCompleteBtn.TabIndex = 5;
-            this.ViewCompleteBtn.Text = "See completed";
-            this.ViewCompleteBtn.UseVisualStyleBackColor = true;
-            this.ViewCompleteBtn.Visible = false;
-            this.ViewCompleteBtn.Click += new System.EventHandler(this.ViewCompleteBtn_Click);
-            // 
-            // CompleteBtn
-            // 
-            this.CompleteBtn.Enabled = false;
-            this.CompleteBtn.Location = new System.Drawing.Point(52, 587);
-            this.CompleteBtn.Name = "CompleteBtn";
-            this.CompleteBtn.Size = new System.Drawing.Size(75, 23);
-            this.CompleteBtn.TabIndex = 6;
-            this.CompleteBtn.Text = "Save Border";
-            this.CompleteBtn.UseVisualStyleBackColor = true;
-            this.CompleteBtn.Visible = false;
-            this.CompleteBtn.Click += new System.EventHandler(this.CompleteBtn_Click);
             // 
             // CreateForm
             // 

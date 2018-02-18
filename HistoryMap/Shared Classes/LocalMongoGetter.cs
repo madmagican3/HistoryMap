@@ -17,33 +17,40 @@ namespace HistoryMap.Shared_Classes
 {
     class LocalMongoGetter
     {
-        public static Dictionary<Color, List<Point>> GetCountries(LocalDate currentTime)
+        public static List<BorderStorageClass> GetCountries(LocalDate currentTime)
         {
-            if (currentTime > new LocalDate(Era.Common, 500, 2, 11))
+            HiddenVars tempVars = new HiddenVars();
+            List<BorderStorageClass> localList = new List<BorderStorageClass>();
+            //create a new connection
+            var connection = new MongoClient(tempVars.GetConnectionString());
+            var database = connection.GetDatabase("HistoryMap");
+            var collection = database.GetCollection<BorderStorageClass>("Border");
+
+            var resultList = collection.Find(_ => true).ToList();
+
+            foreach (var result in resultList)
             {
-                return new Dictionary<Color, List<Point>>()
+
+                if (!result.Verified && (result.TimeOf >= currentTime && result.ValidTill >= currentTime))//TODO reverse this verified thing
                 {
-                    {
-                        Color.Red, new List<Point>()
-                        {
-                            new Point(0,0),new Point(0,200), new Point (20,200), new Point(200,200), new Point(0,50)
-                        }
-                    }
-                };
+                    localList.Add(result);
+                }
+
             }
-            else
-            {
-                return new Dictionary<Color, List<Point>>()
-                {
-                    {
-                        Color.Blue, new List<Point>()
-                        {
-                            new Point(0,0),new Point(0,200), new Point (20,200), new Point(200,200), new Point(0,50)
-                        }
-                    }
-                };
-            }
+            return localList;
+         
           
+        }
+
+        public static void SaveBorder(BorderStorageClass borderToSave)
+        {
+            HiddenVars tempVars = new HiddenVars();
+            //create a new connection
+            var connection = new MongoClient(tempVars.GetConnectionString());
+            var database = connection.GetDatabase("HistoryMap");
+            var collection = database.GetCollection<BorderStorageClass>("Border");
+
+            collection.InsertOne(borderToSave);
         }
 
 
