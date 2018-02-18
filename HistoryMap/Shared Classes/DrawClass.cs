@@ -323,6 +323,7 @@ namespace HistoryMap.Shared_Classes
                     break;
             }
             _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+            RenderMap();
         }
         /// <summary>
         /// this should handle the incrementation of time by the amount selected in the combobox and displays it to the user
@@ -357,7 +358,9 @@ namespace HistoryMap.Shared_Classes
             }
             if (verifyDate.Year < DateTime.Today.Year - 20)
             {
+                _currentDate = verifyDate;
                 _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+                RenderMap();
             }
             else
             {
