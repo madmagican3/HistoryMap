@@ -330,7 +330,6 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //TODO remember to on getting the information not to go over 20 years, cap it if it does start to go over that
 
         public void OnRightArrowClick(object sender, EventArgs e)
         {
