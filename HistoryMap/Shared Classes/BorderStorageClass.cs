@@ -65,13 +65,18 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         [BsonIgnore]
         public List<Point> AllPointsofBorder;
-
+        /// <summary>
+        /// This is a point list used for storing allPointsOfBorder
+        /// </summary>
         public List<int> PointList
         {
             get => GetAllPointsAsIntList();
             set => SetAllPointsAsIntList(value);
         }
-
+        /// <summary>
+        /// This turns the points into an integer array
+        /// </summary>
+        /// <param name="allInts"></param>
         public void SetAllPointsAsIntList(List<int> allInts)
         {
             List<Point> localPointsList = new List<Point>();
@@ -82,7 +87,10 @@ namespace HistoryMap.Shared_Classes
 
             AllPointsofBorder = localPointsList;
         }
-
+        /// <summary>
+        /// This creates all the points required from an int list
+        /// </summary>
+        /// <returns></returns>
         public List<int> GetAllPointsAsIntList()
         {
             List<int> tempList = new List<int>();

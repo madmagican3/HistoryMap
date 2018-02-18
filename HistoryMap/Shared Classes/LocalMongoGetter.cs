@@ -17,6 +17,11 @@ namespace HistoryMap.Shared_Classes
 {
     class LocalMongoGetter
     {
+        /// <summary>
+        /// This gets all the countries borders which are valid till that specified time period
+        /// </summary>
+        /// <param name="currentTime"></param>
+        /// <returns></returns>
         public static List<BorderStorageClass> GetCountries(LocalDate currentTime)
         {
             HiddenVars tempVars = new HiddenVars();
@@ -41,7 +46,10 @@ namespace HistoryMap.Shared_Classes
          
           
         }
-
+        /// <summary>
+        /// This saves the border
+        /// </summary>
+        /// <param name="borderToSave"></param>
         public static void SaveBorder(BorderStorageClass borderToSave)
         {
             HiddenVars tempVars = new HiddenVars();
