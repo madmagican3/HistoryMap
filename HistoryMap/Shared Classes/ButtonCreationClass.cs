@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
@@ -20,7 +19,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is a list for all the dates in the time period stored in the global date 
         /// </summary>
-        public List<GenericLabelForWorldMap> _buttonsForTimePeriodList = new List<GenericLabelForWorldMap>();
+        public List<GenericLabelForWorldMap> ButtonsForTimePeriodList = new List<GenericLabelForWorldMap>();
         /// <summary>
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
@@ -53,7 +52,7 @@ namespace HistoryMap.Shared_Classes
                 _endDateTime = endDate;
                 GetButtons(startDate, endDate);
                 localForm.InterestingItemsList.Items.Clear();
-                foreach (var localButtonStorage in _buttonsForTimePeriodList)
+                foreach (var localButtonStorage in ButtonsForTimePeriodList)
                 {
                     localForm.InterestingItemsList.Items.Add(localButtonStorage.name);
                 }
@@ -65,13 +64,13 @@ namespace HistoryMap.Shared_Classes
             }
             //empty the list
             _buttonControlList.Clear();
-            if (!localForm.renderButtons)
+            if (!localForm.RenderButtons)
             {
                 _inUse = false;
                 return;
             }
             //Check if we should continue to attempt to draw the buttons on
-            foreach (var localButtonStorage in _buttonsForTimePeriodList)
+            foreach (var localButtonStorage in ButtonsForTimePeriodList)
             {
                 Point? location = ButtonLocation(localClass, localButtonStorage);
                 //If the point returned is invalid we no longer want to add the label to the list
@@ -133,8 +132,8 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
-            _buttonsForTimePeriodList.Clear();
-            _buttonsForTimePeriodList = LocalMongoGetter.GetListFromDateSelection( startDate,endDate);
+            ButtonsForTimePeriodList.Clear();
+            ButtonsForTimePeriodList = LocalMongoGetter.GetListFromDateSelection( startDate,endDate);
         }
     }
 }

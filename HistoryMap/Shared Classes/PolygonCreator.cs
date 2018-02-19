@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using HistoryMap.Properties;
 using NodaTime;
@@ -8,16 +7,18 @@ namespace HistoryMap.Shared_Classes
 {
     internal static class PolygonCreator
     {
-        public static bool drawing = false;
+        public static bool Drawing = false;
 
         /// <summary>
         /// This draws the polygons for borders based on the image passed to it
         /// </summary>
-        /// <param name="localMap"></param>
-        /// <returns></returns>
+        /// <param name="localMap">The image we're drawing on</param>
+        /// <param name="localDate">The date we're searching for</param>
+        /// <param name="zoom">the zoom level</param>
+        /// <returns>a version of the drawing with the polygons drawn on</returns>
         public static Image DrawBorders(Image localMap, LocalDate localDate, double zoom)
         {
-            if (!drawing)
+            if (!Drawing)
                 return DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom, false);
             else
             {
@@ -28,12 +29,15 @@ namespace HistoryMap.Shared_Classes
             }
 
         }
+
         /// <summary>
         /// This draws all the borders on the countries
         /// </summary>
         /// <param name="localMap"> This is a copy of the main image</param>
         /// <param name="allBordersList">this is a dictionary returned from the sql that gets all the colours</param>
-        /// <returns></returns>
+        /// <param name="zoom">the zoom level of the form</param>
+        /// <param name="forceGetBorders">If we want to force getting the borders</param>
+        /// <returns>a modified version of the map with polygons drawn on</returns>
         public static Image DrawImage(Image localMap, List<BorderStorageClass> allBordersList, double zoom, bool forceGetBorders)
         {
             var pen = new Pen(Color.Black, 3);
@@ -46,7 +50,7 @@ namespace HistoryMap.Shared_Classes
                     //then it writes them to the image to return
                     using (var g = Graphics.FromImage(localMap))
                     {
-                        if (!drawing|| forceGetBorders)
+                        if (!Drawing|| forceGetBorders)
                         {
                             var brush = new SolidBrush(Color.FromArgb(128, tempEntry.Colour.R, tempEntry.Colour.G, tempEntry.Colour.B));
                             g.FillPolygon(brush, tempEntry.AllPointsofBorder.ToArray());
@@ -67,7 +71,7 @@ namespace HistoryMap.Shared_Classes
                                 {
                                     const int finalPixels = 8;
                                     var rect = new Rectangle(point.X - finalPixels / 2, point.Y - finalPixels / 2, finalPixels, finalPixels);
-                                    if (i != WorldMapCreate.CreateForm.selectedIndex)
+                                    if (i != WorldMapCreate.CreateForm.SelectedIndex)
                                         g.DrawIcon(Resources.if_circle_red_10282, rect);
                                     else
                                         g.DrawIcon(Resources.if_circle_blue_10279, rect);

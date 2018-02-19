@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 using NodaTime;
 using NodaTime.Text;
@@ -109,10 +106,10 @@ namespace HistoryMap.Shared_Classes
         public BorderStorageClass(LocalDate time,Color colour, List<Point> allPointsofBorder)
         {
 
-            this.Colour = colour;
-            this.AllPointsofBorder = allPointsofBorder;
-            this.TimeOf = time;
-            _id = System.Guid.NewGuid().ToString();
+            Colour = colour;
+            AllPointsofBorder = allPointsofBorder;
+            TimeOf = time;
+            _id = Guid.NewGuid().ToString();
             Verified = false;
         }
 

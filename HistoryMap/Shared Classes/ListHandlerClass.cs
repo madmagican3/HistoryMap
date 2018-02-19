@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
@@ -14,7 +13,7 @@ namespace HistoryMap.Shared_Classes
         /// <param name="formUser"></param>
         public ListHandlerClass(WorldMapUser formUser)
         {
-            this._formUser = formUser;
+            _formUser = formUser;
         }
         /// <summary>
         /// local pointer to our original form
@@ -52,7 +51,7 @@ namespace HistoryMap.Shared_Classes
             _formUser.SearchTxtBox.Text = "";
             _formUser.InterestingItemsList.Items.Clear();
             int resultAmount = 0;
-            foreach (var text in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
+            foreach (var text in _formUser.LocalDrawClass.LocalButtonCreationClass.ButtonsForTimePeriodList)
             {
                 if (text.name.ToLower().Contains(searchVal)|| text.Type.ToLower().Equals(searchVal))
                 {
@@ -60,7 +59,7 @@ namespace HistoryMap.Shared_Classes
                     _formUser.InterestingItemsList.Items.Add(text.name);
                 }
             }
-            _formUser.SearchInfoLabel.Text = "We found " + resultAmount + " results";
+            _formUser.SearchInfoLabel.Text = @"We found " + resultAmount + @" results";
         }
 
         public void KeyPress(object sender, KeyPressEventArgs e)
@@ -78,9 +77,9 @@ namespace HistoryMap.Shared_Classes
             {
                 return;
             }
-            foreach (var id in _formUser._localDrawClass.LocalButtonCreationClass._buttonsForTimePeriodList)
+            foreach (var id in _formUser.LocalDrawClass.LocalButtonCreationClass.ButtonsForTimePeriodList)
             {
-                _formUser._localDrawClass.CenterOnButton(id.ButtonCenterPoint);
+                _formUser.LocalDrawClass.CenterOnButton(id.ButtonCenterPoint);
                 if (id.name.Equals(_formUser.InterestingItemsList.Items[_formUser.InterestingItemsList.SelectedIndex]))
                 {
                     InformationPanel infoPanel = new InformationPanel(id.Text);

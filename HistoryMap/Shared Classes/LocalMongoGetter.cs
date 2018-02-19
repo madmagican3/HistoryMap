@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
+﻿using System.Collections.Generic;
 using NodaTime;
 using MongoDB.Driver;
-using Newtonsoft;
-using Newtonsoft.Json;
-using MongoDB.Bson;
-using NodaTime.Text;
-using NodaTime.Calendars;
-using MongoDB.Bson.Serialization;
-using Newtonsoft.Json.Linq;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -93,12 +82,12 @@ namespace HistoryMap.Shared_Classes
         }
 
 
-
         /// <summary>
         /// This will save the button item
         /// </summary>
         /// <param name="label">The button we want to save</param>
-        internal static void AddButton(GenericLabelForWorldMap label, LocalDate DateOfButton)
+        /// <param name="dateOfButton">The date we're looking for</param>
+        internal static void AddButton(GenericLabelForWorldMap label, LocalDate dateOfButton)
         {
             HiddenVars tempVars = new HiddenVars();
             //create a new connection

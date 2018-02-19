@@ -1,12 +1,7 @@
 ﻿using NodaTime;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HistoryMap.WorldMapCreate
@@ -33,7 +28,7 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This populates the textbox so as to demonstrate how it will appear to the user
         /// </summary>
-        private void populateTextBox()
+        private void PopulateTextBox()
         {
             DemonstrationRtf.Clear();
             foreach (var text in ButtonDictionary)
@@ -48,7 +43,7 @@ namespace HistoryMap.WorldMapCreate
         /// <summary>
         /// This updates the list 
         /// </summary>
-        private void updateList()
+        private void UpdateList()
         {
             ItemsList.Items.Clear();
             foreach(var text in ButtonDictionary)
@@ -65,17 +60,17 @@ namespace HistoryMap.WorldMapCreate
         {
             if (ItemsList.SelectedIndex != -1)
             {
-                modifyText();
+                ModifyText();
             }
             else
             {
-                newText();
+                NewText();
             } 
         }
         /// <summary>
         /// Sets up the text fields for modifying entry
         /// </summary>
-        public void modifyText()
+        public void ModifyText()
         {
             if (!LabelTxt.Text.Equals("") && !TextTxt.Text.Equals(""))
             {
@@ -83,46 +78,46 @@ namespace HistoryMap.WorldMapCreate
                 tempDictionary.Remove(ItemsList.GetItemText(ItemsList.SelectedItem));
                 if (tempDictionary.ContainsKey(LabelTxt.Text) || tempDictionary.ContainsValue(TextTxt.Text))
                 {
-                    MessageBox.Show("That key/Text is already in use");
+                    MessageBox.Show(@"That key/Text is already in use");
                 }
                 else
                 {
                     ButtonDictionary.Remove(ItemsList.GetItemText(ItemsList.SelectedItem));
                     ButtonDictionary.Add(LabelTxt.Text, TextTxt.Text);
-                    populateTextBox();
-                    updateList();
+                    PopulateTextBox();
+                    UpdateList();
                     ItemsList.SelectedIndex = -1;
                     ItemsList_SelectedIndexChanged(this, new EventArgs());
                 }
             }
             else
             {
-                MessageBox.Show("Please populate both the name and text field");
+                MessageBox.Show(@"Please populate both the name and text field");
             }
         }
         /// <summary>
         /// Adds the item to the textbox and then updates the uI
         /// </summary>
-        public void newText()
+        public void NewText()
         {
             if (!LabelTxt.Text.Equals("") && !TextTxt.Text.Equals(""))
             {
                 if (ButtonDictionary.ContainsKey(LabelTxt.Text) || ButtonDictionary.ContainsValue(TextTxt.Text))
                 {
-                    MessageBox.Show("That key/Text is already in use");
+                    MessageBox.Show(@"That key/Text is already in use");
                 }
                 else
                 {
                     ButtonDictionary.Add(LabelTxt.Text, TextTxt.Text);
-                    populateTextBox();
-                    updateList();
+                    PopulateTextBox();
+                    UpdateList();
                     ItemsList.SelectedIndex = -1;
                     ItemsList_SelectedIndexChanged(this, new EventArgs());
                 }
             }
             else
             {
-                MessageBox.Show("Please populate both the name and text field");
+                MessageBox.Show(@"Please populate both the name and text field");
             }
         }
         /// <summary>
@@ -136,7 +131,7 @@ namespace HistoryMap.WorldMapCreate
             {
                 NewBtn.Enabled = true;
                 DeleteBtn.Enabled = true;
-                AddBtn.Text = "Modify";
+                AddBtn.Text = @"Modify";
                 var key = ItemsList.GetItemText(ItemsList.SelectedItem);
                 TextTxt.Text = ButtonDictionary[key];
                 LabelTxt.Text = key;
@@ -145,7 +140,7 @@ namespace HistoryMap.WorldMapCreate
             {
                 NewBtn.Enabled = false;
                 DeleteBtn.Enabled = false;
-                AddBtn.Text = "Add";
+                AddBtn.Text = @"Add";
                 LabelTxt.Text = "";
                 TextTxt.Text = "";
             }
@@ -160,8 +155,8 @@ namespace HistoryMap.WorldMapCreate
             if (ItemsList.SelectedIndex != -1)
             {
                 ButtonDictionary.Remove(ItemsList.GetItemText(ItemsList.SelectedItem));
-                populateTextBox();
-                updateList();
+                PopulateTextBox();
+                UpdateList();
                 ItemsList.SelectedIndex = -1;
                 ItemsList_SelectedIndexChanged(this, new EventArgs());
             }
@@ -185,12 +180,12 @@ namespace HistoryMap.WorldMapCreate
         {
             if (NameField.Text.Equals("") || TypeOfInformation.Text.Equals("") || ButtonDictionary == null)
             {
-                MessageBox.Show("Please populate all fields");
+                MessageBox.Show(@"Please populate all fields");
                 return;
             }
             CreateForm.NewGenericLabelForWorldMap = new Shared_Classes.GenericLabelForWorldMap(date,  localPoint, TypeOfInformation.Text, ButtonDictionary, 50, 50,NameField.Text);
             DialogResult = DialogResult.OK;
-            this.Close();
+            Close();
         }
     }
 }

@@ -74,13 +74,13 @@ namespace HistoryMap.Shared_Classes
         }
         public GenericLabelForWorldMap(LocalDate time, Point buttonCenterPoint, string type, Dictionary<string, string> text, int height, int width, string id)
         {
-            this.ButtonCenterPoint = buttonCenterPoint;
-            this.Type = type;
-            this.Text = text;
-            this.Height = height;
-            this.Width = width;
-            this.name = id;
-            this.timeOf = time;
+            ButtonCenterPoint = buttonCenterPoint;
+            Type = type;
+            Text = text;
+            Height = height;
+            Width = width;
+            name = id;
+            timeOf = time;
             _id = System.Guid.NewGuid().ToString();
             verified = false;
         }

@@ -21,7 +21,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This should hold the date the user is looking at currently
         /// </summary>
-        public LocalDate _currentDate = new LocalDate(Era.Common, 302, 6, 1);
+        public LocalDate CurrentDate = new LocalDate(Era.Common, 302, 6, 1);
 
         /// <summary>
         /// This is the rectangle we render into
@@ -61,7 +61,7 @@ namespace HistoryMap.Shared_Classes
             //set up the rectangle based on the image size (incase we want to modify the image later)
             RenderRectangle = new Rectangle(0, 0, _localMap.Width, _localMap.Height);
             //We then draw the polygons on the map so as to allow them to zoom correctly
-            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, _currentDate, Zoom);
+            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, CurrentDate, Zoom);
             //Then we create a local bitmap of the image so as to have something to draw on
             _bitmap = new Bitmap(_localMap);
             _formMapUser = user;
@@ -232,7 +232,7 @@ namespace HistoryMap.Shared_Classes
             //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
             var cropRect = new Rectangle(0, 0, _formMapUser.WorldMap.Width, _formMapUser.WorldMap.Height);
             //redraw the map with the new borders on it
-            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, _currentDate, Zoom);
+            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, CurrentDate, Zoom);
 
             using (var g = Graphics.FromImage(_bitmap))
             {
@@ -252,7 +252,7 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         private Tuple<LocalDate, LocalDate> GetTimes(WorldMapUser formMapUser)
         {
-            var endDate = _currentDate;
+            var endDate = CurrentDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
@@ -274,7 +274,7 @@ namespace HistoryMap.Shared_Classes
                     endDate = endDate.PlusYears(100);
                     break;
             }
-            return new Tuple<LocalDate, LocalDate>(_currentDate, endDate);
+            return new Tuple<LocalDate, LocalDate>(CurrentDate, endDate);
         }
         /// <summary>
         /// This handles the displaying of the date modal and then sets the date to the date to currentDate
@@ -283,13 +283,13 @@ namespace HistoryMap.Shared_Classes
         /// <param name="e"></param>
         public void DateHandler(object sender, EventArgs e)
         {
-            using (var form = new DateSelectionModal(_currentDate))
+            using (var form = new DateSelectionModal(CurrentDate))
             {
                 var dialogResult = form.ShowDialog();
                 if (dialogResult == DialogResult.OK)
                 {
-                    _currentDate = form.ReturnTime;
-                    _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+                    CurrentDate = form.ReturnTime;
+                    _formMapUser.CurrentDate.Text = CurrentDate.ToString() + @" " + CurrentDate.Era;
                     RenderMap();
                 }
             }
@@ -304,25 +304,25 @@ namespace HistoryMap.Shared_Classes
             switch (_formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
-                    _currentDate = _currentDate.PlusDays(-1);
+                    CurrentDate = CurrentDate.PlusDays(-1);
                     break;
                 case 1:
-                    _currentDate = _currentDate.PlusDays(-7);
+                    CurrentDate = CurrentDate.PlusDays(-7);
                     break;
                 case 2:
-                    _currentDate = _currentDate.PlusMonths(-1);
+                    CurrentDate = CurrentDate.PlusMonths(-1);
                     break;
                 case 3:
-                    _currentDate = _currentDate.PlusYears(-1);
+                    CurrentDate = CurrentDate.PlusYears(-1);
                     break;
                 case 4:
-                    _currentDate = _currentDate.PlusYears(-10);
+                    CurrentDate = CurrentDate.PlusYears(-10);
                     break;
                 case 5:
-                    _currentDate = _currentDate.PlusYears(-100);
+                    CurrentDate = CurrentDate.PlusYears(-100);
                     break;
             }
-            _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+            _formMapUser.CurrentDate.Text = CurrentDate.ToString() + @" " + CurrentDate.Era;
             RenderMap();
         }
         /// <summary>
@@ -333,7 +333,7 @@ namespace HistoryMap.Shared_Classes
 
         public void OnRightArrowClick(object sender, EventArgs e)
         {
-            LocalDate verifyDate = _currentDate;
+            LocalDate verifyDate = CurrentDate;
             switch (_formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
@@ -357,8 +357,8 @@ namespace HistoryMap.Shared_Classes
             }
             if (verifyDate.Year < DateTime.Today.Year - 20)
             {
-                _currentDate = verifyDate;
-                _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+                CurrentDate = verifyDate;
+                _formMapUser.CurrentDate.Text = CurrentDate.ToString() + @" " + CurrentDate.Era;
                 RenderMap();
             }
             else
