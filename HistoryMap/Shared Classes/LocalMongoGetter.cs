@@ -20,7 +20,7 @@ namespace HistoryMap.Shared_Classes
         public static List<BorderStorageClass> GetCountries(LocalDate currentTime)
         {
             HiddenVars tempVars = new HiddenVars();
-            tempVars.getHttpAsync();
+            //tempVars.getHttpAsync();
             List<BorderStorageClass> localList = new List<BorderStorageClass>();
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
@@ -32,7 +32,7 @@ namespace HistoryMap.Shared_Classes
             foreach (var result in resultList)
             {
 
-                if (!result.Verified && (result.TimeOf >= currentTime && result.ValidTill >= currentTime))//TODO reverse this verified thing
+                if (!result.Verified && (result.TimeOf <= currentTime && result.ValidTill >= currentTime))//TODO reverse this verified thing
                 {
                     localList.Add(result);
                 }
@@ -41,6 +41,28 @@ namespace HistoryMap.Shared_Classes
             return localList;
          
           
+        }
+
+        public static List<BorderStorageClass> GetCountries()
+        {
+            HiddenVars tempVars = new HiddenVars();
+            //tempVars.getHttpAsync();
+            List<BorderStorageClass> localList = new List<BorderStorageClass>();
+            //create a new connection
+            var connection = new MongoClient(tempVars.GetConnectionString());
+            var database = connection.GetDatabase("HistoryMap");
+            var collection = database.GetCollection<BorderStorageClass>("Border");
+
+            var resultList = collection.Find(_ => true).ToList();
+            var fullReturn = new List<BorderStorageClass>();
+            foreach (var result in resultList)
+            {
+                if (!result.Verified)
+                {
+                    fullReturn.Add(result);
+                }
+            }
+            return fullReturn;
         }
         /// <summary>
         /// This saves the border
@@ -86,6 +108,27 @@ namespace HistoryMap.Shared_Classes
                
             }
             return localList;
+        }
+
+        public static List<GenericLabelForWorldMap> GetListFromDateSelection()
+        {
+            HiddenVars tempVars = new HiddenVars();
+            List<GenericLabelForWorldMap> localList = new List<GenericLabelForWorldMap>();
+            //create a new connection
+            var connection = new MongoClient(tempVars.GetConnectionString());
+            var database = connection.GetDatabase("HistoryMap");
+            var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
+
+            var resultList = collection.Find(_ => true).ToList();
+            var fullReturn = new List<GenericLabelForWorldMap>();
+            foreach (var result in resultList)
+            {
+                if (!result.verified)
+                {
+                    fullReturn.Add(result);
+                }
+            }
+            return fullReturn;
         }
 
 

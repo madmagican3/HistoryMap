@@ -7,8 +7,8 @@ namespace HistoryMap.Shared_Classes
 {
     internal class HiddenVars
     {
-       // private String connectionString = "mongodb://80.240.137.162:27017";
-        private String connectionString = String.Format("mongodb://localhost:27017");
+        private String connectionString = "mongodb://80.240.137.162:27017";
+        //private String connectionString = String.Format("mongodb://localhost:27017");
         private static readonly HttpClient client = new HttpClient();
 
         public async System.Threading.Tasks.Task<HttpClient> getHttpAsync()

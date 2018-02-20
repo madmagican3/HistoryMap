@@ -66,6 +66,33 @@ namespace HistoryMap.Shared_Classes
             _buttonControlList.Clear();
             if (!localForm.RenderButtons)
             {
+                if (AdminPanel.AdminPanel.buttonName != null)
+                {
+                    Point? location = ButtonLocation(localClass, AdminPanel.AdminPanel.buttonName);
+                    //If the point returned is invalid we no longer want to add the label to the list
+                    if (!location.HasValue) { }
+                    else
+                    {
+                        //Create the label and assign it the correct values
+                        Label tempButton = new Label
+                        {
+                            Height = 50,
+                            Width = 50,
+                            Image = Properties.Resources.icons8_marker_50,
+                            Location = location.Value,
+                        };
+                        tempButton.Click += (a, b) =>
+                        {
+                            InformationPanel infoPanel = new InformationPanel(AdminPanel.AdminPanel.buttonName.Text);
+                            infoPanel.ShowDialog();
+                        };
+                        //set up transparency
+                        tempButton.BackColor = Color.Transparent;
+                        tempButton.Parent = localForm.WorldMap;
+                        //add it to the list
+                        _buttonControlList.Add(tempButton);
+                    }
+                }
                 _inUse = false;
                 return;
             }

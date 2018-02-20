@@ -17,5 +17,12 @@ namespace HistoryMap.WorldMapUsers
             worldMapUsers.Hide();
             new WorldMapCreate.CreateForm().Show();
         }
+
+        private void AdminBtn_Click(object sender, System.EventArgs e)
+        {
+            Hide();
+            worldMapUsers.Hide();
+            new AdminPanel.AdminPanel().Show();
+        }
     }
 }

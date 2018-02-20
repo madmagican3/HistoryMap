@@ -15,7 +15,8 @@ namespace HistoryMap
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
            // Application.Run(new AgreementForm());
-            Application.Run(new CreateForm()); //TODO go back to agreement form
+            //Application.Run(new CreateForm()); //TODO go back to agreement form
+            Application.Run(new AdminPanel.AdminPanel());
         }
     }
 }
