@@ -4,6 +4,7 @@ using NodaTime.Text;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -21,6 +22,7 @@ namespace HistoryMap.Shared_Classes
         /// This should mark the center point of the button
         /// </summary>
         [BsonIgnore]
+        [JsonIgnore]
         public Point ButtonCenterPoint { get; set; }
         /// <summary>
         /// This is the width of the icon
@@ -47,6 +49,7 @@ namespace HistoryMap.Shared_Classes
         /// The date of this interesting point occuring
         /// </summary>
         [BsonIgnore]
+        [JsonIgnore]
         public LocalDate timeOf { get; set; }
         /// <summary>
         /// This is used to format the string correctly when saving it to the db

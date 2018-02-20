@@ -1,6 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using NodaTime;
 using MongoDB.Driver;
+using Newtonsoft.Json.Linq;
+using Newtonsoft;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -14,6 +20,7 @@ namespace HistoryMap.Shared_Classes
         public static List<BorderStorageClass> GetCountries(LocalDate currentTime)
         {
             HiddenVars tempVars = new HiddenVars();
+            tempVars.getHttpAsync();
             List<BorderStorageClass> localList = new List<BorderStorageClass>();
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
@@ -89,6 +96,9 @@ namespace HistoryMap.Shared_Classes
         /// <param name="dateOfButton">The date we're looking for</param>
         internal static void AddButton(GenericLabelForWorldMap label, LocalDate dateOfButton)
         {
+
+            var tempObject = JObject.FromObject(label);
+            Console.WriteLine(tempObject);
             HiddenVars tempVars = new HiddenVars();
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
