@@ -52,16 +52,39 @@ namespace HistoryMap.Shared_Classes
         [JsonIgnore]
         public LocalDate timeOf { get; set; }
         /// <summary>
-        /// This is used to format the string correctly when saving it to the db
+        /// This is used to put the date into a loadable format and stores the year and era
         /// </summary>
-        private const string NodaTimeFormat = "gg yyyy MM dd";
-        /// <summary>
-        /// This is used to put the date into a loadable format
-        /// </summary>
-        public string _dateString
+        public int year
         {
-            get => timeOf.ToString(NodaTimeFormat, CultureInfo.InvariantCulture);
-            set => timeOf = LocalDatePattern.CreateWithInvariantCulture(NodaTimeFormat).Parse(value).Value;
+            get => timeOf.Year;
+            set
+            {
+                var era = NodaTime.Calendars.Era.Common;
+                var year = value;
+                if (value < 0)
+                {
+                    year = year * -1;
+                    era = NodaTime.Calendars.Era.BeforeCommon;
+                }
+                timeOf = new LocalDate(era, year, timeOf.Month, timeOf.Day);
+            }
+
+        }
+        /// <summary>
+        /// This is used to put the data into loadable format and stores the month
+        /// </summary>
+        public int month
+        {
+            get => timeOf.Month;
+            set => timeOf = new LocalDate(timeOf.Era, timeOf.YearOfEra, value, timeOf.Day);
+        }
+        /// <summary>
+        /// This is used to put the data into loadable format and stores the day
+        /// </summary>
+        public int day
+        {
+            get => timeOf.Day;
+            set => timeOf = new LocalDate(timeOf.Era, timeOf.YearOfEra, timeOf.Month, value);
         }
         /// <summary>
         /// This is used for loading the point into a loadable format
@@ -74,6 +97,7 @@ namespace HistoryMap.Shared_Classes
 
         public GenericLabelForWorldMap()
         {
+            timeOf = new LocalDate();
         }
         public GenericLabelForWorldMap(LocalDate time, Point buttonCenterPoint, string type, Dictionary<string, string> text, int height, int width, string id)
         {

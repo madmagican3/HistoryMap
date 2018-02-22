@@ -18,7 +18,14 @@ namespace HistoryMap.Shared_Classes
         /// <returns>a version of the drawing with the polygons drawn on</returns>
         public static Image DrawBorders(Image localMap, LocalDate localDate, double zoom)
         {
-            if (!Drawing)
+           
+            if (AdminPanel.AdminPanel.borderStorage != null)
+            {
+                List<BorderStorageClass> tempBordersStorageList = new List<BorderStorageClass>();
+                tempBordersStorageList.Add(AdminPanel.AdminPanel.borderStorage);
+                return DrawImage(localMap, tempBordersStorageList, zoom, false);
+            }
+            else if (!Drawing)
                 return DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom, false);
             else
             {

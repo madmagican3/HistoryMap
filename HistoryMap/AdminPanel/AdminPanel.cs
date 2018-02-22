@@ -31,6 +31,10 @@ namespace HistoryMap.AdminPanel
         /// This is used for populating the button on form whehn we only want to display said button for verification purposes
         /// </summary>
         public static GenericLabelForWorldMap buttonName;
+        /// <summary>
+        /// This is used for populating the border when we only want to display said border for verification purposes
+        /// </summary>
+        public static BorderStorageClass borderStorage;
 
 
         public AdminPanel()
@@ -80,7 +84,7 @@ namespace HistoryMap.AdminPanel
             ItemsList.Items.Clear();
             foreach (var border in unverifiedBordersList)
             {
-                ItemsList.Items.Add(border.DateString + " - Border");
+                ItemsList.Items.Add(border.TimeOf.ToString() + " - Border");
             }
 
             foreach (var button in unverifiedButtonsList)
@@ -101,7 +105,12 @@ namespace HistoryMap.AdminPanel
             if (ItemsList.SelectedIndex == -1) return;
             if (ItemsList.SelectedIndex < unverifiedBordersList.Count)//If the item is in the borders list
             {
+                borderStorage = unverifiedBordersList[ItemsList.SelectedIndex];
+                viewForm.LocalDrawClass.CurrentDate = borderStorage.TimeOf;
+                var localDate = viewForm.LocalDrawClass.CurrentDate;
+                viewForm.CurrentDate.Text = localDate.ToString() + @" " + localDate.Era;
                 buttonName = null;
+                CreateFormInstance(false, false);
             }
             else//if the items in the other list
             {
@@ -110,6 +119,7 @@ namespace HistoryMap.AdminPanel
                 viewForm.LocalDrawClass.CurrentDate = buttonName.timeOf;
                 var localDate = viewForm.LocalDrawClass.CurrentDate;
                 viewForm.CurrentDate.Text = localDate.ToString() +@" " +  localDate.Era;
+                borderStorage = null;
                 CreateFormInstance(false, false);
             }
         }
