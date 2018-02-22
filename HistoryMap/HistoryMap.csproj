@@ -98,11 +98,23 @@
     <Compile Include="AdminPanel\AdminPanel.Designer.cs">
       <DependentUpon>AdminPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="AdminPanel\ChangePassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\ChangePassForm.Designer.cs">
+      <DependentUpon>ChangePassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AdminPanel\LoginModal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AdminPanel\LoginModal.Designer.cs">
       <DependentUpon>LoginModal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdminPanel\ManageUsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminPanel\ManageUsersForm.Designer.cs">
+      <DependentUpon>ManageUsersForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -165,8 +177,14 @@
     <EmbeddedResource Include="AdminPanel\AdminPanel.resx">
       <DependentUpon>AdminPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AdminPanel\ChangePassForm.resx">
+      <DependentUpon>ChangePassForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AdminPanel\LoginModal.resx">
       <DependentUpon>LoginModal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdminPanel\ManageUsersForm.resx">
+      <DependentUpon>ManageUsersForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WorldMapCreate\AgreementForm.resx">
       <DependentUpon>AgreementForm.cs</DependentUpon>

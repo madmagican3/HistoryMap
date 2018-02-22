@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using MongoDB.Bson;
-using MongoDB.Bson.IO;
 using NodaTime;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
-using Newtonsoft;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -46,16 +42,19 @@ namespace HistoryMap.Shared_Classes
           
         }
 
-        public static List<BorderStorageClass> GetCountries()
+        public static List<BorderStorageClass> GetCountries(bool all)
         {
             HiddenVars tempVars = new HiddenVars();
             //tempVars.getHttpAsync();
-            List<BorderStorageClass> localList = new List<BorderStorageClass>();
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
             var database = connection.GetDatabase("HistoryMap");
             var collection = database.GetCollection<BorderStorageClass>("Border");
 
+            if (all)
+            {
+                return collection.Find(_ => true).ToList();
+            }
             var resultList = collection.Find(_ => true).ToList();
             var fullReturn = new List<BorderStorageClass>();
             foreach (var result in resultList)
@@ -113,15 +112,16 @@ namespace HistoryMap.Shared_Classes
             return localList;
         }
 
-        public static List<GenericLabelForWorldMap> GetListFromDateSelection()
+        public static List<GenericLabelForWorldMap> GetListFromDateSelection(bool all)
         {
             HiddenVars tempVars = new HiddenVars();
-            List<GenericLabelForWorldMap> localList = new List<GenericLabelForWorldMap>();
             //create a new connection
             var connection = new MongoClient(tempVars.GetConnectionString());
             var database = connection.GetDatabase("HistoryMap");
             var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
 
+            if (all)
+                return collection.Find(_ => true).ToList();
             var resultList = collection.Find(_ => true).ToList();
             var fullReturn = new List<GenericLabelForWorldMap>();
             foreach (var result in resultList)
@@ -154,7 +154,7 @@ namespace HistoryMap.Shared_Classes
             collection.InsertOne(label);          
         }
 
-        public static bool checkLogin(string username, string password)
+        public static bool CheckLogin(string username, string password)
         {
             //TODO complete
             return true;

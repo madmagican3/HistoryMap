@@ -66,9 +66,9 @@ namespace HistoryMap.Shared_Classes
             _buttonControlList.Clear();
             if (!localForm.RenderButtons)
             {
-                if (AdminPanel.AdminPanel.buttonName != null)
+                if (AdminPanel.AdminPanel.ButtonName != null)
                 {
-                    Point? location = ButtonLocation(localClass, AdminPanel.AdminPanel.buttonName);
+                    Point? location = ButtonLocation(localClass, AdminPanel.AdminPanel.ButtonName);
                     //If the point returned is invalid we no longer want to add the label to the list
                     if (!location.HasValue) { }
                     else
@@ -83,7 +83,7 @@ namespace HistoryMap.Shared_Classes
                         };
                         tempButton.Click += (a, b) =>
                         {
-                            InformationPanel infoPanel = new InformationPanel(AdminPanel.AdminPanel.buttonName.Text);
+                            InformationPanel infoPanel = new InformationPanel(AdminPanel.AdminPanel.ButtonName.Text);
                             infoPanel.ShowDialog();
                         };
                         //set up transparency

@@ -35,6 +35,7 @@
             this.RejectBtn = new System.Windows.Forms.Button();
             this.ChangePassBtn = new System.Windows.Forms.Button();
             this.ManageUsersBtn = new System.Windows.Forms.Button();
+            this.DeleteBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // WorldMapPanel
@@ -94,11 +95,23 @@
             this.ManageUsersBtn.Visible = false;
             this.ManageUsersBtn.Click += new System.EventHandler(this.ManageUsersBtn_Click);
             // 
+            // DeleteBtn
+            // 
+            this.DeleteBtn.Location = new System.Drawing.Point(128, 599);
+            this.DeleteBtn.Name = "DeleteBtn";
+            this.DeleteBtn.Size = new System.Drawing.Size(75, 23);
+            this.DeleteBtn.TabIndex = 6;
+            this.DeleteBtn.Text = "Delete";
+            this.DeleteBtn.UseVisualStyleBackColor = true;
+            this.DeleteBtn.Visible = false;
+            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
+            // 
             // AdminPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1366, 769);
+            this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.ManageUsersBtn);
             this.Controls.Add(this.ChangePassBtn);
             this.Controls.Add(this.RejectBtn);
@@ -123,5 +136,6 @@
         private System.Windows.Forms.Button RejectBtn;
         private System.Windows.Forms.Button ChangePassBtn;
         private System.Windows.Forms.Button ManageUsersBtn;
+        private System.Windows.Forms.Button DeleteBtn;
     }
 }

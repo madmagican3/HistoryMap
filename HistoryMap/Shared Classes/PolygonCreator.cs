@@ -19,10 +19,10 @@ namespace HistoryMap.Shared_Classes
         public static Image DrawBorders(Image localMap, LocalDate localDate, double zoom)
         {
            
-            if (AdminPanel.AdminPanel.borderStorage != null)
+            if (AdminPanel.AdminPanel.BorderStorage != null)
             {
                 List<BorderStorageClass> tempBordersStorageList = new List<BorderStorageClass>();
-                tempBordersStorageList.Add(AdminPanel.AdminPanel.borderStorage);
+                tempBordersStorageList.Add(AdminPanel.AdminPanel.BorderStorage);
                 return DrawImage(localMap, tempBordersStorageList, zoom, false);
             }
             else if (!Drawing)

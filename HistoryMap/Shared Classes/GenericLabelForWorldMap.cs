@@ -1,9 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using NodaTime;
-using NodaTime.Text;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using Newtonsoft.Json;
 
 namespace HistoryMap.Shared_Classes

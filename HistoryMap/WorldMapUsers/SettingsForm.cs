@@ -5,8 +5,8 @@ namespace HistoryMap.WorldMapUsers
 {
     public partial class SettingsForm : Form
     {
-        public string username;
-        public string password;
+        public string Username;
+        public string Password;
         Form worldMapUsers;
         public SettingsForm(Form worldMapUsers)
         {
@@ -29,7 +29,7 @@ namespace HistoryMap.WorldMapUsers
             {
                 Hide();
                 worldMapUsers.Hide();
-                new AdminPanel.AdminPanel(username, password).Show();
+                new AdminPanel.AdminPanel(Username, Password).Show();
             }    
         }
     }

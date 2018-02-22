@@ -57,7 +57,7 @@ namespace HistoryMap.WorldMapUsers
 
         private void SettingsOpen(object sender, EventArgs e)
         {
-            var settingsForm = new SettingsForm(this) {Visible = true};
+            new SettingsForm(this) {Visible = true};
         }
         /// <summary>
         /// This should hold all the other buttons which the user will interact with on the main 

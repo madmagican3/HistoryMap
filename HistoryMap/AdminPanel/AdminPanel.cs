@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HistoryMap.Shared_Classes;
 using HistoryMap.WorldMapUsers;
-using NodaTime;
 
 namespace HistoryMap.AdminPanel
 {
@@ -22,34 +15,40 @@ namespace HistoryMap.AdminPanel
         /// <summary>
         /// This stores all unverified borders
         /// </summary>
-        private List<BorderStorageClass> unverifiedBordersList;
+        private List<BorderStorageClass> _unverifiedBordersList;
         /// <summary>
         /// This stores all the unverified buttons
         /// </summary>
-        private List<GenericLabelForWorldMap> unverifiedButtonsList;
+        private List<GenericLabelForWorldMap> _unverifiedButtonsList;
         /// <summary>
         /// This is used for populating the button on form whehn we only want to display said button for verification purposes
         /// </summary>
-        public static GenericLabelForWorldMap buttonName;
+        public static GenericLabelForWorldMap ButtonName;
         /// <summary>
         /// This is used for populating the border when we only want to display said border for verification purposes
         /// </summary>
-        public static BorderStorageClass borderStorage;
+        public static BorderStorageClass BorderStorage;
 
         private string _username;
         private string _password;
 
         public AdminPanel(string username, string password)
         {
-            this._username = username;
-            this._password = password;
+            _username = username;
+            _password = password;
             InitializeComponent();
         }
 
         private void AdminPanel_Load(object sender, EventArgs e)
         {
             if (_username == "admin")
+            {
                 ManageUsersBtn.Visible = true;
+                DeleteBtn.Visible = true;
+                RejectBtn.Visible = false;
+                AcceptBtn.Visible = false;
+            }
+                
             CreateFormInstance(false, true);
         }
 
@@ -84,15 +83,24 @@ namespace HistoryMap.AdminPanel
         /// </summary>
         private void PopulateList()
         {
-            unverifiedBordersList = LocalMongoGetter.GetCountries( );
-            unverifiedButtonsList = LocalMongoGetter.GetListFromDateSelection();
+            if (_username == "admin")
+            {
+                _unverifiedBordersList =
+                    LocalMongoGetter.GetCountries(true);
+                _unverifiedButtonsList = LocalMongoGetter.GetListFromDateSelection(true);
+            }
+            else
+            {
+                _unverifiedBordersList = LocalMongoGetter.GetCountries(false);
+                _unverifiedButtonsList = LocalMongoGetter.GetListFromDateSelection(false);
+            }
             ItemsList.Items.Clear();
-            foreach (var border in unverifiedBordersList)
+            foreach (var border in _unverifiedBordersList)
             {
                 ItemsList.Items.Add(border.TimeOf.ToString() + " - Border");
             }
 
-            foreach (var button in unverifiedButtonsList)
+            foreach (var button in _unverifiedButtonsList)
             {
                 ItemsList.Items.Add(button.name + " - Information");
             }
@@ -108,23 +116,23 @@ namespace HistoryMap.AdminPanel
         private void ItemsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ItemsList.SelectedIndex == -1) return;
-            if (ItemsList.SelectedIndex < unverifiedBordersList.Count)//If the item is in the borders list
+            if (ItemsList.SelectedIndex < _unverifiedBordersList.Count)//If the item is in the borders list
             {
-                borderStorage = unverifiedBordersList[ItemsList.SelectedIndex];
-                viewForm.LocalDrawClass.CurrentDate = borderStorage.TimeOf;
+                BorderStorage = _unverifiedBordersList[ItemsList.SelectedIndex];
+                viewForm.LocalDrawClass.CurrentDate = BorderStorage.TimeOf;
                 var localDate = viewForm.LocalDrawClass.CurrentDate;
                 viewForm.CurrentDate.Text = localDate.ToString() + @" " + localDate.Era;
-                buttonName = null;
+                ButtonName = null;
                 CreateFormInstance(false, false);
             }
             else//if the items in the other list
             {
-                int fieldToGet = ItemsList.SelectedIndex - unverifiedBordersList.Count;
-                buttonName = unverifiedButtonsList[fieldToGet];
-                viewForm.LocalDrawClass.CurrentDate = buttonName.timeOf;
+                int fieldToGet = ItemsList.SelectedIndex - _unverifiedBordersList.Count;
+                ButtonName = _unverifiedButtonsList[fieldToGet];
+                viewForm.LocalDrawClass.CurrentDate = ButtonName.timeOf;
                 var localDate = viewForm.LocalDrawClass.CurrentDate;
                 viewForm.CurrentDate.Text = localDate.ToString() +@" " +  localDate.Era;
-                borderStorage = null;
+                BorderStorage = null;
                 CreateFormInstance(false, false);
             }
         }
@@ -134,7 +142,7 @@ namespace HistoryMap.AdminPanel
             if (ItemsList.SelectedIndex == -1)
             {
                 MessageBox.Show(@"Please select an item to accept first");
-                return;
+                return;//TODO finish
             }
 
         }
@@ -144,19 +152,24 @@ namespace HistoryMap.AdminPanel
             if (ItemsList.SelectedIndex == -1)
             {
                 MessageBox.Show(@"Please select a item to reject first");
-                return;
+                return;//TODO finish
             }
 
         }
 
         private void ChangePassBtn_Click(object sender, EventArgs e)
         {
-
+            new ChangePassForm().Show();
         }
 
         private void ManageUsersBtn_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            //TODO finish
         }
     }
 }
