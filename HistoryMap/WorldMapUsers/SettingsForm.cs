@@ -1,9 +1,12 @@
 ﻿using System.Windows.Forms;
+using HistoryMap.AdminPanel;
 
 namespace HistoryMap.WorldMapUsers
 {
     public partial class SettingsForm : Form
     {
+        public string username;
+        public string password;
         Form worldMapUsers;
         public SettingsForm(Form worldMapUsers)
         {
@@ -20,9 +23,14 @@ namespace HistoryMap.WorldMapUsers
 
         private void AdminBtn_Click(object sender, System.EventArgs e)
         {
-            Hide();
-            worldMapUsers.Hide();
-            new AdminPanel.AdminPanel().Show();
+            var login = new LoginModal(this);
+            var result = login.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Hide();
+                worldMapUsers.Hide();
+                new AdminPanel.AdminPanel(username, password).Show();
+            }    
         }
     }
 }

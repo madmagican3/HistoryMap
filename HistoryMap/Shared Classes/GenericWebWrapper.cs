@@ -12,7 +12,7 @@ namespace HistoryMap.Shared_Classes
     {
         private readonly string _creds;
 
-        private const string _baseurl = "http://localhost:3000/";
+        private const string _baseurl = "http://localhost:3000";
 
 
         public GenericWebWrapper(string user, string password)
@@ -22,11 +22,19 @@ namespace HistoryMap.Shared_Classes
             _creds = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes($"{user}:{password}"));
         }
 
-        private void TestConnection(string user, string password)
+        public bool TestConnection(string user, string password)
         {
-            var req = (HttpWebRequest)WebRequest.Create("");
+            var req = (HttpWebRequest)WebRequest.Create($"{_baseurl}/checkLogin");
+            AddAuthorizationHeader(req);
 
+            using (var response = (HttpWebResponse) req.GetResponse())
+            {
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                    return (reader.ReadToEnd()) == "true";
+            }
         }
+
+
         public async Task<bool> CreateRecord<T>(T obj)
         {
             var req = (HttpWebRequest)WebRequest.Create($"{_baseurl}/{GetObjectType(obj)}/create");

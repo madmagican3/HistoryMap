@@ -19,6 +19,9 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         public static List<BorderStorageClass> GetCountries(LocalDate currentTime)
         {
+           // GenericWebWrapper wrapper = new GenericWebWrapper("admin", "andrewb11");
+           // wrapper.TestConnection("admin", "andrewb11");
+
             HiddenVars tempVars = new HiddenVars();
             //tempVars.getHttpAsync();
             List<BorderStorageClass> localList = new List<BorderStorageClass>();
@@ -149,6 +152,12 @@ namespace HistoryMap.Shared_Classes
             var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
 
             collection.InsertOne(label);          
+        }
+
+        public static bool checkLogin(string username, string password)
+        {
+            //TODO complete
+            return true;
         }
     }
 }

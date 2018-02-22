@@ -33,6 +33,8 @@
             this.ItemsList = new System.Windows.Forms.ListBox();
             this.AcceptBtn = new System.Windows.Forms.Button();
             this.RejectBtn = new System.Windows.Forms.Button();
+            this.ChangePassBtn = new System.Windows.Forms.Button();
+            this.ManageUsersBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // WorldMapPanel
@@ -63,7 +65,7 @@
             // 
             // RejectBtn
             // 
-            this.RejectBtn.Location = new System.Drawing.Point(51, 654);
+            this.RejectBtn.Location = new System.Drawing.Point(46, 654);
             this.RejectBtn.Name = "RejectBtn";
             this.RejectBtn.Size = new System.Drawing.Size(75, 23);
             this.RejectBtn.TabIndex = 3;
@@ -71,11 +73,34 @@
             this.RejectBtn.UseVisualStyleBackColor = true;
             this.RejectBtn.Click += new System.EventHandler(this.RejectBtn_Click);
             // 
+            // ChangePassBtn
+            // 
+            this.ChangePassBtn.Location = new System.Drawing.Point(104, 705);
+            this.ChangePassBtn.Name = "ChangePassBtn";
+            this.ChangePassBtn.Size = new System.Drawing.Size(109, 23);
+            this.ChangePassBtn.TabIndex = 4;
+            this.ChangePassBtn.Text = "Change password";
+            this.ChangePassBtn.UseVisualStyleBackColor = true;
+            this.ChangePassBtn.Click += new System.EventHandler(this.ChangePassBtn_Click);
+            // 
+            // ManageUsersBtn
+            // 
+            this.ManageUsersBtn.Location = new System.Drawing.Point(104, 734);
+            this.ManageUsersBtn.Name = "ManageUsersBtn";
+            this.ManageUsersBtn.Size = new System.Drawing.Size(109, 23);
+            this.ManageUsersBtn.TabIndex = 5;
+            this.ManageUsersBtn.Text = "Manage Users";
+            this.ManageUsersBtn.UseVisualStyleBackColor = true;
+            this.ManageUsersBtn.Visible = false;
+            this.ManageUsersBtn.Click += new System.EventHandler(this.ManageUsersBtn_Click);
+            // 
             // AdminPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1366, 769);
+            this.Controls.Add(this.ManageUsersBtn);
+            this.Controls.Add(this.ChangePassBtn);
             this.Controls.Add(this.RejectBtn);
             this.Controls.Add(this.AcceptBtn);
             this.Controls.Add(this.ItemsList);
@@ -96,5 +121,7 @@
         private System.Windows.Forms.ListBox ItemsList;
         private System.Windows.Forms.Button AcceptBtn;
         private System.Windows.Forms.Button RejectBtn;
+        private System.Windows.Forms.Button ChangePassBtn;
+        private System.Windows.Forms.Button ManageUsersBtn;
     }
 }

@@ -36,15 +36,20 @@ namespace HistoryMap.AdminPanel
         /// </summary>
         public static BorderStorageClass borderStorage;
 
+        private string _username;
+        private string _password;
 
-        public AdminPanel()
+        public AdminPanel(string username, string password)
         {
+            this._username = username;
+            this._password = password;
             InitializeComponent();
         }
 
         private void AdminPanel_Load(object sender, EventArgs e)
         {
-            //TODO add login modal here
+            if (_username == "admin")
+                ManageUsersBtn.Visible = true;
             CreateFormInstance(false, true);
         }
 
@@ -141,6 +146,16 @@ namespace HistoryMap.AdminPanel
                 MessageBox.Show(@"Please select a item to reject first");
                 return;
             }
+
+        }
+
+        private void ChangePassBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ManageUsersBtn_Click(object sender, EventArgs e)
+        {
 
         }
     }
