@@ -16,7 +16,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is the base url of the website we want to connect too
         /// </summary>
-        private const string _baseurl = "http://localhost:3000";
+        private const string _baseurl = "http://localhost:3000";//TODO modify to the website when it's setup
         /// <summary>
         /// This is the credentials we're going to use
         /// </summary>
