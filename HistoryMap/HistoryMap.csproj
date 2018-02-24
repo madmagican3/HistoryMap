@@ -128,6 +128,7 @@
     <Compile Include="Shared Classes\LocalMongoGetter.cs" />
     <Compile Include="Shared Classes\DrawClass.cs" />
     <Compile Include="Shared Classes\GenericLabelForWorldMap.cs" />
+    <Compile Include="Shared Classes\UserClass.cs" />
     <Compile Include="WorldMapCreate\AgreementForm.cs">
       <SubType>Form</SubType>
     </Compile>

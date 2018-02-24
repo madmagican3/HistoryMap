@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ManageUsersForm));
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.UsersList = new System.Windows.Forms.ListBox();
             this.DeleteBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.UserTxt = new System.Windows.Forms.TextBox();
+            this.PassTxt = new System.Windows.Forms.TextBox();
             this.SaveNewUserBtn = new System.Windows.Forms.Button();
             this.User = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // listBox1
+            // UsersList
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(235, 537);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.UsersList.FormattingEnabled = true;
+            this.UsersList.Location = new System.Drawing.Point(12, 12);
+            this.UsersList.Name = "UsersList";
+            this.UsersList.Size = new System.Drawing.Size(235, 537);
+            this.UsersList.TabIndex = 0;
+            this.UsersList.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // DeleteBtn
             // 
@@ -58,19 +58,19 @@
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
             // 
-            // textBox1
+            // UserTxt
             // 
-            this.textBox1.Location = new System.Drawing.Point(355, 217);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(119, 20);
-            this.textBox1.TabIndex = 2;
+            this.UserTxt.Location = new System.Drawing.Point(355, 217);
+            this.UserTxt.Name = "UserTxt";
+            this.UserTxt.Size = new System.Drawing.Size(119, 20);
+            this.UserTxt.TabIndex = 2;
             // 
-            // textBox2
+            // PassTxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(355, 252);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(119, 20);
-            this.textBox2.TabIndex = 3;
+            this.PassTxt.Location = new System.Drawing.Point(355, 252);
+            this.PassTxt.Name = "PassTxt";
+            this.PassTxt.Size = new System.Drawing.Size(119, 20);
+            this.PassTxt.TabIndex = 3;
             // 
             // SaveNewUserBtn
             // 
@@ -108,10 +108,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.User);
             this.Controls.Add(this.SaveNewUserBtn);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.PassTxt);
+            this.Controls.Add(this.UserTxt);
             this.Controls.Add(this.DeleteBtn);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.UsersList);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ManageUsersForm";
             this.Text = "Manage Users";
@@ -123,10 +123,10 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox UsersList;
         private System.Windows.Forms.Button DeleteBtn;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox UserTxt;
+        private System.Windows.Forms.TextBox PassTxt;
         private System.Windows.Forms.Button SaveNewUserBtn;
         private System.Windows.Forms.Label User;
         private System.Windows.Forms.Label label2;

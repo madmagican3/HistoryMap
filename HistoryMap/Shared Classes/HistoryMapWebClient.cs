@@ -155,6 +155,8 @@ namespace HistoryMap.Shared_Classes
                 return "button";
             if (t == typeof(BorderStorageClass))
                 return "border";
+            if (t == typeof(UserClass))
+                return "users";
             throw new ArgumentOutOfRangeException($"Unknown object type {t.GetType().Name}");
         }
 
@@ -203,6 +205,11 @@ namespace HistoryMap.Shared_Classes
             var sd1 = date.ToString("gg yyyy MM dd", CultureInfo.InvariantCulture);
             var query = $"currentTime={sd1}"; //sd1+"&" + sd2;
             return await View<BorderStorageClass>(query);
+        }
+
+        public async Task<List<UserClass>> getUsers()
+        {
+            return await View<UserClass>("");
         }
 
         /// <summary>

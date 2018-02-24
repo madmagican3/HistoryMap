@@ -124,11 +124,5 @@ namespace HistoryMap.Shared_Classes
 
             _client.CreateRecord(label).GetAwaiter();
         }
-
-        public static bool CheckLogin(string username, string password)
-        {
-            //TODO complete
-            return true;
-        }
     }
 }

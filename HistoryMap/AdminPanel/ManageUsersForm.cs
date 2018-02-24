@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using HistoryMap.Shared_Classes;
 
 namespace HistoryMap.AdminPanel
 {
     public partial class ManageUsersForm : Form
     {
-        public ManageUsersForm()
+        private HistoryMapWebClient _client;
+        private List<UserClass> _userList;
+        public ManageUsersForm(HistoryMapWebClient client)
         {
+            _client = client;
             InitializeComponent();
         }
         /// <summary>
@@ -16,7 +21,7 @@ namespace HistoryMap.AdminPanel
         /// <param name="e"></param>
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1)
+            if (UsersList.SelectedIndex != -1)
             {
                 DeleteBtn.Enabled = true;
             }
@@ -28,7 +33,17 @@ namespace HistoryMap.AdminPanel
         /// <param name="e"></param>
         private void ManageUsersForm_Load(object sender, EventArgs e)
         {
-            //TODO get all users here
+            setupList();
+        }
+
+        private void setupList()
+        {
+            _userList = _client.getUsers().GetAwaiter().GetResult();
+            UsersList.Items.Clear();
+            foreach (var user in _userList)
+            {
+                UsersList.Items.Add(user.user);
+            }
         }
         /// <summary>
         /// This will delete the specified user from the db
@@ -37,9 +52,15 @@ namespace HistoryMap.AdminPanel
         /// <param name="e"></param>
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            //TODO delete specified user here
-            listBox1.SelectedIndex = -1;
+            if (UsersList.SelectedIndex == -1)
+            {
+                MessageBox.Show(@"Please select an index to delete");
+                return;
+            }
+            _client.Delete<UserClass>(_userList[UsersList.SelectedIndex]._id).GetAwaiter();
+            UsersList.SelectedIndex = -1;
             DeleteBtn.Enabled = false;
+            setupList();
         }
         /// <summary>
         /// This should save a new user based on the populated fields
@@ -48,7 +69,13 @@ namespace HistoryMap.AdminPanel
         /// <param name="e"></param>
         private void SaveNewUserBtn_Click(object sender, EventArgs e)
         {
-            //TODO add new user here
+            if (UserTxt.Text == "" || PassTxt.Text == "")
+            {
+                MessageBox.Show("Both the fields need to be filled in");
+            }
+            var tempUser = new UserClass(UserTxt.Text, PassTxt.Text);
+            _client.CreateRecord(tempUser).GetAwaiter();
+            setupList();
         }
     }
 }

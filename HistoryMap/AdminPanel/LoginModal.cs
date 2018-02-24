@@ -52,5 +52,11 @@ namespace HistoryMap.AdminPanel
             }
             return _client;
         }
+
+        private void passwordTxt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+                LoginBtn_Click(this, new EventArgs() );
+        }
     }
 }

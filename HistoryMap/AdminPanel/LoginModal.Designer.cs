@@ -68,6 +68,7 @@
             this.passwordTxt.PasswordChar = '*';
             this.passwordTxt.Size = new System.Drawing.Size(193, 20);
             this.passwordTxt.TabIndex = 3;
+            this.passwordTxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.passwordTxt_KeyPress);
             // 
             // LoginBtn
             // 

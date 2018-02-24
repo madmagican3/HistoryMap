@@ -189,12 +189,29 @@ namespace HistoryMap.AdminPanel
 
         private void ManageUsersBtn_Click(object sender, EventArgs e)
         {
-            new ManageUsersForm().Show();
+            new ManageUsersForm(_client).Show();
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
-            //TODO finish
+            if (ItemsList.SelectedIndex == -1)
+            {
+                MessageBox.Show(@"Please select a item to delete first");
+                return;
+            }
+            if (ItemsList.SelectedIndex < _unverifiedBordersList.Count)
+            {
+                var border = _unverifiedBordersList[ItemsList.SelectedIndex];
+                border.Verified = true;
+                _client.Delete<BorderStorageClass>(border._id).GetAwaiter();
+            }
+            else
+            {
+                var button = _unverifiedButtonsList[ItemsList.SelectedIndex - _unverifiedBordersList.Count];
+                button.verified = true;
+                _client.Delete<GenericLabelForWorldMap>(button._id).GetAwaiter();
+            }
+            CreateFormInstance(true, true);
         }
 
         private void AdminPanel_FormClosed(object sender, FormClosedEventArgs e)
