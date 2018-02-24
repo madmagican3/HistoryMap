@@ -42,7 +42,8 @@ namespace HistoryMap.AdminPanel
             UsersList.Items.Clear();
             foreach (var user in _userList)
             {
-                UsersList.Items.Add(user.user);
+                if (!user.user.Equals("admin") ||!user.user.Equals("defaultUser"))
+                    UsersList.Items.Add(user.user);
             }
         }
         /// <summary>

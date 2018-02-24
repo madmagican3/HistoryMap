@@ -184,7 +184,7 @@ namespace HistoryMap.AdminPanel
 
         private void ChangePassBtn_Click(object sender, EventArgs e)
         {
-            new ChangePassForm().Show();
+            new ChangePassForm(_client).Show();
         }
 
         private void ManageUsersBtn_Click(object sender, EventArgs e)

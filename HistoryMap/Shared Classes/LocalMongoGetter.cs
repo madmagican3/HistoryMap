@@ -25,7 +25,13 @@ namespace HistoryMap.Shared_Classes
                 _client = new HistoryMapWebClient("defaultUser", "ry3kGKijkF12Abwxczm1");
             }
             var result = _client.GetBorders(currentTime).GetAwaiter().GetResult();
-            return result;
+            var list = new List<BorderStorageClass>();
+            foreach (var item in result)
+            {
+                if (item.Verified)
+                    list.Add(item);
+            }
+            return list;
         }
 
         public static List<BorderStorageClass> GetCountries(bool all, HistoryMapWebClient client)
@@ -81,7 +87,13 @@ namespace HistoryMap.Shared_Classes
                 _client = new HistoryMapWebClient("defaultUser", "ry3kGKijkF12Abwxczm1");
             }
             var result = _client.GetButtons(startDate,endDate).GetAwaiter().GetResult();
-            return result;
+            var list = new List<GenericLabelForWorldMap>();
+            foreach (var item in result)
+            {
+                if (item.verified) 
+                    list.Add(item);
+            }
+            return list;
         }
 
         public static List<GenericLabelForWorldMap> GetListFromDateSelection(bool all, HistoryMapWebClient client)
