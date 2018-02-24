@@ -31,16 +31,25 @@ namespace HistoryMap.Shared_Classes
         public static List<BorderStorageClass> GetCountries(bool all, HistoryMapWebClient client)
         {
             var result = client.GetBorders().GetAwaiter().GetResult();
+            List<int> indexesToRemove = new List<int>();
             if (!all)
             {
-                foreach (var border in result)
+                foreach (var button in result)
                 {
-                    if (border.Verified)
+                    if (button.Verified)
                     {
-                        result.Remove(border);
+                        indexesToRemove.Add(result.IndexOf(button));
                     }
                 }
+                int i = 0;
+                foreach (var index in indexesToRemove)
+                {
+                    result.RemoveAt(index - i);
+                    i++;
+                }
             }
+
+          
             return result;
         }
         /// <summary>
@@ -78,16 +87,25 @@ namespace HistoryMap.Shared_Classes
         public static List<GenericLabelForWorldMap> GetListFromDateSelection(bool all, HistoryMapWebClient client)
         {
             var result = client.GetButtons().GetAwaiter().GetResult();
+            List <int> indexesToRemove = new List<int>();
             if (!all)
             {
                 foreach (var button in result)
                 {
                     if (button.verified)
                     {
-                        result.Remove(button);
+                        indexesToRemove.Add(result.IndexOf(button));
                     }
                 }
+                int i = 0;
+                foreach (var index in indexesToRemove)
+                {
+                    result.RemoveAt(index - i);
+                    i++;
+                }
             }
+
+
             return result;
         }
 

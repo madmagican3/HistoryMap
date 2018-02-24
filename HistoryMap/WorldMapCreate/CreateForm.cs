@@ -358,7 +358,7 @@ namespace HistoryMap.WorldMapCreate
             public void MouseDragEvent(object sender, EventArgs e)
             {
                 if (!IsDragging || !IsEditing) return;
-                var mouseMove = e as MouseEventArgs;
+                MouseEventArgs mouseMove = (MouseEventArgs) e;
 
                 if (mouseMove != null && Math.Abs(mouseMove.X - LastPoint.X) + Math.Abs(mouseMove.Y - LastPoint.Y) >
                     PixelDistance)

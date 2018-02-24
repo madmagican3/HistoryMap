@@ -55,7 +55,9 @@ namespace HistoryMap.AdminPanel
         /// </summary>
         private void CreateFormInstance(bool showButtons, bool refreshList)
         {
-        
+            ChangePassBtn.Top = Height - 120;
+            ManageUsersBtn.Top = Height - 160;
+            DeleteBtn.Top = Height - 200;
             WorldMapPanel.Width = Width - 360;
             WorldMapPanel.Height = Height;
             WorldMapPanel.Left = 360;
@@ -140,9 +142,22 @@ namespace HistoryMap.AdminPanel
             if (ItemsList.SelectedIndex == -1)
             {
                 MessageBox.Show(@"Please select an item to accept first");
-                return;//TODO finish
+                return;
             }
 
+            if (ItemsList.SelectedIndex < _unverifiedBordersList.Count)
+            {
+                var border = _unverifiedBordersList[ItemsList.SelectedIndex];
+                border.Verified = true;
+                _client.UpdateRecord(border).GetAwaiter();
+            }
+            else
+            {
+                var button = _unverifiedButtonsList[ItemsList.SelectedIndex - _unverifiedBordersList.Count];
+                button.verified = true;
+                _client.UpdateRecord(button).GetAwaiter();
+            }
+            CreateFormInstance(true, true);
         }
 
         private void RejectBtn_Click(object sender, EventArgs e)
@@ -150,9 +165,21 @@ namespace HistoryMap.AdminPanel
             if (ItemsList.SelectedIndex == -1)
             {
                 MessageBox.Show(@"Please select a item to reject first");
-                return;//TODO finish
+                return;
             }
-
+            if (ItemsList.SelectedIndex < _unverifiedBordersList.Count)
+            {
+                var border = _unverifiedBordersList[ItemsList.SelectedIndex];
+                border.Verified = true;
+                _client.Delete<BorderStorageClass>(border._id).GetAwaiter();
+            }
+            else
+            {
+                var button = _unverifiedButtonsList[ItemsList.SelectedIndex - _unverifiedBordersList.Count];
+                button.verified = true;
+                _client.Delete<GenericLabelForWorldMap>(button._id).GetAwaiter();
+            }
+            CreateFormInstance(true, true);
         }
 
         private void ChangePassBtn_Click(object sender, EventArgs e)
@@ -162,7 +189,7 @@ namespace HistoryMap.AdminPanel
 
         private void ManageUsersBtn_Click(object sender, EventArgs e)
         {
-
+            new ManageUsersForm().Show();
         }
 
         private void DeleteBtn_Click(object sender, EventArgs e)
