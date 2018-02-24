@@ -178,7 +178,7 @@ namespace HistoryMap.Shared_Classes
             {
                 using (var reader = new StreamReader(response.GetResponseStream()))
                 {
-                    json = await reader.ReadToEndAsync(); //read a response code
+                    json = reader.ReadToEnd(); //read a response code
                 }
             }
 
