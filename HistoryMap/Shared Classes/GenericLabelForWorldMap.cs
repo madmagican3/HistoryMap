@@ -55,18 +55,7 @@ namespace HistoryMap.Shared_Classes
         public int year
         {
             get => timeOf.Year;
-            set
-            {
-                var era = NodaTime.Calendars.Era.Common;
-                var year = value;
-                if (value < 0)
-                {
-                    year = year * -1;
-                    era = NodaTime.Calendars.Era.BeforeCommon;
-                }
-                timeOf = new LocalDate(era, year, timeOf.Month, timeOf.Day);
-            }
-
+            set => timeOf = new LocalDate(value, timeOf.Month, timeOf.Day);
         }
         /// <summary>
         /// This is used to put the data into loadable format and stores the month
@@ -74,7 +63,7 @@ namespace HistoryMap.Shared_Classes
         public int month
         {
             get => timeOf.Month;
-            set => timeOf = new LocalDate(timeOf.Era, timeOf.YearOfEra, value, timeOf.Day);
+            set => timeOf = new LocalDate(timeOf.Year, value, timeOf.Day);
         }
         /// <summary>
         /// This is used to put the data into loadable format and stores the day
@@ -82,14 +71,14 @@ namespace HistoryMap.Shared_Classes
         public int day
         {
             get => timeOf.Day;
-            set => timeOf = new LocalDate(timeOf.Era, timeOf.YearOfEra, timeOf.Month, value);
+            set => timeOf = new LocalDate(timeOf.Year, timeOf.Month, value);
         }
         /// <summary>
         /// This is used for loading the point into a loadable format
         /// </summary>
-        public List<int> _pointString
+        public int[] _pointString
         {
-            get => new List<int> { ButtonCenterPoint.X, ButtonCenterPoint.Y };
+            get => new int[] { ButtonCenterPoint.X, ButtonCenterPoint.Y };
             set => ButtonCenterPoint = new Point(value[0], value[1]);
         }
 

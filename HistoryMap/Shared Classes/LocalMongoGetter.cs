@@ -8,6 +8,11 @@ namespace HistoryMap.Shared_Classes
 {
     class LocalMongoGetter
     {
+        private static HistoryMapWebClient _client;
+        public LocalMongoGetter()
+        {
+            _client = new HistoryMapWebClient("defaultUser", "ry3kGKijkF12Abwxczm1");
+        }
         /// <summary>
         /// This gets all the countries borders which are valid till that specified time period
         /// </summary>
@@ -15,56 +20,28 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         public static List<BorderStorageClass> GetCountries(LocalDate currentTime)
         {
-           // GenericWebWrapper wrapper = new GenericWebWrapper("admin", "andrewb11");
-           // wrapper.TestConnection("admin", "andrewb11");
-
-            HiddenVars tempVars = new HiddenVars();
-            //tempVars.getHttpAsync();
-            List<BorderStorageClass> localList = new List<BorderStorageClass>();
-            //create a new connection
-            var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("HistoryMap");
-            var collection = database.GetCollection<BorderStorageClass>("Border");
-
-            var resultList = collection.Find(_ => true).ToList();
-
-            foreach (var result in resultList)
+            if (_client == null)
             {
-
-                if (!result.Verified && (result.TimeOf <= currentTime && result.ValidTill >= currentTime))//TODO reverse this verified thing
-                {
-                    localList.Add(result);
-                }
-
+                _client = new HistoryMapWebClient("defaultUser", "ry3kGKijkF12Abwxczm1");
             }
-            return localList;
-         
-          
+            var result = _client.GetBorders(currentTime).GetAwaiter().GetResult();
+            return result;
         }
 
-        public static List<BorderStorageClass> GetCountries(bool all)
+        public static List<BorderStorageClass> GetCountries(bool all, HistoryMapWebClient client)
         {
-            HiddenVars tempVars = new HiddenVars();
-            //tempVars.getHttpAsync();
-            //create a new connection
-            var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("HistoryMap");
-            var collection = database.GetCollection<BorderStorageClass>("Border");
-
-            if (all)
+            var result = client.GetBorders().GetAwaiter().GetResult();
+            if (!all)
             {
-                return collection.Find(_ => true).ToList();
-            }
-            var resultList = collection.Find(_ => true).ToList();
-            var fullReturn = new List<BorderStorageClass>();
-            foreach (var result in resultList)
-            {
-                if (!result.Verified)
+                foreach (var border in result)
                 {
-                    fullReturn.Add(result);
+                    if (border.Verified)
+                    {
+                        result.Remove(border);
+                    }
                 }
             }
-            return fullReturn;
+            return result;
         }
         /// <summary>
         /// This saves the border
@@ -72,13 +49,12 @@ namespace HistoryMap.Shared_Classes
         /// <param name="borderToSave"></param>
         public static void SaveBorder(BorderStorageClass borderToSave)
         {
-            HiddenVars tempVars = new HiddenVars();
-            //create a new connection
-            var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("HistoryMap");
-            var collection = database.GetCollection<BorderStorageClass>("Border");
+            if (_client == null)
+            {
+                _client = new HistoryMapWebClient("defaultUser", "ry3kGKijkF12Abwxczm1");
+            }
 
-            collection.InsertOne(borderToSave);
+            _client.CreateRecord(borderToSave).GetAwaiter();
         }
 
 
@@ -91,47 +67,28 @@ namespace HistoryMap.Shared_Classes
         /// <returns>an array of genericlabelforworldmap forms</returns>
         public static List<GenericLabelForWorldMap> GetListFromDateSelection(LocalDate startDate,LocalDate endDate)
         {
-            HiddenVars tempVars = new HiddenVars();
-            List<GenericLabelForWorldMap> localList = new List<GenericLabelForWorldMap>();
-            //create a new connection
-            var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("HistoryMap");
-            var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
-
-            var resultList = collection.Find(_ => true).ToList();
-
-            foreach (var result in resultList)
+            if (_client == null)
             {
-
-                if (!result.verified&&(result.timeOf >= startDate && result.timeOf <= endDate))//TODO reverse this verified thing
-                {
-                    localList.Add(result);
-                }
-               
+                _client = new HistoryMapWebClient("defaultUser", "ry3kGKijkF12Abwxczm1");
             }
-            return localList;
+            var result = _client.GetButtons(startDate,endDate).GetAwaiter().GetResult();
+            return result;
         }
 
-        public static List<GenericLabelForWorldMap> GetListFromDateSelection(bool all)
+        public static List<GenericLabelForWorldMap> GetListFromDateSelection(bool all, HistoryMapWebClient client)
         {
-            HiddenVars tempVars = new HiddenVars();
-            //create a new connection
-            var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("HistoryMap");
-            var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
-
-            if (all)
-                return collection.Find(_ => true).ToList();
-            var resultList = collection.Find(_ => true).ToList();
-            var fullReturn = new List<GenericLabelForWorldMap>();
-            foreach (var result in resultList)
+            var result = client.GetButtons().GetAwaiter().GetResult();
+            if (!all)
             {
-                if (!result.verified)
+                foreach (var button in result)
                 {
-                    fullReturn.Add(result);
+                    if (button.verified)
+                    {
+                        result.Remove(button);
+                    }
                 }
             }
-            return fullReturn;
+            return result;
         }
 
 
@@ -142,16 +99,12 @@ namespace HistoryMap.Shared_Classes
         /// <param name="dateOfButton">The date we're looking for</param>
         internal static void AddButton(GenericLabelForWorldMap label, LocalDate dateOfButton)
         {
+            if (_client == null)
+            {
+                _client = new HistoryMapWebClient("defaultUser", "ry3kGKijkF12Abwxczm1");
+            }
 
-            var tempObject = JObject.FromObject(label);
-            Console.WriteLine(tempObject);
-            HiddenVars tempVars = new HiddenVars();
-            //create a new connection
-            var connection = new MongoClient(tempVars.GetConnectionString());
-            var database = connection.GetDatabase("HistoryMap");
-            var collection = database.GetCollection<GenericLabelForWorldMap>("Button");
-
-            collection.InsertOne(label);          
+            _client.CreateRecord(label).GetAwaiter();
         }
 
         public static bool CheckLogin(string username, string password)

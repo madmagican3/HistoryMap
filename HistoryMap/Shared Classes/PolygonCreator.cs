@@ -8,6 +8,8 @@ namespace HistoryMap.Shared_Classes
     internal static class PolygonCreator
     {
         public static bool Drawing = false;
+        public static LocalDate currentDate;
+        public static List<BorderStorageClass> currentBorders;
 
         /// <summary>
         /// This draws the polygons for borders based on the image passed to it
@@ -18,7 +20,11 @@ namespace HistoryMap.Shared_Classes
         /// <returns>a version of the drawing with the polygons drawn on</returns>
         public static Image DrawBorders(Image localMap, LocalDate localDate, double zoom)
         {
-           
+            if (currentDate != localDate)
+            {
+                currentDate = localDate;
+                currentBorders = LocalMongoGetter.GetCountries(localDate);
+            }
             if (AdminPanel.AdminPanel.BorderStorage != null)
             {
                 List<BorderStorageClass> tempBordersStorageList = new List<BorderStorageClass>();
@@ -26,12 +32,12 @@ namespace HistoryMap.Shared_Classes
                 return DrawImage(localMap, tempBordersStorageList, zoom, false);
             }
             else if (!Drawing)
-                return DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom, false);
+                return DrawImage(localMap, currentBorders, zoom, false);
             else
             {
                 List<BorderStorageClass> tempBorderStorageList =
                     new List<BorderStorageClass> {WorldMapCreate.CreateForm.LocalBorderStorageClass};
-                localMap = DrawImage(localMap, LocalMongoGetter.GetCountries(localDate), zoom, true);
+                localMap = DrawImage(localMap, currentBorders, zoom, true);
                 return DrawImage(localMap, tempBorderStorageList, zoom, false);
             }
 

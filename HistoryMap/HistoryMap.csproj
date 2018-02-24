@@ -123,7 +123,7 @@
     </Compile>
     <Compile Include="Shared Classes\BorderStorageClass.cs" />
     <Compile Include="Shared Classes\ButtonCreationClass.cs" />
-    <Compile Include="Shared Classes\GenericWebWrapper.cs" />
+    <Compile Include="Shared Classes\HistoryMapWebClient.cs" />
     <Compile Include="Shared Classes\HiddenVars.cs" />
     <Compile Include="Shared Classes\ListHandlerClass.cs" />
     <Compile Include="Shared Classes\LocalMongoGetter.cs" />

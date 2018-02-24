@@ -92,7 +92,7 @@ namespace HistoryMap.WorldMapCreate
         /// </summary>
         private void CreateForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
         /// <summary>
         /// This will occur on someone resizing the form so as to display the form correctly

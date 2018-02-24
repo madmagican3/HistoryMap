@@ -30,18 +30,7 @@ namespace HistoryMap.Shared_Classes
         public int year
         {
             get => TimeOf.Year;
-            set
-            {
-                var era = NodaTime.Calendars.Era.Common;
-                var year = value;
-                if (value < 0)
-                {
-                    year = year * -1;
-                    era = NodaTime.Calendars.Era.BeforeCommon;
-                }
-                TimeOf = new LocalDate(era, year, TimeOf.Month, TimeOf.Day);
-            }
-
+            set => TimeOf = new LocalDate(value, TimeOf.Month, TimeOf.Day);
         }
         /// <summary>
         /// This is used to put the data into loadable format and stores the month
@@ -49,7 +38,7 @@ namespace HistoryMap.Shared_Classes
         public int month
         {
             get => TimeOf.Month;
-            set => TimeOf = new LocalDate(TimeOf.Era, TimeOf.YearOfEra, value, TimeOf.Day);
+            set => TimeOf = new LocalDate(TimeOf.Year, value, TimeOf.Day);
         }
         /// <summary>
         /// This is used to put the data into loadable format and stores the day
@@ -57,7 +46,7 @@ namespace HistoryMap.Shared_Classes
         public int day
         {
             get => TimeOf.Day;
-            set => TimeOf = new LocalDate(TimeOf.Era, TimeOf.YearOfEra, TimeOf.Month, value);
+            set => TimeOf = new LocalDate(TimeOf.Year, TimeOf.Month, value);
         }
         [BsonIgnore]
         [JsonIgnore]
@@ -68,18 +57,7 @@ namespace HistoryMap.Shared_Classes
         public int yearTill
         {
             get => ValidTill.Year;
-            set
-            {
-                var era = NodaTime.Calendars.Era.Common;
-                var year = value;
-                if (value < 0)
-                {
-                    year = year * -1;
-                    era = NodaTime.Calendars.Era.BeforeCommon;
-                }
-                ValidTill = new LocalDate(era, year, ValidTill.Month, ValidTill.Day);
-            }
-
+            set => ValidTill = new LocalDate(value, ValidTill.Month, ValidTill.Day);
         }
         /// <summary>
         /// This is used to put the data into loadable format and stores the month
@@ -87,7 +65,7 @@ namespace HistoryMap.Shared_Classes
         public int monthTill
         {
             get => ValidTill.Month;
-            set => ValidTill = new LocalDate(ValidTill.Era, ValidTill.YearOfEra, value, ValidTill.Day);
+            set => ValidTill = new LocalDate(ValidTill.Year, value, ValidTill.Day);
         }
         /// <summary>
         /// This is used to put the data into loadable format and stores the day
@@ -95,7 +73,7 @@ namespace HistoryMap.Shared_Classes
         public int dayTill
         {
             get => ValidTill.Day;
-            set => ValidTill = new LocalDate(ValidTill.Era, ValidTill.YearOfEra, ValidTill.Month, value);
+            set => ValidTill = new LocalDate(ValidTill.Year, ValidTill.Month, value);
         }
         /// <summary>
         /// This stores an instance of colour for shading the borders
@@ -121,7 +99,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is a point list used for storing allPointsOfBorder
         /// </summary>
-        public List<int> PointList
+        public int[] PointList
         {
             get => GetAllPointsAsIntList();
             set => SetAllPointsAsIntList(value);
@@ -130,10 +108,10 @@ namespace HistoryMap.Shared_Classes
         /// This turns the points into an integer array
         /// </summary>
         /// <param name="allInts"></param>
-        public void SetAllPointsAsIntList(List<int> allInts)
+        public void SetAllPointsAsIntList(int[] allInts)
         {
             List<Point> localPointsList = new List<Point>();
-            for (int i = 0; i < allInts.Count; i += 2)
+            for (int i = 0; i < allInts.Length; i += 2)
             {
                 localPointsList.Add(new Point(allInts[i], allInts[i+1]));
             }
@@ -144,16 +122,19 @@ namespace HistoryMap.Shared_Classes
         /// This creates all the points required from an int list
         /// </summary>
         /// <returns></returns>
-        public List<int> GetAllPointsAsIntList()
+        public int[] GetAllPointsAsIntList()
         {
+
             List<int> tempList = new List<int>();
+            if (AllPointsofBorder == null)
+                return tempList.ToArray();
             foreach (var point in AllPointsofBorder)
             {
                 tempList.Add(point.X);
                 tempList.Add(point.Y);
             }
 
-            return tempList;
+            return tempList.ToArray();
         }
 
         public BorderStorageClass()

@@ -122,6 +122,7 @@
             this.Name = "AdminPanel";
             this.Text = "Admin Panel";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AdminPanel_FormClosed);
             this.Load += new System.EventHandler(this.AdminPanel_Load);
             this.ResizeEnd += new System.EventHandler(this.AdminPanel_ResizeEnd);
             this.ResumeLayout(false);

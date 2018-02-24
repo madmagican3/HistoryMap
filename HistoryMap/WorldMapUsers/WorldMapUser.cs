@@ -134,7 +134,7 @@ namespace HistoryMap.WorldMapUsers
         /// <param name="e"></param>
         private void WorldMapUser_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Environment.Exit(1);
+            Environment.Exit(0);
         }
     }
 }

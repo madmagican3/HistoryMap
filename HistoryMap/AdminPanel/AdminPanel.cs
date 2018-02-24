@@ -29,19 +29,17 @@ namespace HistoryMap.AdminPanel
         /// </summary>
         public static BorderStorageClass BorderStorage;
 
-        private string _username;
-        private string _password;
+        private HistoryMapWebClient _client;
 
-        public AdminPanel(string username, string password)
+        public AdminPanel(HistoryMapWebClient _client)
         {
-            _username = username;
-            _password = password;
+            this._client = _client;
             InitializeComponent();
         }
 
         private void AdminPanel_Load(object sender, EventArgs e)
         {
-            if (_username == "admin")
+            if (_client.username == "admin")
             {
                 ManageUsersBtn.Visible = true;
                 DeleteBtn.Visible = true;
@@ -83,16 +81,16 @@ namespace HistoryMap.AdminPanel
         /// </summary>
         private void PopulateList()
         {
-            if (_username == "admin")
+            if (_client.username == "admin")
             {
                 _unverifiedBordersList =
-                    LocalMongoGetter.GetCountries(true);
-                _unverifiedButtonsList = LocalMongoGetter.GetListFromDateSelection(true);
+                    LocalMongoGetter.GetCountries(true, _client);
+                _unverifiedButtonsList = LocalMongoGetter.GetListFromDateSelection(true, _client);
             }
             else
             {
-                _unverifiedBordersList = LocalMongoGetter.GetCountries(false);
-                _unverifiedButtonsList = LocalMongoGetter.GetListFromDateSelection(false);
+                _unverifiedBordersList = LocalMongoGetter.GetCountries(false, _client);
+                _unverifiedButtonsList = LocalMongoGetter.GetListFromDateSelection(false, _client);
             }
             ItemsList.Items.Clear();
             foreach (var border in _unverifiedBordersList)
@@ -170,6 +168,11 @@ namespace HistoryMap.AdminPanel
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             //TODO finish
+        }
+
+        private void AdminPanel_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
