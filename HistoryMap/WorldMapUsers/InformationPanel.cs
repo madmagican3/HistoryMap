@@ -12,7 +12,7 @@ namespace HistoryMap.WorldMapUsers
         {
             _textList = text;
             InitializeComponent();
-            this.Focus();
+            Focus();
         }
 
         private void InformationPanel_Load(object sender, EventArgs e)

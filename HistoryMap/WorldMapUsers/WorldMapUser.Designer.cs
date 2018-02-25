@@ -33,6 +33,7 @@
             this.MinButton = new System.Windows.Forms.Label();
             this.MaximiseButton = new System.Windows.Forms.Label();
             this.ListPanel = new System.Windows.Forms.Panel();
+            this.SearchInfoLabel = new System.Windows.Forms.Label();
             this.SearchIcoLabel = new System.Windows.Forms.Label();
             this.SearchTxtBox = new System.Windows.Forms.TextBox();
             this.InterestingItemsList = new System.Windows.Forms.ListBox();
@@ -86,6 +87,7 @@
             // 
             // ListPanel
             // 
+            this.ListPanel.Controls.Add(this.SearchInfoLabel);
             this.ListPanel.Controls.Add(this.SearchIcoLabel);
             this.ListPanel.Controls.Add(this.SearchTxtBox);
             this.ListPanel.Controls.Add(this.InterestingItemsList);
@@ -95,6 +97,14 @@
             this.ListPanel.Name = "ListPanel";
             this.ListPanel.Size = new System.Drawing.Size(194, 691);
             this.ListPanel.TabIndex = 4;
+            // 
+            // SearchInfoLabel
+            // 
+            this.SearchInfoLabel.AutoSize = true;
+            this.SearchInfoLabel.Location = new System.Drawing.Point(4, 40);
+            this.SearchInfoLabel.Name = "SearchInfoLabel";
+            this.SearchInfoLabel.Size = new System.Drawing.Size(0, 13);
+            this.SearchInfoLabel.TabIndex = 6;
             // 
             // SearchIcoLabel
             // 
@@ -117,9 +127,9 @@
             // InterestingItemsList
             // 
             this.InterestingItemsList.FormattingEnabled = true;
-            this.InterestingItemsList.Location = new System.Drawing.Point(0, 36);
+            this.InterestingItemsList.Location = new System.Drawing.Point(0, 62);
             this.InterestingItemsList.Name = "InterestingItemsList";
-            this.InterestingItemsList.Size = new System.Drawing.Size(156, 654);
+            this.InterestingItemsList.Size = new System.Drawing.Size(156, 628);
             this.InterestingItemsList.TabIndex = 3;
             // 
             // SettingsIcon
@@ -176,7 +186,7 @@
             this.CurrentDate.ReadOnly = true;
             this.CurrentDate.Size = new System.Drawing.Size(168, 20);
             this.CurrentDate.TabIndex = 5;
-            this.CurrentDate.Text = "01 June 0302 BCE";
+            this.CurrentDate.Text = "01 June 0302 CE";
             // 
             // timeSkipArrowRight
             // 
@@ -191,6 +201,7 @@
             // 
             // TimeSkipInterval
             // 
+            this.TimeSkipInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TimeSkipInterval.FormattingEnabled = true;
             this.TimeSkipInterval.Items.AddRange(new object[] {
             "Day",
@@ -231,17 +242,18 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1293, 691);
+            this.Controls.Add(this.ListPanel);
             this.Controls.Add(this.ZoomInLabel);
             this.Controls.Add(this.ZoomOutLabel);
             this.Controls.Add(this.SettingsIcon);
             this.Controls.Add(this.MaximiseButton);
             this.Controls.Add(this.WorldMap);
             this.Controls.Add(this.ControlPanel);
-            this.Controls.Add(this.ListPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "WorldMapUser";
             this.Text = "World History Map";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WorldMapUser_FormClosing);
             this.Load += new System.EventHandler(this.WorldMapUser_Load);
             this.ResizeEnd += new System.EventHandler(this.WorldMapUser_ResizeEnd);
             ((System.ComponentModel.ISupportInitialize)(this.WorldMap)).EndInit();
@@ -272,6 +284,7 @@
         internal System.Windows.Forms.ComboBox TimeSkipInterval;
         internal System.Windows.Forms.TextBox CurrentDate;
         private System.Windows.Forms.Label SearchIcon;
+        public System.Windows.Forms.Label SearchInfoLabel;
     }
 }
 

@@ -11,13 +11,17 @@ namespace HistoryMap.Shared_Classes
     public class DrawClass
     {
         /// <summary>
+        /// This is used to control if left mouse click should move the screen
+        /// </summary>
+        public bool MoveForm = true;
+        /// <summary>
         /// This is a local version of the history map to minimise the amount of times i have to write the long reference
         /// </summary>
-        private readonly Image _localMap = Resources.maps_world_map_02;
+        private Image _localMap = Resources.maps_world_map_02;
         /// <summary>
         /// This should hold the date the user is looking at currently
         /// </summary>
-        private LocalDate _currentDate = new LocalDate(Era.BeforeCommon, 302, 6, 1);
+        public LocalDate CurrentDate = new LocalDate(Era.Common, 302, 6, 1);
 
         /// <summary>
         /// This is the rectangle we render into
@@ -57,7 +61,7 @@ namespace HistoryMap.Shared_Classes
             //set up the rectangle based on the image size (incase we want to modify the image later)
             RenderRectangle = new Rectangle(0, 0, _localMap.Width, _localMap.Height);
             //We then draw the polygons on the map so as to allow them to zoom correctly
-            _localMap = PolygonCreator.DrawBorders(_localMap);
+            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, CurrentDate, Zoom);
             //Then we create a local bitmap of the image so as to have something to draw on
             _bitmap = new Bitmap(_localMap);
             _formMapUser = user;
@@ -216,17 +220,19 @@ namespace HistoryMap.Shared_Classes
         /// <param name="e"></param>
         public void WorldMap_Up(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left) return;
+            if (e.Button != MouseButtons.Left || !MoveForm) return;
             //Due to zoom + imagebox size not being 1:1 pixel representation, calculate the actual mouse X,Y on raw image dimensions
             var actualClickPoint = CalculateUiToMap(e.X, e.Y);
             //Now we have the actual click location on the image, calculate the area to render
             RenderRectangle = CalculateRenderArea(actualClickPoint);
             RenderMap();
         }
-        private void RenderMap()
+        public void RenderMap()
         {
             //We create a temporary rectangle for the size of the persons screen so as to create it to fit correctly
             var cropRect = new Rectangle(0, 0, _formMapUser.WorldMap.Width, _formMapUser.WorldMap.Height);
+            //redraw the map with the new borders on it
+            _localMap = PolygonCreator.DrawBorders(Resources.maps_world_map_02, CurrentDate, Zoom);
 
             using (var g = Graphics.FromImage(_bitmap))
             {
@@ -236,6 +242,7 @@ namespace HistoryMap.Shared_Classes
             }
             var timeTuple = GetTimes(_formMapUser);
             LocalButtonCreationClass.CreateButtons(_formMapUser, this,timeTuple.Item1,timeTuple.Item2);
+            _formMapUser.WorldMap.Refresh();
         }
         /// <summary>
         /// This should get the start and end date for the sql statement by adding a value of the combobox to a second date and then returning
@@ -245,7 +252,7 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         private Tuple<LocalDate, LocalDate> GetTimes(WorldMapUser formMapUser)
         {
-            var endDate = _currentDate;
+            var endDate = CurrentDate;
             switch (formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
@@ -267,7 +274,7 @@ namespace HistoryMap.Shared_Classes
                     endDate = endDate.PlusYears(100);
                     break;
             }
-            return new Tuple<LocalDate, LocalDate>(_currentDate, endDate);
+            return new Tuple<LocalDate, LocalDate>(CurrentDate, endDate);
         }
         /// <summary>
         /// This handles the displaying of the date modal and then sets the date to the date to currentDate
@@ -276,13 +283,14 @@ namespace HistoryMap.Shared_Classes
         /// <param name="e"></param>
         public void DateHandler(object sender, EventArgs e)
         {
-            using (var form = new DateSelectionModal(_currentDate))
+            using (var form = new DateSelectionModal(CurrentDate))
             {
                 var dialogResult = form.ShowDialog();
                 if (dialogResult == DialogResult.OK)
                 {
-                    _currentDate = form.ReturnTime;
-                    _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+                    CurrentDate = form.ReturnTime;
+                    _formMapUser.CurrentDate.Text = CurrentDate.ToString() + @" " + CurrentDate.Era;
+                    RenderMap();
                 }
             }
         }
@@ -296,36 +304,36 @@ namespace HistoryMap.Shared_Classes
             switch (_formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
-                    _currentDate = _currentDate.PlusDays(-1);
+                    CurrentDate = CurrentDate.PlusDays(-1);
                     break;
                 case 1:
-                    _currentDate = _currentDate.PlusDays(-7);
+                    CurrentDate = CurrentDate.PlusDays(-7);
                     break;
                 case 2:
-                    _currentDate = _currentDate.PlusMonths(-1);
+                    CurrentDate = CurrentDate.PlusMonths(-1);
                     break;
                 case 3:
-                    _currentDate = _currentDate.PlusYears(-1);
+                    CurrentDate = CurrentDate.PlusYears(-1);
                     break;
                 case 4:
-                    _currentDate = _currentDate.PlusYears(-10);
+                    CurrentDate = CurrentDate.PlusYears(-10);
                     break;
                 case 5:
-                    _currentDate = _currentDate.PlusYears(-100);
+                    CurrentDate = CurrentDate.PlusYears(-100);
                     break;
             }
-            _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+            _formMapUser.CurrentDate.Text = CurrentDate.ToString() + @" " + CurrentDate.Era;
+            RenderMap();
         }
         /// <summary>
         /// this should handle the incrementation of time by the amount selected in the combobox and displays it to the user
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        //TODO remember to on getting the information not to go over 20 years, cap it if it does start to go over that
 
         public void OnRightArrowClick(object sender, EventArgs e)
         {
-            LocalDate verifyDate = _currentDate;
+            LocalDate verifyDate = CurrentDate;
             switch (_formMapUser.TimeSkipInterval.SelectedIndex)
             {
                 case 0:
@@ -347,15 +355,16 @@ namespace HistoryMap.Shared_Classes
                     verifyDate = verifyDate.PlusYears(100);
                     break;
             }
-            if (verifyDate.Era == Era.Common&&verifyDate.Year > DateTime.Today.Year - 20 )
+            if (verifyDate.Year < DateTime.Today.Year - 20)
             {
-                MessageBox.Show(
-                    @"Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
+                CurrentDate = verifyDate;
+                _formMapUser.CurrentDate.Text = CurrentDate.ToString() + @" " + CurrentDate.Era;
+                RenderMap();
             }
             else
             {
-                _currentDate = verifyDate;
-                _formMapUser.CurrentDate.Text = _currentDate.ToString() + @" " + _currentDate.Era;
+                MessageBox.Show(
+                    @"Sorry but we only deal with history, not current events, please try a date 20 years less than our current year");
             }
         }
     }

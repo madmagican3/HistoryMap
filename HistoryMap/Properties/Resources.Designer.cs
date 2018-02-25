@@ -131,6 +131,26 @@ namespace HistoryMap.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon if_circle_blue_10279 {
+            get {
+                object obj = ResourceManager.GetObject("if_circle_blue_10279", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon if_circle_red_10282 {
+            get {
+                object obj = ResourceManager.GetObject("if_circle_red_10282", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap if_icon_ios7_search_211818 {

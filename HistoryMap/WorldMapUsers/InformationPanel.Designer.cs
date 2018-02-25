@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InformationPanel));
             this.RichText = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
@@ -46,8 +47,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 645);
             this.Controls.Add(this.RichText);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "InformationPanel";
-            this.Text = "InformationPanel";
+            this.Text = "Information";
             this.Load += new System.EventHandler(this.InformationPanel_Load);
             this.ResumeLayout(false);
 

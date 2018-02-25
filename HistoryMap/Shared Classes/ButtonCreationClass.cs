@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using HistoryMap.WorldMapUsers;
@@ -20,7 +19,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is a list for all the dates in the time period stored in the global date 
         /// </summary>
-        public readonly List<GenericLabelForWorldMap> _buttonsForTimePeriodList = new List<GenericLabelForWorldMap>();
+        public List<GenericLabelForWorldMap> ButtonsForTimePeriodList = new List<GenericLabelForWorldMap>();
         /// <summary>
         /// This contains a list of all the buttons currently displayed 
         /// </summary>
@@ -53,7 +52,7 @@ namespace HistoryMap.Shared_Classes
                 _endDateTime = endDate;
                 GetButtons(startDate, endDate);
                 localForm.InterestingItemsList.Items.Clear();
-                foreach (var localButtonStorage in _buttonsForTimePeriodList)
+                foreach (var localButtonStorage in ButtonsForTimePeriodList)
                 {
                     localForm.InterestingItemsList.Items.Add(localButtonStorage.name);
                 }
@@ -65,8 +64,40 @@ namespace HistoryMap.Shared_Classes
             }
             //empty the list
             _buttonControlList.Clear();
+            if (!localForm.RenderButtons)
+            {
+                if (AdminPanel.AdminPanel.ButtonName != null)
+                {
+                    Point? location = ButtonLocation(localClass, AdminPanel.AdminPanel.ButtonName);
+                    //If the point returned is invalid we no longer want to add the label to the list
+                    if (!location.HasValue) { }
+                    else
+                    {
+                        //Create the label and assign it the correct values
+                        Label tempButton = new Label
+                        {
+                            Height = 50,
+                            Width = 50,
+                            Image = Properties.Resources.icons8_marker_50,
+                            Location = location.Value,
+                        };
+                        tempButton.Click += (a, b) =>
+                        {
+                            InformationPanel infoPanel = new InformationPanel(AdminPanel.AdminPanel.ButtonName.Text);
+                            infoPanel.ShowDialog();
+                        };
+                        //set up transparency
+                        tempButton.BackColor = Color.Transparent;
+                        tempButton.Parent = localForm.WorldMap;
+                        //add it to the list
+                        _buttonControlList.Add(tempButton);
+                    }
+                }
+                _inUse = false;
+                return;
+            }
             //Check if we should continue to attempt to draw the buttons on
-            foreach (var localButtonStorage in _buttonsForTimePeriodList)
+            foreach (var localButtonStorage in ButtonsForTimePeriodList)
             {
                 Point? location = ButtonLocation(localClass, localButtonStorage);
                 //If the point returned is invalid we no longer want to add the label to the list
@@ -128,12 +159,8 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         private void GetButtons(LocalDate startDate, LocalDate endDate)
         {
-            _buttonsForTimePeriodList.Clear();
-            Dictionary<string,string> testString = new Dictionary<string, string>(){
-                { "Test", "value" }
-                };
-            GenericLabelForWorldMap testGenericLabelForWorldMap = new GenericLabelForWorldMap(new Point(552, 565), "City",testString ,  50, 50, "Test Event");
-            _buttonsForTimePeriodList.Add(testGenericLabelForWorldMap);
+            ButtonsForTimePeriodList.Clear();
+            ButtonsForTimePeriodList = LocalMongoGetter.GetListFromDateSelection( startDate,endDate);
         }
     }
 }

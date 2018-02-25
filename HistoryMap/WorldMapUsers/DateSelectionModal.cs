@@ -16,7 +16,7 @@ namespace HistoryMap.WorldMapUsers
         public DateSelectionModal(LocalDate startDate)
         {
             InitializeComponent();
-            Year.Text = startDate.Year.ToString();
+            Year.Text = startDate.YearOfEra.ToString();
             if (startDate.Era == Era.Common)
             {
                 TimeFrame.SelectedIndex = 0;
@@ -33,7 +33,6 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         private void DateSelectionModal_Load(object sender, EventArgs e)
         {
-            TimeFrame.SelectedIndex = 0;
         }
 
         /// <summary>

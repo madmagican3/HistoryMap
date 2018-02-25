@@ -11,11 +11,15 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         /// This contains a local instance of the drawclass
         /// </summary>
-        public readonly DrawClass _localDrawClass;
+        public readonly DrawClass LocalDrawClass;
         /// <summary>
         /// This contains a local instance of the listhandlerclass
         /// </summary>
         private readonly ListHandlerClass _localListHandlerClass;
+        /// <summary>
+        /// This is used to hide buttons when we're creating new info
+        /// </summary>
+        public Boolean RenderButtons = true;
 
         /// <summary>
         /// This initiliazes the form and assigns the scroll event to the worldmap
@@ -23,11 +27,11 @@ namespace HistoryMap.WorldMapUsers
         public WorldMapUser()
         {
             InitializeComponent();
-            _localDrawClass = new DrawClass(this);
+            LocalDrawClass = new DrawClass(this);
             _localListHandlerClass = new ListHandlerClass(this);
-            worldMapHandler();
-            buttonHandler();
-            panelHandler();
+            WorldMapHandler();
+            ButtonHandler();
+            PanelHandler();
             InterestingListHandler();
             ControlPanelHandler();
             SettingsIcon.Click += SettingsOpen;
@@ -53,12 +57,12 @@ namespace HistoryMap.WorldMapUsers
 
         private void SettingsOpen(object sender, EventArgs e)
         {
-            new SettingsForm().Visible = true;
+            new SettingsForm(this) {Visible = true};
         }
         /// <summary>
         /// This should hold all the other buttons which the user will interact with on the main 
         /// </summary>
-        private void panelHandler()
+        public void PanelHandler()
         {
             //make the buttons back colour transparent
             ZoomOutLabel.Parent = WorldMap;
@@ -68,13 +72,13 @@ namespace HistoryMap.WorldMapUsers
             ZoomInLabel.BackColor = Color.Transparent;
             SettingsIcon.BackColor = Color.Transparent;
 
-            ZoomInLabel.Click += _localDrawClass.WorldMap_zoomIn;
-            ZoomOutLabel.Click += _localDrawClass.WorldMap_ZoomOut;
+            ZoomInLabel.Click += LocalDrawClass.WorldMap_zoomIn;
+            ZoomOutLabel.Click += LocalDrawClass.WorldMap_ZoomOut;
         }
         /// <summary>
         /// This handles the button creation for the list to the left and the hooks required for it 
         /// </summary>
-        private void buttonHandler()
+        private void ButtonHandler()
         {
             //This is so that the transparency actually works
             MaximiseButton.Parent = WorldMap;
@@ -90,15 +94,15 @@ namespace HistoryMap.WorldMapUsers
         /// <summary>
         /// This creates all the hooks for the worldMap
         /// </summary>
-        private void worldMapHandler()
+        private void WorldMapHandler()
         {
-            WorldMap.MouseWheel += _localDrawClass.WorldMap_MouseWheel;
-            WorldMap.MouseUp += _localDrawClass.WorldMap_Up;
-            WorldMap.SizeChanged += _localDrawClass.WorldMap_SizeChanged;
-            CurrentDate.Click += _localDrawClass.DateHandler;
-            SearchIcon.Click += _localDrawClass.DateHandler;
-            timeSkipArrowLeft.Click += _localDrawClass.OnLeftArrowClick;
-            timeSkipArrowRight.Click += _localDrawClass.OnRightArrowClick;
+            WorldMap.MouseWheel += LocalDrawClass.WorldMap_MouseWheel;
+            WorldMap.MouseUp += LocalDrawClass.WorldMap_Up;
+            WorldMap.SizeChanged += LocalDrawClass.WorldMap_SizeChanged;
+            CurrentDate.Click += LocalDrawClass.DateHandler;
+            SearchIcon.Click += LocalDrawClass.DateHandler;
+            timeSkipArrowLeft.Click += LocalDrawClass.OnLeftArrowClick;
+            timeSkipArrowRight.Click += LocalDrawClass.OnRightArrowClick;
         }
         /// <summary>
         /// This will occur on someone resizing the form so as to display the form correctly
@@ -121,6 +125,16 @@ namespace HistoryMap.WorldMapUsers
         private void WorldMapUser_Load(object sender, EventArgs e)
         {
             WorldMapUser_ResizeEnd(this, new EventArgs());
+        }
+
+        /// <summary>
+        /// This shuts down the enviroment upon clicking close
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void WorldMapUser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

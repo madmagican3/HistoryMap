@@ -30,6 +30,7 @@ namespace HistoryMap.WorldMapUsers
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DateSelectionModal));
             this.Year = new System.Windows.Forms.TextBox();
             this.TimeFrame = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -89,6 +90,7 @@ namespace HistoryMap.WorldMapUsers
             this.Controls.Add(this.button1);
             this.Controls.Add(this.TimeFrame);
             this.Controls.Add(this.Year);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DateSelectionModal";
             this.Text = "Date Selection";
             this.Load += new System.EventHandler(this.DateSelectionModal_Load);
