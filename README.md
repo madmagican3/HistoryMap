@@ -1,7 +1,7 @@
 # HistoryMap
 This is a repo containing a tool to view historical borders using crowdsourced data
 
-I hope you very much enjoy it, if you're a user with no interest in the program just download the msi in historymap installer (https://github.com/madmagican3/HistoryMap/blob/master/HistoryMapInstaller/HistoryMapInstaller.msi) by clicking download
+I hope you very much enjoy it, if you're a user with no interest in the code just download it from the release by clicking download
 
 T&C's are mentioned in system.
 
