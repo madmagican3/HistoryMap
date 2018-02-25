@@ -28,18 +28,24 @@ namespace HistoryMap.AdminPanel
         /// This is used for populating the border when we only want to display said border for verification purposes
         /// </summary>
         public static BorderStorageClass BorderStorage;
-
+        /// <summary>
+        /// This is a logged in version of the historymap web client
+        /// </summary>
         private HistoryMapWebClient _client;
 
-        public AdminPanel(HistoryMapWebClient _client)
+        public AdminPanel(HistoryMapWebClient client)
         {
-            this._client = _client;
+            _client = client;
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Onload if the user is admin we want to show different items (it's still password protected upon submit)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AdminPanel_Load(object sender, EventArgs e)
         {
-            if (_client.username == "admin")
+            if (_client.Username == "admin")
             {
                 ManageUsersBtn.Visible = true;
                 DeleteBtn.Visible = true;
@@ -51,7 +57,7 @@ namespace HistoryMap.AdminPanel
         }
 
         /// <summary>
-        /// This will create an instance of the view form in the create form
+        /// This will create an instance of the view form in the create form and update the ui to standard
         /// </summary>
         private void CreateFormInstance(bool showButtons, bool refreshList)
         {
@@ -83,7 +89,7 @@ namespace HistoryMap.AdminPanel
         /// </summary>
         private void PopulateList()
         {
-            if (_client.username == "admin")
+            if (_client.Username == "admin")
             {
                 _unverifiedBordersList =
                     LocalMongoGetter.GetCountries(true, _client);
@@ -136,7 +142,11 @@ namespace HistoryMap.AdminPanel
                 CreateFormInstance(false, false);
             }
         }
-
+        /// <summary>
+        /// This verifies the selected item then refreshes the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AcceptBtn_Click(object sender, EventArgs e)
         {
             if (ItemsList.SelectedIndex == -1)
@@ -159,7 +169,11 @@ namespace HistoryMap.AdminPanel
             }
             CreateFormInstance(true, true);
         }
-
+        /// <summary>
+        /// This rejects the selected record then refreshes the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RejectBtn_Click(object sender, EventArgs e)
         {
             if (ItemsList.SelectedIndex == -1)
@@ -181,17 +195,29 @@ namespace HistoryMap.AdminPanel
             }
             CreateFormInstance(true, true);
         }
-
+        /// <summary>
+        /// This creates a new form that allows the user to change the password
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangePassBtn_Click(object sender, EventArgs e)
         {
             new ChangePassForm(_client).Show();
         }
-
+        /// <summary>
+        /// This creates a new manage users form, this will only work properley for the admin user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ManageUsersBtn_Click(object sender, EventArgs e)
         {
             new ManageUsersForm(_client).Show();
         }
-
+        /// <summary>
+        /// This allows the admin to delete verified records 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteBtn_Click(object sender, EventArgs e)
         {
             if (ItemsList.SelectedIndex == -1)

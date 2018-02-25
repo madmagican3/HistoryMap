@@ -5,7 +5,6 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Newtonsoft.Json;
 using NodaTime;
 
@@ -16,7 +15,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is the base url of the website we want to connect too
         /// </summary>
-        private const string _baseurl = "https://historymap.madmagican3.co.uk:3000";//TODO modify to the website when it's setup
+        private const string Baseurl = "https://historymap.madmagican3.co.uk:3000";//TODO modify to the website when it's setup
         /// <summary>
         /// This is the credentials we're going to use
         /// </summary>
@@ -24,7 +23,7 @@ namespace HistoryMap.Shared_Classes
         /// <summary>
         /// This is a local instance of the username field so that we can use it where required
         /// </summary>
-        public string username;
+        public readonly string Username;
 
         /// <summary>
         /// This sets the username and password as credentials then tests the connection to see if they're correct
@@ -33,7 +32,7 @@ namespace HistoryMap.Shared_Classes
         /// <param name="password"></param>
         public HistoryMapWebClient(string user, string password)
         {
-            username = user;
+            Username = user;
             _creds = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{user}:{password}"));
 
             TestConnection();
@@ -44,7 +43,7 @@ namespace HistoryMap.Shared_Classes
         /// </summary>
         private void TestConnection()
         {
-            var req = (HttpWebRequest)WebRequest.Create($"{_baseurl}/checkLogin");
+            var req = (HttpWebRequest)WebRequest.Create($"{Baseurl}/checkLogin");
             AddAuthorizationHeader(req);//create the web request and set the credentials
 
             try
@@ -116,7 +115,7 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         public async Task<JsonResponse> Post<T>(T t, string query, string urlMethod)
         {
-            var req = (HttpWebRequest)WebRequest.Create($"{_baseurl}/{GetObjectType(typeof(T))}/{urlMethod}?{query}");
+            var req = (HttpWebRequest)WebRequest.Create($"{Baseurl}/{GetObjectType(typeof(T))}/{urlMethod}?{query}");
             AddAuthorizationHeader(req);
             req.MediaType = "application/json; charset=utf-8";
             req.Method = "POST";
@@ -169,7 +168,7 @@ namespace HistoryMap.Shared_Classes
         /// <returns></returns>
         public async Task<List<T>> View<T>(string query)
         {
-            var req = (HttpWebRequest)WebRequest.Create($"{_baseurl}/{GetObjectType(typeof(T))}/view?{query}");
+            var req = (HttpWebRequest)WebRequest.Create($"{Baseurl}/{GetObjectType(typeof(T))}/view?{query}");
             AddAuthorizationHeader(req);
             req.MediaType = "application/json; charset=utf-8";//sets up the web request
 
@@ -207,7 +206,7 @@ namespace HistoryMap.Shared_Classes
             return await View<BorderStorageClass>(query);
         }
 
-        public async Task<List<UserClass>> getUsers()
+        public async Task<List<UserClass>> GetUsers()
         {
             return await View<UserClass>("");
         }

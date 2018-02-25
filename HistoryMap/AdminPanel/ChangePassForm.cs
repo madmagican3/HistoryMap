@@ -7,22 +7,29 @@ namespace HistoryMap.AdminPanel
 {
     public partial class ChangePassForm : Form
     {
+        /// <summary>
+        /// This is an intance of the web client which is already authed
+        /// </summary>
         private HistoryMapWebClient _client;
         public ChangePassForm(HistoryMapWebClient client)
         {
-            this._client = client;
+            _client = client;
             InitializeComponent();
         }
-
+        /// <summary>
+        /// This saves the pass after verifying that the user has entered the same password twice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SavePassBtn_Click(object sender, EventArgs e)
         {
             if (PassTxt.Text.Equals(DupePassTxt.Text))
             {
-                List<UserClass> _userList = _client.getUsers().GetAwaiter().GetResult();
+                List<UserClass> userList = _client.GetUsers().GetAwaiter().GetResult();
                 UserClass user = new UserClass();
-                foreach (var users in _userList)
+                foreach (var users in userList)
                 {
-                    if (users.user == _client.username)
+                    if (users.user == _client.Username)
                     {
                         user = users;
                     }
@@ -32,7 +39,7 @@ namespace HistoryMap.AdminPanel
                 {
                     user.pass = PassTxt.Text;
                     _client.UpdateRecord(user).GetAwaiter();
-                    this.Close();
+                    Close();
                 }
                 else
                 {

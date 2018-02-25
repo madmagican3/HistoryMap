@@ -7,7 +7,13 @@ namespace HistoryMap.AdminPanel
 {
     public partial class ManageUsersForm : Form
     {
+        /// <summary>
+        /// This is a local instance of the client and is authenticated
+        /// </summary>
         private HistoryMapWebClient _client;
+        /// <summary>
+        /// This is a local copy of all the users on the system
+        /// </summary>
         private List<UserClass> _userList;
         public ManageUsersForm(HistoryMapWebClient client)
         {
@@ -33,12 +39,14 @@ namespace HistoryMap.AdminPanel
         /// <param name="e"></param>
         private void ManageUsersForm_Load(object sender, EventArgs e)
         {
-            setupList();
+            SetupList();
         }
-
-        private void setupList()
+        /// <summary>
+        /// This setsup the list with new vars
+        /// </summary>
+        private void SetupList()
         {
-            _userList = _client.getUsers().GetAwaiter().GetResult();
+            _userList = _client.GetUsers().GetAwaiter().GetResult();
             UsersList.Items.Clear();
             foreach (var user in _userList)
             {
@@ -61,7 +69,7 @@ namespace HistoryMap.AdminPanel
             _client.Delete<UserClass>(_userList[UsersList.SelectedIndex]._id).GetAwaiter();
             UsersList.SelectedIndex = -1;
             DeleteBtn.Enabled = false;
-            setupList();
+            SetupList();
         }
         /// <summary>
         /// This should save a new user based on the populated fields
@@ -72,11 +80,13 @@ namespace HistoryMap.AdminPanel
         {
             if (UserTxt.Text == "" || PassTxt.Text == "")
             {
-                MessageBox.Show("Both the fields need to be filled in");
+                MessageBox.Show(@"Both the fields need to be filled in");
             }
             var tempUser = new UserClass(UserTxt.Text, PassTxt.Text);
+            UserTxt.Text = "";
+            PassTxt.Text = "";
             _client.CreateRecord(tempUser).GetAwaiter();
-            setupList();
+            SetupList();
         }
     }
 }

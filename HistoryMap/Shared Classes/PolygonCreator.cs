@@ -7,9 +7,18 @@ namespace HistoryMap.Shared_Classes
 {
     internal static class PolygonCreator
     {
+        /// <summary>
+        /// This is a flag used to indicate if we're drawing
+        /// </summary>
         public static bool Drawing = false;
-        public static LocalDate currentDate;
-        public static List<BorderStorageClass> currentBorders;
+        /// <summary>
+        /// This is a local instance of the current date used to stop wasted calls on initalization
+        /// </summary>
+        public static LocalDate CurrentDate;
+        /// <summary>
+        /// This is a local instance of the current dates current borders to stop wasted calls on initalization
+        /// </summary>
+        public static List<BorderStorageClass> CurrentBorders;
 
         /// <summary>
         /// This draws the polygons for borders based on the image passed to it
@@ -20,10 +29,10 @@ namespace HistoryMap.Shared_Classes
         /// <returns>a version of the drawing with the polygons drawn on</returns>
         public static Image DrawBorders(Image localMap, LocalDate localDate, double zoom)
         {
-            if (currentDate != localDate)
+            if (CurrentDate != localDate)
             {
-                currentDate = localDate;
-                currentBorders = LocalMongoGetter.GetCountries(localDate);
+                CurrentDate = localDate;
+                CurrentBorders = LocalMongoGetter.GetCountries(localDate);
             }
             if (AdminPanel.AdminPanel.BorderStorage != null)
             {
@@ -32,12 +41,12 @@ namespace HistoryMap.Shared_Classes
                 return DrawImage(localMap, tempBordersStorageList, zoom, false);
             }
             else if (!Drawing)
-                return DrawImage(localMap, currentBorders, zoom, false);
+                return DrawImage(localMap, CurrentBorders, zoom, false);
             else
             {
                 List<BorderStorageClass> tempBorderStorageList =
                     new List<BorderStorageClass> {WorldMapCreate.CreateForm.LocalBorderStorageClass};
-                localMap = DrawImage(localMap, currentBorders, zoom, true);
+                localMap = DrawImage(localMap, CurrentBorders, zoom, true);
                 return DrawImage(localMap, tempBorderStorageList, zoom, false);
             }
 

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NodaTime;
-using MongoDB.Driver;
-using Newtonsoft.Json.Linq;
 
 namespace HistoryMap.Shared_Classes
 {
@@ -33,7 +30,12 @@ namespace HistoryMap.Shared_Classes
             }
             return list;
         }
-
+        /// <summary>
+        /// This gets all the countries, if the flag is set to false it removes the ones which are verified
+        /// </summary>
+        /// <param name="all"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public static List<BorderStorageClass> GetCountries(bool all, HistoryMapWebClient client)
         {
             var result = client.GetBorders().GetAwaiter().GetResult();
@@ -95,7 +97,12 @@ namespace HistoryMap.Shared_Classes
             }
             return list;
         }
-
+        /// <summary>
+        /// This gets all the labels, if the flag is false it removes the ones which are verified
+        /// </summary>
+        /// <param name="all"></param>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public static List<GenericLabelForWorldMap> GetListFromDateSelection(bool all, HistoryMapWebClient client)
         {
             var result = client.GetButtons().GetAwaiter().GetResult();

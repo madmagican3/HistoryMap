@@ -6,7 +6,7 @@ namespace HistoryMap.WorldMapUsers
 {
     public partial class SettingsForm : Form
     {
-        public HistoryMapWebClient _client;
+        public HistoryMapWebClient Client;
         Form worldMapUsers;
         public SettingsForm(Form worldMapUsers)
         {
@@ -29,7 +29,7 @@ namespace HistoryMap.WorldMapUsers
             {
                 Hide();
                 worldMapUsers.Hide();
-                new AdminPanel.AdminPanel(_client).Show();
+                new AdminPanel.AdminPanel(Client).Show();
             }    
         }
 

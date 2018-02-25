@@ -8,9 +8,17 @@ namespace HistoryMap.Shared_Classes
 {
     public class UserClass
     {
+        /// <summary>
+        /// This holds the users username for passing as an object
+        /// </summary>
         public string user { get; set; }
+        /// <summary>
+        /// This holds the users password for passing as an object
+        /// </summary>
         public string pass { get; set; }
-
+        /// <summary>
+        /// This holds the users _id for passing as an object
+        /// </summary>
         public string _id { get; set; }
 
         public UserClass()
