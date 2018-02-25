@@ -137,11 +137,9 @@ namespace HistoryMap.WorldMapCreate
                 var result = ColourDialog.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    LocalColor = ColourDialog.Color;
                     PolygonCreator.Drawing = true;
-                    LocalBorderStorageClass.Colour = LocalColor;
+                    LocalBorderStorageClass.Colour = ColourDialog.Color;
                     LocalBorderStorageClass.AllPointsofBorder = new List<Point>();
-                    viewForm.LocalDrawClass.RenderMap();
                     IndexList.Visible = true;
                     DeleteIndexBtn.Visible = true;
                     viewForm.LocalDrawClass.MoveForm = false;
@@ -149,7 +147,6 @@ namespace HistoryMap.WorldMapCreate
                 }
                 else
                 {
-
                     BorderDrawingBtn.Checked = false;
                 }
             }

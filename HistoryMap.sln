@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoryMap", "HistoryMap\Hi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HistoryMapTests", "HistoryMapTests\HistoryMapTests.csproj", "{98887D68-5DAC-4524-B966-47B618EE78DE}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HistoryMapInstaller", "HistoryMapInstaller\HistoryMapInstaller.vdproj", "{5511020E-5C86-4015-9349-A1C528A59B7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{98887D68-5DAC-4524-B966-47B618EE78DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98887D68-5DAC-4524-B966-47B618EE78DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98887D68-5DAC-4524-B966-47B618EE78DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5511020E-5C86-4015-9349-A1C528A59B7D}.Debug|Any CPU.ActiveCfg = Debug
+		{5511020E-5C86-4015-9349-A1C528A59B7D}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
